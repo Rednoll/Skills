@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import net.minecraft.entity.player.EntityPlayer;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
@@ -77,7 +79,7 @@ public class PlayerJson
 		try
 		{
 			FileUtils.initFile(file);
-			new FileOutputStream(file).write(json.toString().getBytes());
+			new FileOutputStream(file).write(new GsonBuilder().setPrettyPrinting().create().toJson(json).getBytes());
 		}
 		catch (IOException e)
 		{

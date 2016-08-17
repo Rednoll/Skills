@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -68,7 +69,7 @@ public class TeamJson
 		{
 			file.delete();
 			FileUtils.initFile(file);
-			new FileOutputStream(file).write(json.toString().getBytes());
+			new FileOutputStream(file).write(new GsonBuilder().setPrettyPrinting().create().toJson(json).getBytes());
 		}
 		catch (IOException e)
 		{
