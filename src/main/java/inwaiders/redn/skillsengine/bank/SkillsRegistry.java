@@ -9,6 +9,7 @@ import inwaiders.redn.skillsengine.learn.SkillPriceRegistry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import cpw.mods.fml.common.FMLLog;
 
 public class SkillsRegistry {
 
@@ -17,11 +18,15 @@ public class SkillsRegistry {
 	public static void registerSkill(int id, Class<? extends BaseSkill> base){
 		allSkills.put(id, base);
 	}
-	private static int id = 1;
 	public static void registerSkill(BaseSkill skill)
 	{
-		registerSkill(id++, skill.getClass());
-		SkillPriceRegistry.registerSkill(id, skill.getPrice());
+		if(allSkills.containsKey(skill.getId()))
+		{
+			FMLLog.warning("Skill with id " + skill.getId() + " alredy registered, skipping");
+			return;
+		}
+		registerSkill(skill.getId(), skill.getClass());
+		SkillPriceRegistry.registerSkill(skill.getId(), skill.getPrice());
 	}
 	
 	/*private static Class<?> getSkill(int i){
@@ -36,9 +41,7 @@ public class SkillsRegistry {
 		
 		try
 		{
-			BaseSkill ret = allSkills.get(id).newInstance();
-			ret.setId(id);
-			return ret;
+			return allSkills.get(id).newInstance();
 		}
 		catch (Exception e)
 		{

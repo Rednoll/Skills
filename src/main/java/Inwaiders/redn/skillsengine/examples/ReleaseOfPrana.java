@@ -60,4 +60,10 @@ public class ReleaseOfPrana extends BaseSkill{
 	{
 		return new LearnPointsPrice(this, 500, "You Release you Prana And Damage Another !");
 	}
+
+	@Override
+	public int getId()
+	{
+		return 2;
+	}
 }

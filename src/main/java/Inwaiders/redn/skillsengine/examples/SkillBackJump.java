@@ -60,4 +60,10 @@ public class SkillBackJump extends BaseSkill{
 	{
 		return new LearnPointsPrice(this, 100, "You Make Back Jump !");
 	}
+
+	@Override
+	public int getId()
+	{
+		return 1;
+	}
 }

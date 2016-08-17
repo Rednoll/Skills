@@ -50,4 +50,10 @@ public class SkillEarthquake extends BaseSkill
 		return Core.skillrlgen.generate("earthquake");
 	}
 
+	@Override
+	public int getId()
+	{
+		return 3;
+	}
+
 }
