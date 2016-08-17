@@ -2,7 +2,7 @@ package inwaiders.redn.skillsengine.examples;
 
 import inwaiders.redn.rpg.base.Core;
 import inwaiders.redn.skillsengine.bank.anno.isSkill;
-import inwaiders.redn.skillsengine.learn.LeanPointsPrice;
+import inwaiders.redn.skillsengine.learn.LearnPointsPrice;
 import inwaiders.redn.teamengine.targeting.Targeting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -51,18 +51,13 @@ public class SkillBackJump extends BaseSkill{
 	}
 	
 	@Override
-	public int getId(){
-		return 1;
-	}
-	
-	@Override
 	public ResourceLocation getTexture(){
-		return new ResourceLocation(Core.MODID, "textures/sicons/backJump.png");
+		return Core.skillrlgen.generate("backJump");
 	}
 	
 	@Override
-	public LeanPointsPrice getPrice()
+	public LearnPointsPrice getPrice()
 	{
-		return new LeanPointsPrice(this, 100, "You Make Back Jump !");
+		return new LearnPointsPrice(this, 100, "You Make Back Jump !");
 	}
 }

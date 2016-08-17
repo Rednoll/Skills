@@ -6,17 +6,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class Targeting {
-
-	public static final String TARGET_ANOTHER = "TARGET_ANOTHER";
-	public static final String TARGET_FRIEND = "TARGET_FRIEND";
-	public static final String TARGET_ALL = "TARGET_ALL";
-	
-	public static boolean canAttack(EntityLivingBase p, EntityLivingBase t, String type){
+	public static enum Target
+	{
+		TARGET_ANOTHER, TARGET_FRIEND, TARGET_ALL;
+	}
+	public static boolean canAttack(EntityLivingBase p, EntityLivingBase t, Target type){
 		if(!(p instanceof EntityPlayer) || !(t instanceof EntityPlayer))
 		{
 			return true;
 		}
-		if(type.equals(TARGET_ALL)) return true;
+		if(type.equals(Target.TARGET_ALL)) return true;
 		EntityPlayer player = (EntityPlayer) p, toAttack = (EntityPlayer) t;
 		PlayerTeamServer te1 = PlayerTeamManagerServer.instance.get(toAttack);
 		PlayerTeamServer te2 = PlayerTeamManagerServer.instance.get(player);
@@ -26,7 +25,7 @@ public class Targeting {
 		}
 			
 		if(te1.getTeam().equals(te2.getTeam())){
-			if(type.equals(TARGET_FRIEND)){
+			if(type.equals(Target.TARGET_FRIEND)){
 				return true;
 			}
 			else{
@@ -34,7 +33,7 @@ public class Targeting {
 			}
 		}
 		else{
-			if(type.equals(TARGET_ANOTHER)){
+			if(type.equals(Target.TARGET_ANOTHER)){
 				return true;
 			}
 			else{

@@ -6,14 +6,14 @@ import java.util.HashMap;
 public class SkillPriceRegistry
 {
 
-	private static final HashMap<Integer, LeanPointsPrice> prices = new HashMap<Integer, LeanPointsPrice>();
+	private static final HashMap<Integer, LearnPointsPrice> prices = new HashMap<Integer, LearnPointsPrice>();
 
-	public static void registerSkill(int id, LeanPointsPrice base)
+	public static void registerSkill(int id, LearnPointsPrice base)
 	{
 		prices.put(id, base);
 	}
 
-	private static LeanPointsPrice getSkill(int i)
+	private static LearnPointsPrice getSkill(int i)
 	{
 		return prices.get(i);
 	}
@@ -23,14 +23,14 @@ public class SkillPriceRegistry
 		return prices.size();
 	}
 
-	public static LeanPointsPrice getSkillCPById(int id)
+	public static LearnPointsPrice getSkillCPById(int id)
 	{
 		return prices.get(id);
 	}
 
 	public static boolean learnSkill(PlayerSkillBankServer s, LearnPointsServer p, int id)
 	{
-		LeanPointsPrice c = getSkillCPById(id);
+		LearnPointsPrice c = getSkillCPById(id);
 		if (p.canLearn(c.getPrice()))
 		{
 			s.learnSkill(id);

@@ -19,7 +19,6 @@ public class SaveAndLoadTeamMain
 		TeamServer[] teams = tmp.toArray(new TeamServer[tmp.size()]);
 		for (TeamServer team : teams)
 		{
-			System.out.println("Writing team " + team.getTeamName());
 			TeamJson tjson = new TeamJson(team.getTeamName(), e.entityPlayer.worldObj.getSaveHandler().getWorldDirectory());
 			tjson.setName(team.getTeamName());
 			tjson.setMembers(team.players);

@@ -1,8 +1,10 @@
 package inwaiders.redn.skillsengine.bank;
 
+import inwaiders.redn.rpg.base.utils.MiscUtils;
 import inwaiders.redn.skillsengine.examples.BaseSkill;
 import inwaiders.redn.skillsengine.examples.ReleaseOfPrana;
 import inwaiders.redn.skillsengine.examples.SkillBackJump;
+import inwaiders.redn.skillsengine.examples.SkillEarthquake;
 import inwaiders.redn.skillsengine.learn.SkillPriceRegistry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,14 +32,25 @@ public class SkillsRegistry {
 		return allSkills.size();
 	}
 	
-	public static BaseSkill getSkillById(int id) throws InstantiationException, IllegalAccessException{
+	public static BaseSkill getSkillById(int id){
 		
-		return allSkills.get(Integer.valueOf(id)).newInstance();
+		try
+		{
+			BaseSkill ret = allSkills.get(id).newInstance();
+			ret.setId(id);
+			return ret;
+		}
+		catch (Exception e)
+		{
+			MiscUtils.crashGame("Unable to get skill form registry, contact mod author", e);
+		}
+		return null;
 	}
 	
 	public static void init(){
 		
 		registerSkill(new SkillBackJump());
 		registerSkill(new ReleaseOfPrana());
+		registerSkill(new SkillEarthquake());
 	}
 }

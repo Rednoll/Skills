@@ -1,7 +1,8 @@
 package inwaiders.redn.skillsengine.examples;
 
 import inwaiders.redn.rpg.base.Core;
-import inwaiders.redn.skillsengine.learn.LeanPointsPrice;
+import inwaiders.redn.skillsengine.learn.LearnPointsPrice;
+import inwaiders.redn.teamengine.targeting.Targeting.Target;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -19,8 +20,8 @@ public abstract class BaseSkill {
 	protected boolean casting = false;
 	protected int interval = 0;
 	protected int maxInterval = 0;
-	protected String target;
-	
+	protected Target target;
+	protected int id;
 	public void skillStart(EntityPlayer ep){
 		
 	}
@@ -50,7 +51,6 @@ public abstract class BaseSkill {
 				setCast(0);
 				casting = false;
 				setCoolDown(getMaxCoolDownByLevel(getLevel()));
-				System.out.println(getCoolDown());
 				skillStart(ep);
 			}
 		
@@ -97,18 +97,11 @@ public abstract class BaseSkill {
 	}
 	
 	public int getMaxCoolDownByLevel(int i ){
-		if(maxCoolDown[i] != 0)
-		{
-			return maxCoolDown[i];
-		}
-		else
-		{
-			return maxCoolDown[1] * i;
-		}
+		return maxCoolDown[i] == 0 ? maxCoolDown[1] * i : maxCoolDown[i]; 
 	}
 	
 	public int getRadiusByLevel(int i){
-		return radius[i];
+		return radius[i] == 0 ? radius[1] * i : radius[i];
 	}
 	
 	public int getMaxInterval(){
@@ -120,14 +113,14 @@ public abstract class BaseSkill {
 	}
 	
 	public int getMaxCastByLevel(int i){
-		return maxCast[i];
+		return maxCast[i] == 0 ? maxCast[1] * i : maxCast[i];
 	}
 	
 	public int getCoolDown(){
 		return coolDown;
 	}
 	
-	public String getTarget(){
+	public Target getTarget(){
 		return target;
 	}
 	
@@ -135,7 +128,7 @@ public abstract class BaseSkill {
 		maxCoolDown[i] = c;
 	}
 	
-	public void setTarget(String i){
+	public void setTarget(Target i){
 		target = i;
 	}
 	
@@ -160,14 +153,22 @@ public abstract class BaseSkill {
 	}
 	
 	public int getDamageByLevel(int i){
-		return damage[i];
+		return damage[i] == 0 ? damage[1] * i : damage[i];
 	}
 	
 	public void setMaxCast(int i, int c){
 		maxCast[i] = c;
 	}
 	
-	public abstract int getId();
-	public abstract LeanPointsPrice getPrice();
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	public abstract LearnPointsPrice getPrice();
 	public abstract ResourceLocation getTexture();
 }

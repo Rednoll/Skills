@@ -1,8 +1,8 @@
 package inwaiders.redn.skillsengine.examples;
 
 import inwaiders.redn.rpg.base.Core;
-import inwaiders.redn.skillsengine.learn.LeanPointsPrice;
-import inwaiders.redn.teamengine.targeting.Targeting;
+import inwaiders.redn.skillsengine.learn.LearnPointsPrice;
+import inwaiders.redn.teamengine.targeting.Targeting.Target;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -12,7 +12,7 @@ public class ReleaseOfPrana extends BaseSkill{
 		
 		setLevel(1);
 
-		setTarget(Targeting.TARGET_ANOTHER);
+		setTarget(Target.TARGET_ANOTHER);
 		
 		init();
 	}
@@ -51,18 +51,13 @@ public class ReleaseOfPrana extends BaseSkill{
 	}
 	
 	@Override
-	public int getId(){
-		return 2;
-	}
-	
-	@Override
 	public ResourceLocation getTexture(){
-		return new ResourceLocation(Core.MODID, "textures/sicons/releaseOfPrana.png");
+		return Core.skillrlgen.generate("releaseOfPrana");
 	}
 
 	@Override
-	public LeanPointsPrice getPrice()
+	public LearnPointsPrice getPrice()
 	{
-		return new LeanPointsPrice(this, 500, "You Release you Prana And Damage Another !");
+		return new LearnPointsPrice(this, 500, "You Release you Prana And Damage Another !");
 	}
 }

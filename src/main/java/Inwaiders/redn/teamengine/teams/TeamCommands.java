@@ -54,7 +54,6 @@ public class TeamCommands implements ICommand{
 			 			if(teg.getTeamSize() == 0){
 			 				
 			 				teg.joinToPlayer(ep);
-			 				System.out.println("Adding member " + ep.getCommandSenderName() + " to team " + teg.getTeamName());
 			 				te.setTeam(args[1]);
 					   		ep.addChatComponentMessage(new ChatComponentText("You first join to Team : " + args[1] + " !"));
 			 			}

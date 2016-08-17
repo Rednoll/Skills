@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -46,6 +47,11 @@ public class MiscUtils
 	public static void crashGame(String msg, Throwable e)
 	{
 		FMLCommonHandler.instance().getSidedDelegate().haltGame(msg, e);
+	}
+	
+	public static AxisAlignedBB createAABBFormRadius(double x, double y, double z, int radius)
+	{
+		return AxisAlignedBB.getBoundingBox(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
 	}
 	
 	/**

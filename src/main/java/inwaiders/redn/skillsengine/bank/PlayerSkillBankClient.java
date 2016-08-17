@@ -135,20 +135,7 @@ public class PlayerSkillBankClient
 
 	public void learnSkill(int id)
 	{
-		try
-		{
-			this.skills.add(SkillsRegistry.getSkillById(id));
-		}
-		catch (InstantiationException e)
-		{
-
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-
-			e.printStackTrace();
-		}
+		this.skills.add(SkillsRegistry.getSkillById(id));
 	}
 
 	public void resetPlayer()

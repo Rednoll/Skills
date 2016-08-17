@@ -24,7 +24,7 @@ public class TeamJson
 	public static final String OWNER = "owner";//String
 	public static final String SIZE = "size";//Int
 	public static final String MEMBERS = "members";//Array of members;
-	
+
 	private final String name;
 	private final File file;
 	private final JsonObject json;
@@ -37,7 +37,7 @@ public class TeamJson
 		{
 			json = new JsonObject();
 			initJson();
-			write();	
+			write();
 		}
 		else
 		{
@@ -53,7 +53,7 @@ public class TeamJson
 			}
 		}
 	}
-	
+
 	private void initJson()
 	{
 		json.addProperty(NAME, name);
@@ -61,12 +61,11 @@ public class TeamJson
 		json.addProperty(SIZE, 0);
 		json.add(MEMBERS, new JsonArray());
 	}
-	
+
 	public void write()
 	{
 		try
 		{
-			System.out.println(json.toString());
 			file.delete();
 			FileUtils.initFile(file);
 			new FileOutputStream(file).write(json.toString().getBytes());
@@ -76,50 +75,50 @@ public class TeamJson
 			MiscUtils.crashGame("[SKILLENGINE] Unable to write team data", e);
 		}
 	}
-	
+
 	//Name
 	public void setName(String name)
 	{
 		json.addProperty(NAME, name);
 	}
-	
+
 	public String getName()
 	{
 		return json.get(NAME).getAsString();
 	}
-	
+
 	//Owner
 	public void setOwner(String owner)
 	{
 		json.addProperty(OWNER, owner);
 	}
-	
+
 	public String getOwner()
 	{
 		return json.get(OWNER).getAsString();
 	}
-	
+
 	//Size
 	public void setSize(int size)
 	{
 		json.addProperty(SIZE, size);
 	}
-	
+
 	public int getSize()
 	{
 		return json.get(SIZE).getAsInt();
 	}
-	
+
 	public void incrSize()
 	{
 		setSize(getSize() + 1);
 	}
-	
+
 	public void decrSize()
 	{
 		setSize(getSize() - 1);
 	}
-	
+
 	//Members
 	/**
 		Also setting new size
@@ -127,20 +126,19 @@ public class TeamJson
 	public void setMembers(EntityPlayer[] members)
 	{
 		JsonArray m = new JsonArray();
-		for(EntityPlayer s : members)
+		for (EntityPlayer s : members)
 		{
-			System.out.println("adding member " + s.getCommandSenderName());
 			m.add(createMember(s.getCommandSenderName()));
 		}
 		json.add(MEMBERS, m);
 		setSize(members.length);
 	}
-	
+
 	public void setMembers(List<EntityPlayer> members)
 	{
 		setMembers(members.toArray(new EntityPlayer[members.size()]));
 	}
-	
+
 	/**
 	 	Also increasing size
 	 */
@@ -150,14 +148,14 @@ public class TeamJson
 		members.add(createMember(name));
 		incrSize();
 	}
-	
+
 	public void removeMember(String name)
 	{
 		JsonArray members = json.getAsJsonArray(MEMBERS);
 		JsonArray newmembers = new JsonArray();
-		for(int i = 0; i < members.size(); i++)
+		for (int i = 0; i < members.size(); i++)
 		{
-			if(!name.equals(members.get(i).getAsJsonObject().get(NAME).getAsString()))
+			if (!name.equals(members.get(i).getAsJsonObject().get(NAME).getAsString()))
 			{
 				newmembers.add(members.get(i));
 			}
@@ -165,13 +163,24 @@ public class TeamJson
 		json.add(MEMBERS, newmembers);
 		decrSize();
 	}
-	
+
 	public String[] getMembers()
 	{
 		ArrayList<String> list = new Gson().fromJson(json.getAsJsonArray(MEMBERS), ArrayList.class);
-		return list.toArray(new String[list.size()]);
+
+		while (true)
+		{
+			try
+			{
+				return list.toArray(new String[list.size()]);//Sometimes crash just happens, and i don't know what to do
+			}
+			catch (ArrayStoreException e)
+			{
+				continue;
+			}
+		}
 	}
-	
+
 	private JsonObject createMember(String name)
 	{
 		JsonObject ret = new JsonObject();
