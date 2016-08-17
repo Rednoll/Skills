@@ -160,12 +160,12 @@ public abstract class BaseSkill {
 		maxCast[i] = c;
 	}
 	
-	public abstract int getId();
-	
 	public void setId(int id)
 	{
 		this.id = id;
 	}
+	public abstract int getId();
+	public abstract String getName();
 	public abstract LearnPointsPrice getPrice();
 	public abstract ResourceLocation getTexture();
 }

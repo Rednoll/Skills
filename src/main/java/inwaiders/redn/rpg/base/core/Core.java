@@ -1,6 +1,7 @@
 package inwaiders.redn.rpg.base.core;
 
 import inwaiders.redn.rpg.base.proxy.CommonProxy;
+import inwaiders.redn.rpg.base.utils.LocaleKeyGenerator;
 import inwaiders.redn.rpg.base.utils.ResourceLocGenerator;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.skillsengine.bank.SaveBankAndHot;
@@ -32,6 +33,8 @@ public class Core
 	public static final String NAME = "RPG";
 	public static final String path = "inwaiders.redn.rpg.base.proxy";
 	public static final ResourceLocGenerator skillrlgen = new ResourceLocGenerator(MODID, "textures/sicons/", ".png");
+	public static final LocaleKeyGenerator skilllkgen = new LocaleKeyGenerator("rpg.skill.", ".name");
+	public static final LocaleKeyGenerator skilldescgen = new LocaleKeyGenerator("rpg.skill.", "desc.name");
 	public static Random r = new Random();
 
 	@Instance(MODID)

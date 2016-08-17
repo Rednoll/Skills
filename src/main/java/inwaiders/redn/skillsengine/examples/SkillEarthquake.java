@@ -42,7 +42,7 @@ public class SkillEarthquake extends BaseSkill
 	@Override
 	public LearnPointsPrice getPrice()
 	{
-		return new LearnPointsPrice(this, 500, "Smash earth and deal damage to all around, launching them into air");
+		return new LearnPointsPrice(this, 500);
 	}
 
 	@Override
@@ -55,6 +55,12 @@ public class SkillEarthquake extends BaseSkill
 	public int getId()
 	{
 		return CFG.EarthquakeID;
+	}
+	
+	@Override
+	public String getName()
+	{
+		return "eq";
 	}
 
 }

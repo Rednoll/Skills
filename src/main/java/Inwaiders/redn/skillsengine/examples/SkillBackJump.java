@@ -59,12 +59,18 @@ public class SkillBackJump extends BaseSkill{
 	@Override
 	public LearnPointsPrice getPrice()
 	{
-		return new LearnPointsPrice(this, 100, "You Make Back Jump !");
+		return new LearnPointsPrice(this, 100);
 	}
 
 	@Override
 	public int getId()
 	{
 		return CFG.BackJumpID;
+	}
+
+	@Override
+	public String getName()
+	{
+		return "bj";
 	}
 }

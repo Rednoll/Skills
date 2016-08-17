@@ -59,12 +59,18 @@ public class ReleaseOfPrana extends BaseSkill{
 	@Override
 	public LearnPointsPrice getPrice()
 	{
-		return new LearnPointsPrice(this, 500, "You Release you Prana And Damage Another !");
+		return new LearnPointsPrice(this, 500);
 	}
 
 	@Override
 	public int getId()
 	{
 		return CFG.ReleaseOfPranaID;
+	}
+
+	@Override
+	public String getName()
+	{
+		return "rop";
 	}
 }
