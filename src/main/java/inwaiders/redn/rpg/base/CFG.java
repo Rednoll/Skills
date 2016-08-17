@@ -8,6 +8,8 @@ public class CFG
 	public static int BackJumpID;
 	public static int ReleaseOfPranaID;
 	public static int EarthquakeID;
+	public static int LightBoltStrikeID;
+	
 	public static void init(Configuration cfg)
 	{
 		CFG.cfg = cfg;
@@ -15,6 +17,7 @@ public class CFG
 		BackJumpID = getSkillId("BackJump", 1);
 		ReleaseOfPranaID = getSkillId("ReleaseOfPrana", 2);
 		EarthquakeID = getSkillId("Earthquake", 3);
+		LightBoltStrikeID = getSkillId("LightBoltStrike", 4);
 		cfg.save();
 		CFG.cfg = null;
 	}

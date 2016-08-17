@@ -2,6 +2,7 @@ package inwaiders.redn.skillsengine.bank;
 
 import inwaiders.redn.rpg.base.utils.MiscUtils;
 import inwaiders.redn.skillsengine.examples.BaseSkill;
+import inwaiders.redn.skillsengine.examples.LightningBoltStrike;
 import inwaiders.redn.skillsengine.examples.ReleaseOfPrana;
 import inwaiders.redn.skillsengine.examples.SkillBackJump;
 import inwaiders.redn.skillsengine.examples.SkillEarthquake;
@@ -55,5 +56,6 @@ public class SkillsRegistry {
 		registerSkill(new SkillBackJump());
 		registerSkill(new ReleaseOfPrana());
 		registerSkill(new SkillEarthquake());
+		registerSkill(new LightningBoltStrike());
 	}
 }

@@ -12,14 +12,14 @@ import net.minecraft.util.ResourceLocation;
 public class SkillEarthquake extends BaseSkill
 {
 
-	public SkillEarthquake()
-	{
+	public SkillEarthquake(){
+		
 		setLevel(1);
 		setTarget(Target.TARGET_ANOTHER);
-		setMaxCoolDownByLevel(1, 20000);
-		setMaxCoolDownByLevel(2, 30000);
-		setMaxCoolDownByLevel(3, 40000);
-		setMaxCoolDownByLevel(4, 70000);
+		setMaxCoolDownByLevel(1, 2000);
+		setMaxCoolDownByLevel(2, 3000);
+		setMaxCoolDownByLevel(3, 4000);
+		setMaxCoolDownByLevel(4, 7000);
 		setDamageByLevel(1, 6);
 		setDamageByLevel(2, 8);
 		setDamageByLevel(3, 10);
@@ -36,6 +36,26 @@ public class SkillEarthquake extends BaseSkill
 		EasySkillCreator.applyAOEEffect(ep, getRadiusByLevel(getLevel()), target, (caster, target) ->{
 			EasySkillCreator.attack(caster, target, getDamageByLevel(getLevel()));
 			target.motionY += getDamageByLevel(getLevel()) / 8F;
+			
+			switch(Core.r.nextInt(4)){
+				
+				case 0 :
+					target.motionX += getDamageByLevel(getLevel()) / 8F;
+				break;
+				
+				case 1 :
+					target.motionX -= getDamageByLevel(getLevel()) / 8F;
+				break;
+				
+				case 2 :
+					target.motionZ += getDamageByLevel(getLevel()) / 8F;
+				break;
+				
+				case 3 :
+					target.motionZ -= getDamageByLevel(getLevel()) / 8F;
+				break;
+			}
+			
 		});
 	}
 	
