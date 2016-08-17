@@ -31,16 +31,19 @@ public class SkillRenderer extends Gui {
     	if(event.type == ElementType.HOTBAR){
     		
     	    ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-   	     
-    		int xPos = sr.getScaledWidth()/2-60;
+    	    
+    	    int k = 2;
+    	    
+    		int xPos = (sr.getScaledWidth()/2)/k-61;
     		
-    		int yPos = (int)(sr.getScaledWidth()/2.08F);
+    		int yPos = (int)(sr.getScaledWidth()/2.08F)/k;
     		
     		yPos = 0;
     		
             int size = 159;
             int sizefood = 134;
            
+            GL11.glPushMatrix();
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glDisable(GL11.GL_DEPTH_TEST);
             GL11.glDepthMask(false);
@@ -49,17 +52,21 @@ public class SkillRenderer extends Gui {
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             this.mc.getTextureManager().bindTexture(texturepath);
 
+            GL11.glScalef(2F, 2F, 2F);
+            
             drawTexturedModalRect(xPos, yPos, 0, 0, 122, 22);
-           
+       
+            
             for(int i = 0;i<6;i++){
             	renderSkill(i, xPos+3+20*i, yPos+3);
             }
             
-    
+            GL11.glScalef(1F, 1F, 1F);
             	
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_DEPTH_TEST);
             GL11.glDepthMask(true);
+            GL11.glPopMatrix();
     	
     	}
     }
@@ -78,7 +85,7 @@ public class SkillRenderer extends Gui {
     		mc.ingameGUI.drawTexturedModalRect(xPos*2, yPos*2, 0, 0, 32, 32);
     		int cd = b.getCoolDownById(id);
     		if(cd != 0)		
-    			mc.fontRenderer.drawString(""+cd/20,(xPos + 11)*2 - mc.fontRenderer.getStringWidth(""+cd/20), yPos*2 +12 ,0xFF0000);
+    			mc.fontRenderer.drawString(""+(cd/20), xPos*2 + 14 - mc.fontRenderer.getStringWidth(""+(cd/20))/2/2, yPos*2 +12 ,0xFFFFFF);
     		this.mc.getTextureManager().bindTexture(new ResourceLocation("minecraft:textures/gui/icons.png"));
     		GL11.glColor3f(1, 1, 1);
     		GL11.glPopMatrix();
