@@ -39,12 +39,6 @@ public class SkillEarthquake extends BaseSkill
 	}
 	
 	@Override
-	public void setCoolDown(int i)
-	{
-		//super.setCoolDown(i);
-	}
-	
-	@Override
 	public LearnPointsPrice getPrice()
 	{
 		return new LearnPointsPrice(this, 500, "Jump and then deal damage to all around, launching them into air");
