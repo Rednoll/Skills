@@ -16,6 +16,11 @@ public class SyncStoCProviders implements IMessage{
 
 	private NBTTagCompound nbt;
 	
+	public SyncStoCProviders()
+	{
+		
+	}
+	
 	public SyncStoCProviders(EntityPlayer ep){	
 		nbt = new NBTTagCompound();
 		
