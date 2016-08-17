@@ -1,58 +1,48 @@
-package Inwaiders.redn.rpg.base;
+package inwaiders.redn.rpg.base;
 
-
-import Inwaiders.redn.skillsengine.bank.GeterBCtoP;
-import Inwaiders.redn.skillsengine.bank.GeterBStoP;
-import Inwaiders.redn.skillsengine.bank.SkillsBankClientProvider;
-import Inwaiders.redn.skillsengine.bank.SkillsBankServerProvider;
-import Inwaiders.redn.skillsengine.learn.GeterLpStoP;
-import Inwaiders.redn.skillsengine.learn.LearnPointsServerProvider;
-import Inwaiders.redn.teamengine.teams.GeterTCtoP;
-import Inwaiders.redn.teamengine.teams.GeterTMCtoP;
-import Inwaiders.redn.teamengine.teams.GeterTMStoP;
-import Inwaiders.redn.teamengine.teams.GeterTStoP;
-import Inwaiders.redn.teamengine.teams.TeamEngineClientProvider;
-import Inwaiders.redn.teamengine.teams.TeamEngineServerProvider;
-import Inwaiders.redn.teamengine.teams.TeamMainClassClientProvider;
-import Inwaiders.redn.teamengine.teams.TeamMainClassServerProvider;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import inwaiders.redn.skillsengine.bank.BankManagerClient;
+import inwaiders.redn.skillsengine.bank.BankManagerServer;
+import inwaiders.redn.skillsengine.learn.PlayerLearnPointManagerServer;
+import inwaiders.redn.teamengine.teams.PlayerTeamClient;
+import inwaiders.redn.teamengine.teams.PlayerTeamManagerClient;
+import inwaiders.redn.teamengine.teams.PlayerTeamManagerServer;
+import inwaiders.redn.teamengine.teams.PlayerTeamServer;
+import inwaiders.redn.teamengine.teams.TeamClient;
+import inwaiders.redn.teamengine.teams.TeamManagerClient;
+import inwaiders.redn.teamengine.teams.TeamManagerServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public class PlayerUpdate {
+public class PlayerUpdate
+{
 
 	@SubscribeEvent
-	public void updater(LivingUpdateEvent event){
-		
-		if(event.entityLiving instanceof EntityPlayer){		
-			
-			EntityPlayer ep = (EntityPlayer)event.entityLiving;
-			
-			if(!event.entity.worldObj.isRemote){
-				SkillsBankServerProvider serverBank = GeterBStoP.getParam(ep);
-				serverBank.updateEngine();
-				
-				TeamEngineServerProvider serverPersTeam = GeterTStoP.getParam(ep.getEntityId());
-				serverPersTeam.updateEngine(ep);
-				
-				TeamMainClassServerProvider serverMainTeam = GeterTMStoP.getParam(serverPersTeam.getTeam());
-				serverMainTeam.updateEngine(ep);
-				
-				LearnPointsServerProvider serverLearnPoints = GeterLpStoP.getParam(ep);
-				serverLearnPoints.updateEngine(ep);
+	public void updater(LivingUpdateEvent event)
+	{
+		if (event.entityLiving instanceof EntityPlayer)
+		{
+			EntityPlayer ep = (EntityPlayer) event.entityLiving;
+			if (!event.entity.worldObj.isRemote)
+			{
+				BankManagerServer.instance.get(ep).update();
+				PlayerTeamServer playerTeam = PlayerTeamManagerServer.instance.get(ep);
+				playerTeam.update(ep);
+				if(!playerTeam.getTeam().equals("ANY") && !playerTeam.getTeam().equals(""))
+				{
+					TeamManagerServer.instance.get(playerTeam.getTeam()).update(ep);
+				}
+				PlayerLearnPointManagerServer.instance.get(ep).update(ep);
 			}
-			else{
-				SkillsBankClientProvider client = GeterBCtoP.getParam(ep);
-				client.updateEngine();
-				
-				TeamEngineClientProvider clientPersTeam = GeterTCtoP.getParam(ep.getEntityId());
-				clientPersTeam.updateEngine(ep);
-				
-				TeamMainClassClientProvider clientMainTeam = GeterTMCtoP.getParam(clientPersTeam.getTeam());
-				clientMainTeam.updateEngine();
-			
+			else
+			{
+				BankManagerClient.instance.get(ep).update();
+				PlayerTeamClient playerTeam = PlayerTeamManagerClient.instance.get(ep);
+				playerTeam.update(ep);
+				TeamManagerClient.instance.get(playerTeam.getTeam()).update(ep);
+
 			}
 		}
 	}
-	
+
 }

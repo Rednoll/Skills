@@ -1,4 +1,4 @@
-package Inwaiders.redn.rpg.base.utils;
+package inwaiders.redn.rpg.base.utils;
 
 import net.minecraft.util.ResourceLocation;
 

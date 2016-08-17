@@ -1,9 +1,9 @@
-package Inwaiders.redn.teamengine.teams;
+package inwaiders.redn.teamengine.teams;
 
-import Inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,7 +19,7 @@ public class SyncTeamMainClass implements IMessage{
 	public SyncTeamMainClass(String name){	
 		nbt = new NBTTagCompound();
 		
-		TeamMainClassServerProvider teg = GeterTMStoP.getParam(name);
+		TeamServer teg = TeamManagerServer.instance.get(name);
 		
 		nbt.setString("TeamName", teg.getTeamName());
 		nbt.setString("OwnerName", teg.getOwnerName());
@@ -46,7 +46,7 @@ public class SyncTeamMainClass implements IMessage{
 		@Override
 		public IMessage handleClientMessage(EntityPlayer player, SyncTeamMainClass message, MessageContext ctx) {
 			
-			TeamMainClassClientProvider teg = new TeamMainClassClientProvider(message.nbt.getString("TeamName"));
+			TeamClient teg = new TeamClient(message.nbt.getString("TeamName"));
 			
 			teg.setNickOwner(message.nbt.getString("OwnerName"));
 			
@@ -54,7 +54,7 @@ public class SyncTeamMainClass implements IMessage{
 				teg.joinToAcces(player.worldObj.getPlayerEntityByName(message.nbt.getString("Players"+i)));
 			}
 			
-			GeterTMCtoP.setParamToEntity(message.nbt.getString("TeamName"), teg);
+			TeamManagerClient.instance.set(message.nbt.getString("TeamName"), teg);
 			
 			return null;
 		}

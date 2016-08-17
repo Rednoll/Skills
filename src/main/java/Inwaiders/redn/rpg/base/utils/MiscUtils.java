@@ -1,4 +1,4 @@
-package Inwaiders.redn.rpg.base.utils;
+package inwaiders.redn.rpg.base.utils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.Entity;

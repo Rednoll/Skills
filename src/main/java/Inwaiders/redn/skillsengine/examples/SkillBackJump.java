@@ -1,8 +1,9 @@
-package Inwaiders.redn.skillsengine.examples;
+package inwaiders.redn.skillsengine.examples;
 
-import Inwaiders.redn.rpg.base.base;
-import Inwaiders.redn.skillsengine.bank.anno.isSkill;
-import Inwaiders.redn.teamengine.targeting.Targeting;
+import inwaiders.redn.rpg.base.Core;
+import inwaiders.redn.skillsengine.bank.anno.isSkill;
+import inwaiders.redn.skillsengine.learn.LeanPointsPrice;
+import inwaiders.redn.teamengine.targeting.Targeting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -56,6 +57,12 @@ public class SkillBackJump extends BaseSkill{
 	
 	@Override
 	public ResourceLocation getTexture(){
-		return new ResourceLocation(base.MODID, "textures/sicons/backJump.png");
+		return new ResourceLocation(Core.MODID, "textures/sicons/backJump.png");
+	}
+	
+	@Override
+	public LeanPointsPrice getPrice()
+	{
+		return new LeanPointsPrice(this, 100, "You Make Back Jump !");
 	}
 }

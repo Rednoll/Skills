@@ -1,8 +1,7 @@
-package Inwaiders.redn.skillsengine.examples;
+package inwaiders.redn.skillsengine.examples;
 
+import inwaiders.redn.teamengine.targeting.Targeting;
 import java.util.List;
-
-import Inwaiders.redn.teamengine.targeting.Targeting;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

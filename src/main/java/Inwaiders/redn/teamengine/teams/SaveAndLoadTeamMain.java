@@ -1,11 +1,12 @@
-package Inwaiders.redn.teamengine.teams;
+package inwaiders.redn.teamengine.teams;
 
+import inwaiders.redn.rpg.base.LAS;
+import inwaiders.redn.rpg.base.json.TeamJson;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent.SaveToFile;
-import Inwaiders.redn.rpg.base.LAS;
-import Inwaiders.redn.rpg.base.json.TeamJson;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class SaveAndLoadTeamMain
@@ -14,19 +15,21 @@ public class SaveAndLoadTeamMain
 	@SubscribeEvent
 	public void save(SaveToFile e)
 	{
-		for (int i = 0; i < GeterTMStoP.par.size(); i++)
+		Collection<TeamServer> tmp = TeamManagerServer.instance.getValues();
+		TeamServer[] teams = tmp.toArray(new TeamServer[tmp.size()]);
+		for (TeamServer team : teams)
 		{
-			ComposerTeamMainClassServerProvider s1 = (ComposerTeamMainClassServerProvider) GeterTMStoP.par.get(i);
-			TeamMainClassServerProvider s = s1.getParam();
-			TeamJson tjson = new TeamJson(s.getOwnerName(), e.entityPlayer.worldObj.getSaveHandler().getWorldDirectory());
-			tjson.setMembers(s.players);
-			tjson.setOwner(s.getOwnerName());
+			System.out.println("Writing team " + team.getTeamName());
+			TeamJson tjson = new TeamJson(team.getTeamName(), e.entityPlayer.worldObj.getSaveHandler().getWorldDirectory());
+			tjson.setName(team.getTeamName());
+			tjson.setMembers(team.players);
+			tjson.setOwner(team.getOwnerName());
 			tjson.write();
 		}
 
 	}
 
-	public static void load(EntityPlayer ep, String name, TeamMainClassServerProvider s)
+	public static void load(EntityPlayer ep, String name, TeamServer s)
 	{
 		TeamJson tjson = new TeamJson(name, ep.worldObj.getSaveHandler().getWorldDirectory());
 		s.setNickOwner(tjson.getOwner());
@@ -35,7 +38,7 @@ public class SaveAndLoadTeamMain
 		{
 			s.joinToAcces(ep.worldObj.getPlayerEntityByName(mname));
 		}
-		GeterTMStoP.setParamToEntity(name, s);
+		TeamManagerServer.instance.set(name, s);
 	}
 
 }

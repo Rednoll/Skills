@@ -1,5 +1,7 @@
-package Inwaiders.redn.rpg.base.json;
+package inwaiders.redn.rpg.base.json;
 
+import inwaiders.redn.rpg.base.utils.FileUtils;
+import inwaiders.redn.rpg.base.utils.MiscUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,8 +10,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
-import Inwaiders.redn.rpg.base.utils.FileUtils;
-import Inwaiders.redn.rpg.base.utils.MiscUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

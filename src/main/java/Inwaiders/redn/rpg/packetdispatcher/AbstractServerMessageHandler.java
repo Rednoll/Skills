@@ -1,4 +1,4 @@
-package Inwaiders.redn.rpg.packetdispatcher;
+package inwaiders.redn.rpg.packetdispatcher;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;

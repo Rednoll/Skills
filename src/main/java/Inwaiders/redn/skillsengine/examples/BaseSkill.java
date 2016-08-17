@@ -1,28 +1,25 @@
-package Inwaiders.redn.skillsengine.examples;
+package inwaiders.redn.skillsengine.examples;
 
-import Inwaiders.redn.rpg.base.base;
+import inwaiders.redn.rpg.base.Core;
+import inwaiders.redn.skillsengine.learn.LeanPointsPrice;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class BaseSkill {
+public abstract class BaseSkill {
 	
-	int[] maxCoolDown = new int[100];
-	int coolDown = 0;
-	int isPassive = 0;
-	int level = 1;
-	int isAura = 0;
-	int[] damage = new int[100];
-	int[] radius = new int[100];
-	int cast = 0;
-	int[] maxCast = new int[100];
-	boolean casting = false;
-	int interval = 0;
-	int maxInterval = 0;
-	String target;
-	
-	public BaseSkill(){
-		
-	}
+	protected int[] maxCoolDown = new int[100];
+	protected int coolDown = 0;
+	protected int isPassive = 0;
+	protected int level = 1;
+	protected int isAura = 0;
+	protected int[] damage = new int[100];
+	protected int[] radius = new int[100];
+	protected int cast = 0;
+	protected int[] maxCast = new int[100];
+	protected boolean casting = false;
+	protected int interval = 0;
+	protected int maxInterval = 0;
+	protected String target;
 	
 	public void skillStart(EntityPlayer ep){
 		
@@ -53,7 +50,7 @@ public class BaseSkill {
 				setCast(0);
 				casting = false;
 				setCoolDown(getMaxCoolDownByLevel(getLevel()));
-				
+				System.out.println(getCoolDown());
 				skillStart(ep);
 			}
 		
@@ -100,7 +97,14 @@ public class BaseSkill {
 	}
 	
 	public int getMaxCoolDownByLevel(int i ){
-		return maxCoolDown[i];
+		if(maxCoolDown[i] != 0)
+		{
+			return maxCoolDown[i];
+		}
+		else
+		{
+			return maxCoolDown[1] * i;
+		}
 	}
 	
 	public int getRadiusByLevel(int i){
@@ -163,11 +167,7 @@ public class BaseSkill {
 		maxCast[i] = c;
 	}
 	
-	public int getId(){
-		return 0;
-	}
-	
-	public ResourceLocation getTexture(){
-		return new ResourceLocation(base.MODID, "textures/sicons/lol.png");
-	}
+	public abstract int getId();
+	public abstract LeanPointsPrice getPrice();
+	public abstract ResourceLocation getTexture();
 }

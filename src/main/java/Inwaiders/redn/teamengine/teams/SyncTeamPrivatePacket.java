@@ -1,7 +1,7 @@
-package Inwaiders.redn.teamengine.teams;
+package inwaiders.redn.teamengine.teams;
 
-import Inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
-import Inwaiders.redn.skillsengine.bank.SyncStoCProviders;
+import inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
+import inwaiders.redn.skillsengine.bank.SyncStoCProviders;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -20,7 +20,7 @@ public class SyncTeamPrivatePacket implements IMessage{
 	public SyncTeamPrivatePacket(EntityPlayer ep){	
 		nbt = new NBTTagCompound();
 		
-		TeamEngineServerProvider te = GeterTStoP.getParam(ep.getEntityId());
+		PlayerTeamServer te = PlayerTeamManagerServer.instance.get(ep);
 		
 		nbt.setString("Team", te.getTeam());
 	} 
@@ -40,9 +40,9 @@ public class SyncTeamPrivatePacket implements IMessage{
 		@Override
 		public IMessage handleClientMessage(EntityPlayer player, SyncTeamPrivatePacket message, MessageContext ctx) {
 			
-			TeamEngineClientProvider te = GeterTCtoP.getParam(player.getEntityId());
-				te.setTeam(message.nbt.getString("Team"));
-			GeterTCtoP.setParamToEntity(player.getEntityId(), te);
+			PlayerTeamClient te = PlayerTeamManagerClient.instance.get(player);
+			te.setTeam(message.nbt.getString("Team"));
+			PlayerTeamManagerClient.instance.set(player, te);
 			
 			return null;
 		}

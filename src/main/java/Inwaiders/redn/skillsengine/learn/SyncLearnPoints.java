@@ -1,17 +1,12 @@
-package Inwaiders.redn.skillsengine.learn;
+package inwaiders.redn.skillsengine.learn;
 
-import Inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
-import Inwaiders.redn.teamengine.teams.GeterTCtoP;
-import Inwaiders.redn.teamengine.teams.GeterTStoP;
-import Inwaiders.redn.teamengine.teams.SyncTeamPrivatePacket;
-import Inwaiders.redn.teamengine.teams.TeamEngineClientProvider;
-import Inwaiders.redn.teamengine.teams.TeamEngineServerProvider;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import cpw.mods.fml.common.network.ByteBufUtils;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class SyncLearnPoints implements IMessage{
 
@@ -24,7 +19,7 @@ public class SyncLearnPoints implements IMessage{
 	public SyncLearnPoints(EntityPlayer ep){	
 		nbt = new NBTTagCompound();
 		
-		LearnPointsServerProvider lp = GeterLpStoP.getParam(ep);
+		LearnPointsServer lp = PlayerLearnPointManagerServer.instance.get(ep);
 		
 		nbt.setInteger("LearnPoints", lp.getLearnPoints());
 	} 
@@ -44,7 +39,7 @@ public class SyncLearnPoints implements IMessage{
 		@Override
 		public IMessage handleClientMessage(EntityPlayer player, SyncLearnPoints message, MessageContext ctx) {
 			
-			LearnPointsClientProvider lp = GeterLpCtoP.getParam(player);
+			LearnPointsClient lp = PlayerLearnPointManagerClient.instance.get(player);
 			lp.setLearnPoints(message.nbt.getInteger("LearnPoints"));
 			return null;
 		}

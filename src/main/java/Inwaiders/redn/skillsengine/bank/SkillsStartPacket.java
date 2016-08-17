@@ -1,12 +1,12 @@
-package Inwaiders.redn.skillsengine.bank;
+package inwaiders.redn.skillsengine.bank;
 
-import Inwaiders.redn.rpg.packetdispatcher.AbstractServerMessageHandler;
-import Inwaiders.redn.skillsengine.examples.BaseSkill;
-import Inwaiders.redn.skillsengine.hotbar.GeterHtoP;
-import Inwaiders.redn.skillsengine.hotbar.SkillsHotBar;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import inwaiders.redn.rpg.packetdispatcher.AbstractServerMessageHandler;
+import inwaiders.redn.skillsengine.examples.BaseSkill;
+import inwaiders.redn.skillsengine.hotbar.SkillsHotBarManager;
+import inwaiders.redn.skillsengine.hotbar.SkillsHotBar;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -40,9 +40,9 @@ public class SkillsStartPacket  implements IMessage{
 		 @Override
 		 public IMessage handleServerMessage(EntityPlayer player, SkillsStartPacket message, MessageContext ctx) {
 			 
-		   SkillsBankServerProvider b = GeterBStoP.getParam(player);
+		   PlayerSkillBankServer b = BankManagerServer.instance.get(player);
 		   
-		   b.activeSkill(message.i, player);
+		   b.activateSkill(message.i, player);
 		   
 	 	   return null;
 		}

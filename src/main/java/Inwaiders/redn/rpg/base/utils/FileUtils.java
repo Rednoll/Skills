@@ -1,4 +1,4 @@
-package Inwaiders.redn.rpg.base.utils;
+package inwaiders.redn.rpg.base.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

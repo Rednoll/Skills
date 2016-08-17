@@ -1,4 +1,4 @@
-package Inwaiders.redn.skillsengine.bank;
+package inwaiders.redn.skillsengine.bank;
 
 public class SuperPuperZipWinRar {
 

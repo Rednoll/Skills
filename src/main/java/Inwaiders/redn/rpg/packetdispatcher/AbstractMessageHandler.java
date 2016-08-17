@@ -1,6 +1,6 @@
-package Inwaiders.redn.rpg.packetdispatcher;
+package inwaiders.redn.rpg.packetdispatcher;
 
-import Inwaiders.redn.rpg.base.base;
+import inwaiders.redn.rpg.base.Core;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -22,10 +22,10 @@ public abstract class AbstractMessageHandler<T extends IMessage> implements IMes
 
 	if (ctx.side.isClient()) {
 
-	return handleClientMessage(base.proxy.getPlayerEntity(ctx), message, ctx);
+	return handleClientMessage(Core.proxy.getPlayerEntity(ctx), message, ctx);
 	} else {
 
-	return handleServerMessage(base.proxy.getPlayerEntity(ctx), message, ctx);
+	return handleServerMessage(Core.proxy.getPlayerEntity(ctx), message, ctx);
 	}
 	}
 }

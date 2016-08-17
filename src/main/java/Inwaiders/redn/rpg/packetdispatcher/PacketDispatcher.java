@@ -1,11 +1,11 @@
-package Inwaiders.redn.rpg.packetdispatcher;
+package inwaiders.redn.rpg.packetdispatcher;
 
 
-import Inwaiders.redn.skillsengine.bank.SkillsStartPacket;
-import Inwaiders.redn.skillsengine.bank.SyncStoCProviders;
-import Inwaiders.redn.skillsengine.learn.SyncLearnPoints;
-import Inwaiders.redn.teamengine.teams.SyncTeamMainClass;
-import Inwaiders.redn.teamengine.teams.SyncTeamPrivatePacket;
+import inwaiders.redn.skillsengine.bank.SkillsStartPacket;
+import inwaiders.redn.skillsengine.bank.SyncStoCProviders;
+import inwaiders.redn.skillsengine.learn.SyncLearnPoints;
+import inwaiders.redn.teamengine.teams.SyncTeamMainClass;
+import inwaiders.redn.teamengine.teams.SyncTeamPrivatePacket;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;

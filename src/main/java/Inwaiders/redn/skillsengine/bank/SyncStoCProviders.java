@@ -1,31 +1,26 @@
-package Inwaiders.redn.skillsengine.bank;
+package inwaiders.redn.skillsengine.bank;
 
 import java.util.ArrayList;
-
-import Inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
-import Inwaiders.redn.skillsengine.examples.BaseSkill;
-import Inwaiders.redn.skillsengine.hotbar.GeterHtoP;
-import Inwaiders.redn.skillsengine.hotbar.SkillsHotBar;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
+import inwaiders.redn.skillsengine.examples.BaseSkill;
+import inwaiders.redn.skillsengine.hotbar.SkillsHotBarManager;
+import inwaiders.redn.skillsengine.hotbar.SkillsHotBar;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class SyncStoCProviders implements IMessage{
 
-	NBTTagCompound nbt;
-	
-	public SyncStoCProviders(){
-		
-	}
+	private NBTTagCompound nbt;
 	
 	public SyncStoCProviders(EntityPlayer ep){	
 		nbt = new NBTTagCompound();
 		
-		SkillsBankServerProvider b = GeterBStoP.getParam(ep); 
-		SkillsHotBar h = GeterHtoP.getParam(ep.getEntityId());
+		PlayerSkillBankServer b = BankManagerServer.instance.get(ep); 
+		SkillsHotBar h = SkillsHotBarManager.instance.get(ep);
 		
 		for(int i = 0;i<b.skills.size();i++){
 			
@@ -62,11 +57,11 @@ public class SyncStoCProviders implements IMessage{
 			
 			SkillsHotBar se = null;
 			
-			se = GeterHtoP.getParam(player.getEntityId());
+			se = SkillsHotBarManager.instance.get(player);
 			
-	    	SkillsBankClientProvider b = null;
+	    	PlayerSkillBankClient b = null;
 	    	
-	    	b = GeterBCtoP.getParam(player);
+	    	b = BankManagerClient.instance.get(player);
 	    	
 			int iCount = 0;
 			
@@ -89,7 +84,7 @@ public class SyncStoCProviders implements IMessage{
 					
 					BaseSkill s;
 					try {
-						s = SkillsStaticTable.getSkillById(id);
+						s = SkillsRegistry.getSkillById(id);
 						s.setLevel(Level);
 						s.setCoolDown(cd);
 						

@@ -1,8 +1,9 @@
-package Inwaiders.redn.teamengine.targeting;
+package inwaiders.redn.teamengine.targeting;
 
-import Inwaiders.redn.teamengine.teams.GeterTStoP;
-import Inwaiders.redn.teamengine.teams.TeamEngineServerProvider;
+import inwaiders.redn.teamengine.teams.PlayerTeamManagerServer;
+import inwaiders.redn.teamengine.teams.PlayerTeamServer;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class Targeting {
 
@@ -10,12 +11,15 @@ public class Targeting {
 	public static final String TARGET_FRIEND = "TARGET_FRIEND";
 	public static final String TARGET_ALL = "TARGET_ALL";
 	
-	public static boolean canAttack(EntityLivingBase player, EntityLivingBase toAttack, String type){
-		
+	public static boolean canAttack(EntityLivingBase p, EntityLivingBase t, String type){
+		if(!(p instanceof EntityPlayer) || !(t instanceof EntityPlayer))
+		{
+			return true;
+		}
 		if(type.equals(TARGET_ALL)) return true;
-		
-		TeamEngineServerProvider te1 = GeterTStoP.getParam(toAttack.getEntityId());
-		TeamEngineServerProvider te2 = GeterTStoP.getParam(player.getEntityId());
+		EntityPlayer player = (EntityPlayer) p, toAttack = (EntityPlayer) t;
+		PlayerTeamServer te1 = PlayerTeamManagerServer.instance.get(toAttack);
+		PlayerTeamServer te2 = PlayerTeamManagerServer.instance.get(player);
 		
 		if(te1.getTeam().equals("ANY") || te2.getTeam().equals("ANY")){
 			return true;
