@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
@@ -14,10 +15,12 @@ public class PlayerSkillBankClient
 {
 	protected List<BaseSkill> skills = new ArrayList();
 	protected EntityPlayer ep;
+	protected String playername;
 
 	public PlayerSkillBankClient(EntityPlayer ep)
 	{
 		this.ep = ep;
+		playername = ep.getCommandSenderName();
 	}
 
 	public void update()
@@ -140,7 +143,10 @@ public class PlayerSkillBankClient
 
 	public void resetPlayer()
 	{
-		ep = ep.worldObj.getPlayerEntityByName(ep.getCommandSenderName());
+		if(ep == null)
+		{
+			ep = Minecraft.getMinecraft().thePlayer;
+		}
 	}
 
 	public void sync()

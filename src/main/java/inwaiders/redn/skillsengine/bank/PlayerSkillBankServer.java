@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 
 public class PlayerSkillBankServer extends PlayerSkillBankClient
 {
@@ -40,6 +41,15 @@ public class PlayerSkillBankServer extends PlayerSkillBankClient
 		{
 			SaveBankAndHot.load(ep);
 			loaded = true;
+		}
+	}
+	
+	@Override
+	public void resetPlayer()
+	{
+		if(ep == null)
+		{
+			ep = (EntityPlayer) MinecraftServer.getServer().getConfigurationManager().getPlayerList(playername).get(0);
 		}
 	}
 }
