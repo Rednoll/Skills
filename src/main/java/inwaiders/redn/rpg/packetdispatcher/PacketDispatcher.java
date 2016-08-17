@@ -1,18 +1,16 @@
 package inwaiders.redn.rpg.packetdispatcher;
 
 
-import inwaiders.redn.skillsengine.bank.SkillsStartPacket;
-import inwaiders.redn.skillsengine.bank.SyncStoCProviders;
-import inwaiders.redn.skillsengine.learn.SyncLearnPoints;
-import inwaiders.redn.skillsengine.learn.packet.LearnSkillPackect;
-import inwaiders.redn.teamengine.teams.SyncTeamMainClass;
-import inwaiders.redn.teamengine.teams.SyncTeamPrivatePacket;
+import inwaiders.redn.rpg.packet.LearnSkillPackect;
+import inwaiders.redn.rpg.packet.SkillsStartPacket;
+import inwaiders.redn.rpg.packet.sync.PlayerInfoSync;
+import inwaiders.redn.rpg.packet.sync.SyncTeam;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 
 public class PacketDispatcher
 {
@@ -21,16 +19,8 @@ public class PacketDispatcher
 	private static final SimpleNetworkWrapper dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel("rpg");
 	
 	public static final void registerPackets() {
-
-		//PacketDispatcher.dispatcher.registerMessage(SkillLoadToClient.Handler.class, SkillLoadToClient.class, packetId++, Side.CLIENT);
-
-		//PacketDispatcher.dispatcher.registerMessage(SkillGeterPacket.Handler.class, SkillGeterPacket.class, packetId++, Side.SERVER);
-		//SyncLearnPoints
-		
-		registerMessage(SyncLearnPoints.Handler.class, SyncLearnPoints.class, Side.CLIENT);
-		registerMessage(SyncStoCProviders.Handler.class, SyncStoCProviders.class, Side.CLIENT);
-		registerMessage(SyncTeamMainClass.Handler.class, SyncTeamMainClass.class, Side.CLIENT);
-		registerMessage(SyncTeamPrivatePacket.Handler.class, SyncTeamPrivatePacket.class, Side.CLIENT);
+		registerMessage(PlayerInfoSync.Handler.class, PlayerInfoSync.class, Side.CLIENT);
+		registerMessage(SyncTeam.Handler.class, SyncTeam.class, Side.CLIENT);
 		registerMessage(SkillsStartPacket.Handler.class, SkillsStartPacket.class, Side.SERVER);
 		registerMessage(LearnSkillPackect.Handler.class, LearnSkillPackect.class, Side.SERVER);
 	}
