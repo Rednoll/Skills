@@ -1,6 +1,6 @@
 package inwaiders.redn.skillsengine.hotbar;
 
-import inwaiders.redn.rpg.base.Core;
+import inwaiders.redn.rpg.base.core.Core;
 import inwaiders.redn.skillsengine.bank.BankManagerClient;
 import inwaiders.redn.skillsengine.bank.PlayerSkillBankClient;
 import inwaiders.redn.skillsengine.bank.PlayerSkillBankServer;

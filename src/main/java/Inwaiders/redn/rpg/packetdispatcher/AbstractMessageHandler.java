@@ -1,6 +1,6 @@
 package inwaiders.redn.rpg.packetdispatcher;
 
-import inwaiders.redn.rpg.base.Core;
+import inwaiders.redn.rpg.base.core.Core;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;

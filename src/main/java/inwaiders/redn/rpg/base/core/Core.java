@@ -1,5 +1,6 @@
-package inwaiders.redn.rpg.base;
+package inwaiders.redn.rpg.base.core;
 
+import inwaiders.redn.rpg.base.proxy.CommonProxy;
 import inwaiders.redn.rpg.base.utils.ResourceLocGenerator;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.skillsengine.bank.SaveBankAndHot;
@@ -17,6 +18,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,6 +40,12 @@ public class Core
 	@SidedProxy(clientSide = path + ".ClientProxy", serverSide = path + ".CommonProxy", modId = "rpg")
 	public static CommonProxy proxy;
 
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent e)
+	{
+		proxy.preInit(e);
+	}
+	
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{

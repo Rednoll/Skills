@@ -1,6 +1,7 @@
 package inwaiders.redn.skillsengine.examples;
 
-import inwaiders.redn.rpg.base.Core;
+import inwaiders.redn.rpg.base.CFG;
+import inwaiders.redn.rpg.base.core.Core;
 import inwaiders.redn.skillsengine.examples.EasySkillCreator.IEffect;
 import inwaiders.redn.skillsengine.learn.LearnPointsPrice;
 import inwaiders.redn.teamengine.targeting.Targeting.Target;
@@ -53,7 +54,7 @@ public class SkillEarthquake extends BaseSkill
 	@Override
 	public int getId()
 	{
-		return 3;
+		return CFG.EarthquakeID;
 	}
 
 }

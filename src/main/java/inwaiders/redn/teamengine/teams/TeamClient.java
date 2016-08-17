@@ -1,6 +1,6 @@
 package inwaiders.redn.teamengine.teams;
 
-import inwaiders.redn.rpg.base.Core;
+import inwaiders.redn.rpg.base.core.Core;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;

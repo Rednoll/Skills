@@ -1,6 +1,6 @@
 package inwaiders.redn.skillsengine.examples;
 
-import inwaiders.redn.rpg.base.Core;
+import inwaiders.redn.rpg.base.core.Core;
 import inwaiders.redn.skillsengine.learn.LearnPointsPrice;
 import inwaiders.redn.teamengine.targeting.Targeting.Target;
 import net.minecraft.entity.player.EntityPlayer;
