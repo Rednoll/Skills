@@ -1,7 +1,9 @@
 package inwaiders.redn.skillsengine.learn;
 
+import inwaiders.redn.skillsengine.bank.BankManagerServer;
 import inwaiders.redn.skillsengine.bank.PlayerSkillBankServer;
 import java.util.HashMap;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class SkillPriceRegistry
 {
@@ -39,6 +41,11 @@ public class SkillPriceRegistry
 		}
 		return false;
 
+	}
+	
+	public static boolean learnSkill(EntityPlayer p, int id)
+	{
+		return learnSkill(BankManagerServer.instance.get(p), PlayerLearnPointManagerServer.instance.get(p), id);
 	}
 
 }

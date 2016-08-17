@@ -1,5 +1,6 @@
 package inwaiders.redn.skillsengine.learn;
 
+import net.minecraft.util.StatCollector;
 import inwaiders.redn.rpg.base.core.Core;
 import inwaiders.redn.skillsengine.examples.BaseSkill;
 
@@ -15,7 +16,7 @@ public class LearnPointsPrice {
 	}
 	
 	public String getDescription(){
-		return description;
+		return StatCollector.translateToLocal(description);
 	}
 	
 	public int getPrice(){

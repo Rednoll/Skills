@@ -1,5 +1,6 @@
 package inwaiders.redn.rpg.base.proxy;
 
+import inwaiders.redn.rpg.base.gui.helpers.TableHarrington;
 import inwaiders.redn.skillsengine.hotbar.SkillRenderer;
 import inwaiders.redn.skillsengine.hotbar.SkillStartetHandler;
 import inwaiders.redn.skillsengine.hotbar.SkillsKeys;
@@ -16,6 +17,7 @@ public class ClientProxy extends CommonProxy{
 	public void init(FMLInitializationEvent e)
 	{
 		super.init(e);
+		TableHarrington.initialize();
 		MinecraftForge.EVENT_BUS.register(new SkillRenderer(Minecraft.getMinecraft()));
 		SkillsKeys.init();
 		FMLCommonHandler.instance().bus().register(new SkillStartetHandler());

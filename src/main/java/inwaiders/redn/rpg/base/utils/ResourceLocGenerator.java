@@ -24,6 +24,6 @@ public class ResourceLocGenerator
 	
 	public ResourceLocation generate(String path)
 	{
-		return new ResourceLocation(modid, prefix + path + postfix);
+		return new ResourceLocation(modid, (prefix.endsWith("/") ? prefix : (prefix + "/")) + path + postfix);
 	}
 }

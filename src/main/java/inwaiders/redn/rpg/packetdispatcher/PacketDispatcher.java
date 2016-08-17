@@ -4,6 +4,7 @@ package inwaiders.redn.rpg.packetdispatcher;
 import inwaiders.redn.skillsengine.bank.SkillsStartPacket;
 import inwaiders.redn.skillsengine.bank.SyncStoCProviders;
 import inwaiders.redn.skillsengine.learn.SyncLearnPoints;
+import inwaiders.redn.skillsengine.learn.packet.LearnSkillPackect;
 import inwaiders.redn.teamengine.teams.SyncTeamMainClass;
 import inwaiders.redn.teamengine.teams.SyncTeamPrivatePacket;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -26,18 +27,15 @@ public class PacketDispatcher
 		//PacketDispatcher.dispatcher.registerMessage(SkillGeterPacket.Handler.class, SkillGeterPacket.class, packetId++, Side.SERVER);
 		//SyncLearnPoints
 		
-		PacketDispatcher.dispatcher.registerMessage(SyncLearnPoints.Handler.class, SyncLearnPoints.class, packetId++, Side.CLIENT);
-		
-		PacketDispatcher.dispatcher.registerMessage(SyncStoCProviders.Handler.class, SyncStoCProviders.class, packetId++, Side.CLIENT);
-		
-		PacketDispatcher.dispatcher.registerMessage(SyncTeamMainClass.Handler.class, SyncTeamMainClass.class, packetId++, Side.CLIENT);
-		
-		PacketDispatcher.dispatcher.registerMessage(SyncTeamPrivatePacket.Handler.class, SyncTeamPrivatePacket.class, packetId++, Side.CLIENT);
-		
-		PacketDispatcher.dispatcher.registerMessage(SkillsStartPacket.Handler.class, SkillsStartPacket.class, packetId++, Side.SERVER);
+		registerMessage(SyncLearnPoints.Handler.class, SyncLearnPoints.class, Side.CLIENT);
+		registerMessage(SyncStoCProviders.Handler.class, SyncStoCProviders.class, Side.CLIENT);
+		registerMessage(SyncTeamMainClass.Handler.class, SyncTeamMainClass.class, Side.CLIENT);
+		registerMessage(SyncTeamPrivatePacket.Handler.class, SyncTeamPrivatePacket.class, Side.CLIENT);
+		registerMessage(SkillsStartPacket.Handler.class, SkillsStartPacket.class, Side.SERVER);
+		registerMessage(LearnSkillPackect.Handler.class, LearnSkillPackect.class, Side.SERVER);
 	}
 
-	private static final void registerMessage(Class handlerClass, Class messageClass, Side side) {
+	private static final void registerMessage(Class handlerClass, Class<? extends IMessage> messageClass, Side side) {
 		PacketDispatcher.dispatcher.registerMessage(handlerClass, messageClass, packetId++, side);
 	}
 	
