@@ -14,15 +14,27 @@ public abstract class BaseSkill {
 	protected int isPassive = 0;
 	protected int level = 1;
 	protected int isAura = 0;
-	protected int[] damage = new int[Constants.MAX_SKILL_LVL];
-	protected int[] radius = new int[Constants.MAX_SKILL_LVL];
+	protected int[] damage;
+	protected int[] radius;
+	protected int[] maxCast;
 	protected int cast = 0;
-	protected int[] maxCast = new int[Constants.MAX_SKILL_LVL];
 	protected boolean casting = false;
 	protected int interval = 0;
 	protected int maxInterval = 0;
 	protected Target target;
 	protected int id;
+	protected final int MAX_SKILL_LVL;
+	public BaseSkill(int maxLvl) {
+		MAX_SKILL_LVL = maxLvl;
+		damage = new int[MAX_SKILL_LVL];
+		radius = new int[MAX_SKILL_LVL];
+		maxCast = new int[MAX_SKILL_LVL];
+	}
+	
+	public BaseSkill() {
+		this(Constants.DEFAUL_MAX_SKILL_LVL);
+	}
+	
 	public void skillStart(EntityPlayer ep){
 		
 	}
@@ -166,6 +178,12 @@ public abstract class BaseSkill {
 	{
 		this.id = id;
 	}
+	
+	public int getMaxLvl()
+	{
+		return MAX_SKILL_LVL;
+	}
+	
 	public abstract int getId();
 	public abstract String getName();
 	public abstract LearnPointsPrice getPrice();

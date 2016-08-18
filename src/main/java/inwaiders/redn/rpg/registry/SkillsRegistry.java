@@ -64,7 +64,7 @@ public class SkillsRegistry {
 
 	public static boolean learnSkill(PlayerInfoServer p, int id) {
 		LearnPointsPrice c = getSkillById(id).getPrice();
-		if (p.getSkillById(id).getLevel() < Constants.MAX_SKILL_LVL && p.canLearn(c.getPrice())) {
+		if (p.getSkillById(id).getLevel() < p.getSkillById(id).getMaxLvl() && p.canLearn(c.getPrice())) {
 			p.learnSkill(id);
 			p.learn(c.getPrice());
 			return true;

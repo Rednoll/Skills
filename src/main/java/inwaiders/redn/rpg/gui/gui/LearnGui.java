@@ -87,7 +87,7 @@ public class LearnGui extends GuiScreen {
 		if (b.id == 0) {
 			BaseSkill skill = SkillsRegistry.getSkillById(id);
 			PlayerInfoClient l = PlayerInfoManagerClient.instance.get(mc.thePlayer);
-			if (l.getSkillById(id).getLevel() < Constants.MAX_SKILL_LVL) {
+			if (l.getSkillById(id).getLevel() < skill.getMaxLvl()) {
 				if (l.getLearnPoints() > skill.getPrice().getPrice()) {
 					alert("                Succes", new Color(50, 255, 50));
 					PacketDispatcher.sendToServer(new LearnSkillPackect(id));

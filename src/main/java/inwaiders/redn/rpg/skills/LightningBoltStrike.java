@@ -1,5 +1,6 @@
 package inwaiders.redn.rpg.skills;
 
+import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
@@ -14,7 +15,6 @@ public class LightningBoltStrike extends BaseSkill{
 
 	
 	public LightningBoltStrike(){
-		
 		setLevel(1);
 		setTarget(Target.TARGET_ANOTHER);
 		setMaxCoolDownByLevel(1, 2000);
