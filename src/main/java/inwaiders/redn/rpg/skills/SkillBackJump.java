@@ -23,6 +23,7 @@ public class SkillBackJump extends BaseSkill {
 
 	@Override
 	public void skillStart(EntityPlayer ep) {
+		
 		float cosX = (float) Math.cos(Math.toRadians(ep.rotationYaw));
 		float sinX = (float) Math.sin(Math.toRadians(ep.rotationYaw));
 
