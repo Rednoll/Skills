@@ -59,7 +59,7 @@ public class LightningBoltStrike extends BaseSkill{
 	@Override
 	public LearnPointsPrice getPrice() {
 		
-		return new LearnPointsPrice(this, 500);
+		return new LearnPointsPrice(this, 2);
 	}
 
 	@Override

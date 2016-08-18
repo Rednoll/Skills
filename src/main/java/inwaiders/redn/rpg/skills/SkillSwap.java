@@ -55,7 +55,7 @@ public class SkillSwap extends BaseSkill {
 	@Override
 	public LearnPointsPrice getPrice() {
 
-		return null;
+		return new LearnPointsPrice(this, 3);
 	}
 
 	@Override
