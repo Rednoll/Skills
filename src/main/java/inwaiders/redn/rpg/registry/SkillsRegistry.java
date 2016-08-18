@@ -19,43 +19,40 @@ import net.minecraft.entity.player.EntityPlayer;
 public class SkillsRegistry {
 
 	private static HashMap<Integer, Class<? extends BaseSkill>> allSkills = new HashMap<Integer, Class<? extends BaseSkill>>();
-	
-	public static void registerSkill(int id, Class<? extends BaseSkill> base){
+
+	public static void registerSkill(int id, Class<? extends BaseSkill> base) {
 		allSkills.put(id, base);
 	}
-	public static void registerSkill(BaseSkill skill)
-	{
-		if(allSkills.containsKey(skill.getId()))
-		{
+
+	public static void registerSkill(BaseSkill skill) {
+		if (allSkills.containsKey(skill.getId())) {
 			FMLLog.warning("Skill with id " + skill.getId() + " alredy registered, skipping");
 			return;
 		}
 		registerSkill(skill.getId(), skill.getClass());
 	}
-	
-	/*private static Class<?> getSkill(int i){
-		return allSkills.get(i);
-	}*/
-	
-	public static int getSize(){
+
+	/*
+	 * private static Class<?> getSkill(int i){ return allSkills.get(i); }
+	 */
+
+	public static int getSize() {
 		return allSkills.size();
 	}
-	
-	public static BaseSkill getSkillById(int id){
-		
-		try
-		{
-			return allSkills.get(id).newInstance();
-		}
-		catch (Exception e)
-		{
-			MiscUtils.crashGame("Unable to get skill form registry, contact mod author", e);
+
+	public static BaseSkill getSkillById(int id) {
+		if (allSkills.containsKey(id)) {
+			try {
+				return allSkills.get(id).newInstance();
+			} catch (Exception e) {
+				MiscUtils.crashGame("Unable to get skill form registry, contact mod author", e);
+			}
 		}
 		return null;
 	}
-	
-	public static void init(){
-		
+
+	public static void init() {
+
 		registerSkill(new SkillBackJump());
 		registerSkill(new ReleaseOfPrana());
 		registerSkill(new SkillEarthquake());
@@ -63,12 +60,10 @@ public class SkillsRegistry {
 		registerSkill(new SkillVortex());
 		registerSkill(new SkillSwap());
 	}
-	
-	public static boolean learnSkill(PlayerInfoServer p, int id)
-	{
+
+	public static boolean learnSkill(PlayerInfoServer p, int id) {
 		LearnPointsPrice c = getSkillById(id).getPrice();
-		if (p.canLearn(c.getPrice()))
-		{
+		if (p.canLearn(c.getPrice())) {
 			p.learnSkill(id);
 			p.learn(c.getPrice());
 			return true;
@@ -76,9 +71,8 @@ public class SkillsRegistry {
 		return false;
 
 	}
-	
-	public static boolean learnSkill(EntityPlayer p, int id)
-	{
+
+	public static boolean learnSkill(EntityPlayer p, int id) {
 		return learnSkill(PlayerInfoManagerServer.instance.get(p), id);
 	}
 }
