@@ -38,12 +38,12 @@ public class LearnGui extends GuiScreen
         mc.renderEngine.bindTexture(Core.guirlgen.generate("LearnBG"));
         drawTexturedModalRect(guiX, guiZ, 0, 0, guiWidth/4, guiHeight/4); 
         super.drawScreen(mouseX, mouseY, ticks);
-        drawCenteredStringNS("Learn points: " + l.getLearnPoints(), 40, -50, new Color(100, 100, 100));
+        drawCenteredStringNS("Learn points: " + l.getLearnPoints(), 40, -85, new Color(100, 100, 100));
         if(alert != null && !alert.equals(""))
         drawCenteredStringNS(alert, -30, -105, alertC);
         List<String> desc = getSd(SkillsRegistry.getSkillById(id));
         for(int i = 0; i < desc.size(); i++)
-        fontRendererObj.drawString(desc.get(i), width / 2 - 60, height / 2 + 20 * (i + 1), new Color(100, 100, 100).getRGB());
+        fontRendererObj.drawString(desc.get(i), width / 2 - 60, height / 2 + (10 * (i + 1)) - 20, new Color(100, 100, 100).getRGB());
         //        GL11.glScaled(0.27, 0.27, 0.27);
         //        TableHarrington.renderSuperFont(width / 2 + 310, height / 2, "Learn point: " + l.getLearnPoints(), this);
 	}
@@ -92,7 +92,7 @@ public class LearnGui extends GuiScreen
 			PlayerInfoClient l = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 			if(l.getLearnPoints() > skill.getPrice().getPrice())
 			{
-				alert("Succes", new Color(50, 255, 50));
+				alert("                Succes", new Color(50, 255, 50));
 				PacketDispatcher.sendToServer(new LearnSkillPackect(id));
 			}
 			else
@@ -111,7 +111,7 @@ public class LearnGui extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		buttonList.add(new SkillButton(0, width / 2 - 20, height / 2 - 20, SkillsRegistry.getSkillById(id)));
+		buttonList.add(new SkillButton(0, width / 2 - 32, height / 2 - 75, SkillsRegistry.getSkillById(id)));
 	}
 	
 	@Override

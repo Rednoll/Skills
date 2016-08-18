@@ -15,7 +15,7 @@ public class SkillButton extends GuiButton
 
 	public SkillButton(int id, int x, int y, BaseSkill skill)
 	{
-		this(id, x, y, 32, 32, skill);
+		this(id, x, y, 64, 64, skill);
 	}
 	
 	public int getSkillID()
