@@ -143,7 +143,7 @@ public class PlayerInfoClient {
 	 * @return 0 if can learn, 1 if max lvl reached, 2 id not enough points
 	 */
 	public int canLearn(BaseSkill skill) {
-		return getLearnPoints() >= skill.getPrice().getPrice() ? skill.getLevel() < skill.getMaxLvl() ? 0 : 1 : 2;
+		return getLearnPoints() >= skill.getPrice().getPrice() ? skill.getLevel() + 1 < skill.getMaxLvl() ? 0 : 1 : 2;
 	}
 
 	public void learn(BaseSkill skill) {
