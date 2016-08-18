@@ -20,6 +20,7 @@ public class EasySkillCreator {
 	//Для ленивых жоп (ну вообше это помошник)
 	
 	public static void appliedAuraEffect(EntityPlayer ep, int radius, int idEffect, int level, Target targets){
+		
 		List list = ep.worldObj.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(ep.posX-radius, ep.posY-radius, ep.posZ-radius, ep.posX+radius, ep.posY+radius, ep.posZ+radius), (entity) -> entity instanceof EntityLivingBase);
 		
 		for(int i = 0;i<list.size();i++){
@@ -37,6 +38,7 @@ public class EasySkillCreator {
 	}
 	
 	public static void attackAOE(EntityPlayer ep, int radius, int damage, Target targets){
+		
 		List list = ep.worldObj.getEntitiesWithinAABBExcludingEntity(ep, MiscUtils.createAABBFormRadius(ep.posX, ep.posY, ep.posZ, radius), (entity) -> entity instanceof EntityLivingBase);
 		
 		for(int i = 0;i<list.size();i++){

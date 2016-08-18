@@ -1,15 +1,7 @@
 package inwaiders.redn.rpg.core;
 
-import inwaiders.redn.rpg.handlers.command.TeamCommands;
-import inwaiders.redn.rpg.proxy.CommonProxy;
-import inwaiders.redn.rpg.utils.LocaleKeyGenerator;
-import inwaiders.redn.rpg.utils.ResourceLocGenerator;
-
 import java.util.Random;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -17,6 +9,16 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import inwaiders.redn.rpg.handlers.command.CADCommands;
+import inwaiders.redn.rpg.handlers.command.TeamCommands;
+import inwaiders.redn.rpg.items.CAD.CadMemoryCard;
+import inwaiders.redn.rpg.proxy.CommonProxy;
+import inwaiders.redn.rpg.utils.LocaleKeyGenerator;
+import inwaiders.redn.rpg.utils.ResourceLocGenerator;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 
 @Mod(modid = Core.MODID, version = Core.VERSION, name = Core.NAME)
 public class Core
@@ -31,6 +33,7 @@ public class Core
 	public static final LocaleKeyGenerator skilllkgen = new LocaleKeyGenerator("rpg.skill.", ".name");
 	public static final LocaleKeyGenerator skilldescgen = new LocaleKeyGenerator("rpg.skill.", ".desc.name");
 	public static Random r = new Random();
+	
 	public static CreativeTabs tab = new CreativeTabs("RPG")
 	{
 		
@@ -62,5 +65,7 @@ public class Core
 	public void serverLoad(FMLServerStartingEvent event)
 	{
 		event.registerServerCommand(new TeamCommands());
+		event.registerServerCommand(new CADCommands());
+		
 	}
 }
