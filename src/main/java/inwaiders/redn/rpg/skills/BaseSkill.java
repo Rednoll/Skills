@@ -1,5 +1,6 @@
 package inwaiders.redn.rpg.skills;
 
+import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.Targeting.Target;
@@ -13,10 +14,10 @@ public abstract class BaseSkill {
 	protected int isPassive = 0;
 	protected int level = 1;
 	protected int isAura = 0;
-	protected int[] damage = new int[100];
-	protected int[] radius = new int[100];
+	protected int[] damage = new int[Constants.MAX_SKILL_LVL];
+	protected int[] radius = new int[Constants.MAX_SKILL_LVL];
 	protected int cast = 0;
-	protected int[] maxCast = new int[100];
+	protected int[] maxCast = new int[Constants.MAX_SKILL_LVL];
 	protected boolean casting = false;
 	protected int interval = 0;
 	protected int maxInterval = 0;
@@ -142,7 +143,7 @@ public abstract class BaseSkill {
 	}
 	
 	public void setLevel(int i){
-		level = i;
+		level = Math.min(99, i);
 	}
 	
 	public void setMaxInterval(int i){

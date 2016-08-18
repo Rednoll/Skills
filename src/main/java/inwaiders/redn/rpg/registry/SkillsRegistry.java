@@ -3,6 +3,7 @@ package inwaiders.redn.rpg.registry;
 import java.util.HashMap;
 
 import cpw.mods.fml.common.FMLLog;
+import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.managers.server.PlayerInfoManagerServer;
 import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.skills.LightningBoltStrike;
@@ -63,7 +64,7 @@ public class SkillsRegistry {
 
 	public static boolean learnSkill(PlayerInfoServer p, int id) {
 		LearnPointsPrice c = getSkillById(id).getPrice();
-		if (p.canLearn(c.getPrice())) {
+		if (p.getSkillById(id).getLevel() < Constants.MAX_SKILL_LVL && p.canLearn(c.getPrice())) {
 			p.learnSkill(id);
 			p.learn(c.getPrice());
 			return true;
