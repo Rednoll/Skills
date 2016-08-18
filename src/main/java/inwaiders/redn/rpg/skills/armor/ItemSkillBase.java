@@ -2,6 +2,7 @@ package inwaiders.redn.rpg.skills.armor;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.utils.Targeting.Target;
 
 public abstract class ItemSkillBase {
@@ -32,6 +33,10 @@ public abstract class ItemSkillBase {
 		radius = new int[MAX_SKILL_LVL];
 		maxCast = new int[MAX_SKILL_LVL];
 		maxCoolDown = new int[MAX_SKILL_LVL];
+	}
+	
+	public ItemSkillBase() {
+		this(Constants.DEFAUL_MAX_SKILL_LVL);
 	}
 
 	public int getDamage() {
