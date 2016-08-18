@@ -7,12 +7,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class DebugItem extends Item
+public class DebugItem extends ItemBase
 {
 	public DebugItem()
 	{
-		setUnlocalizedName("DEBUG");
-		setCreativeTab(Core.tab);
+		super("DEBUG");
 	}
 	
 	@Override

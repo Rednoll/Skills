@@ -17,18 +17,19 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class SaveAndLoadPlayer
 {
-	private int i = 0;
 	@SubscribeEvent
 	public void save(SaveToFile e)
 	{
 
 		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(e.entityPlayer);
+		
 		HashMap<Integer, BaseSkill> skills = b.getSkills();
-		PlayerJson pjson = new PlayerJson(e.entityPlayer);
-		skills.forEach((id, skill) -> pjson.setBank(i++, skill.getId(), skill.getLevel(), skill.getCoolDown()));
+		PlayerJson pjson = new PlayerJson(e.entityPlayer, true);
+		skills.forEach((id, skill) -> pjson.addBank(skill.getId(), skill.getLevel(), skill.getCoolDown()));
 		for (int i = 0; i < b.hotbarSkills.length; i++)
 		{
-			pjson.setHotbar(i, b.hotbarSkills[i]);
+			//System.out.println(i + "/" + b.getSkillIdByPos(i));
+			pjson.setHotbar(i, b.getSkillIdByPos(i));
 		}
 		pjson.setTeam(b.getTeam());
 		pjson.setXP(b.getXp());
@@ -58,10 +59,9 @@ public class SaveAndLoadPlayer
 				MiscUtils.crashGame("Unbable to load skill", e);
 			}
 		}
-
 		for (int i = 0; i < b.hotbarSkills.length; i++)
 		{
-			b.hotbarSkills[i] = pjson.getHotbar(i);
+			b.setSkillIdByPos(i, pjson.getHotbar(i));
 		}
 		b.setTeam(pjson.getTeam());
 		b.setXp(pjson.getXP());

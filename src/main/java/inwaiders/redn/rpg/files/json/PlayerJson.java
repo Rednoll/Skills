@@ -1,5 +1,6 @@
 package inwaiders.redn.rpg.files.json;
 
+import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.utils.FileUtils;
 import inwaiders.redn.rpg.utils.MiscUtils;
 
@@ -28,19 +29,14 @@ public class PlayerJson
 {
 	//Names
 	//Main
-	public static final String HOTBAR = "hotbar";//Object
-	public static final String BANK = "bank";//Object
+	public static final String HOTBAR = "hotbar";//Object, contains 6 ints, named by their position (1,2,3,4,5,6)
+	public static final String BANK = "bank";//Array
 	public static final String TEAM = "team";//String
 	public static final String LEARNPOINTS = "learnpts";//Int
 	public static final String XP = "XP";//Int
 	public static final String XPNEXT = "XPNEXT";//Int
-	//Hotbar
-	public static final String SKILLS = "skills";//Array
-	//Bank
-	public static final String SKILL = "skill-";//Object, index mus be added after -
-	//Hobar|Bank skill
-	public static final String ID = "id";//Int
 	//Bank skill
+	public static final String ID = "id";//Int
 	public static final String LVL = "lvl";//Int
 	public static final String COOLDOWN = "cd";//Int
 	
@@ -48,11 +44,11 @@ public class PlayerJson
 	private final File file;
 	private final JsonObject json;
 
-	public PlayerJson(EntityPlayer p)
+	public PlayerJson(EntityPlayer p, boolean forceRewrite)
 	{
 		name = p.getCommandSenderName();
 		file = new File(FileUtils.generateSubDir(p.worldObj.getSaveHandler().getWorldDirectory(), "skillengine"), "SKILLS_" + name + ".json");
-		if (!file.exists())
+		if (forceRewrite || !file.exists())
 		{
 			json = new JsonObject();
 			initJson();
@@ -73,11 +69,18 @@ public class PlayerJson
 		}
 	}
 
+	public PlayerJson(EntityPlayer p) {
+		this(p, false);
+	}
+	
 	private void initJson()
 	{
 		initHotbar();
 		initBank();
 		json.addProperty(TEAM, "ANY");
+		json.addProperty(LEARNPOINTS, 0);
+		json.addProperty(XP, 0);
+		json.addProperty(XPNEXT, Constants.DEFAUL_NEXT_XP);
 	}
 
 	public void write()
@@ -97,51 +100,48 @@ public class PlayerJson
 	private void initHotbar()
 	{
 		JsonObject hotbar = new JsonObject();
-		JsonArray hbskills = new JsonArray();
-		JsonObject skillplaceholder = new JsonObject();
-		skillplaceholder.addProperty("id", -1);
 		for (int i = 0; i < 6; i++)
 		{
-			hbskills.add(skillplaceholder);
+			hotbar.addProperty(i + "", -1);
 		}
-		hotbar.add(SKILLS, hbskills);
 		json.add(HOTBAR, hotbar);
 	}
 
 	public void setHotbar(int slot, int id)
 	{
-		JsonObject skill = json.getAsJsonObject(HOTBAR).getAsJsonArray(SKILLS).get(slot).getAsJsonObject();
-		skill.addProperty(ID, id);
+		JsonObject skills = json.getAsJsonObject(HOTBAR);
+		skills.addProperty(slot + "", id);
+		json.add(HOTBAR, skills);
 	}
 
 	public int getHotbar(int slot)
 	{
-		return json.getAsJsonObject(HOTBAR).getAsJsonArray(SKILLS).get(slot).getAsJsonObject().get(ID).getAsInt();
+		return json.getAsJsonObject(HOTBAR).get(slot + "").getAsInt();
 	}
 	
 	//Bank
 	private void initBank()
 	{
-		JsonObject bank = new JsonObject();
+		JsonArray bank = new JsonArray();
 		json.add(BANK, bank);
 	}
 	
-	public void setBank(int slot, int id, int lvl, int cd)
+	public void addBank(int id, int lvl, int cd)
 	{
-		JsonObject bank = json.getAsJsonObject(BANK);
+		JsonArray bank = json.getAsJsonArray(BANK);
 		JsonObject skill = new JsonObject();
 		writeSkill(skill, id, lvl, cd);
-		bank.add(SKILL + slot, skill);
+		bank.add(skill);
 	}
 	 
 	public BankSkill getBank(int slot)
 	{
-		JsonObject bank = json.getAsJsonObject(BANK);
-		if(!bank.has(SKILL + slot))
+		JsonArray bank = json.getAsJsonArray(BANK);
+		if(bank.size() <= slot)
 		{
 			return null;
 		}
-		JsonObject skill = bank.getAsJsonObject(SKILL + slot);
+		JsonObject skill = bank.get(slot).getAsJsonObject();
 		return new BankSkill(skill.get(ID).getAsInt(), skill.get(LVL).getAsInt(), skill.get(COOLDOWN).getAsInt());
 	}
 	
