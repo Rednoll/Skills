@@ -2,15 +2,19 @@ package inwaiders.redn.rpg.skills;
 
 import java.util.Random;
 
+
+
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.packet.ParticlePacket;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
+import inwaiders.redn.rpg.utils.VectorUtils;
 import inwaiders.redn.rpg.utils.Targeting.Target;
 import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ResourceLocation;import net.minecraft.util.Vec3;
+
 
 public class SkillVortex extends BaseSkill {
 
@@ -31,12 +35,10 @@ public class SkillVortex extends BaseSkill {
 			}
 		}
 		EasySkillCreator.applyAOEEffect(ep, getRadiusByLevel(getLevel()), Target.TARGET_ANOTHER, (caster, target) -> {
-			double x = target.posX < caster.posX ? 0.75 * getLevel() : target.posX > caster.posX ? -0.75 * getLevel() : 0;
-			double y = target.posY < caster.posY ? 0.75 * getLevel() : target.posZ > caster.posY ? -0.75 * getLevel() : 0;
-			double z = target.posZ < caster.posZ ? 0.75 * getLevel() : target.posZ > caster.posZ ? -0.75 * getLevel() : 0;
-			target.motionX += x;
-			target.motionY += y;
-			target.motionZ += z;
+			Vec3 rev = VectorUtils.negate(Vec3.createVectorHelper(target.posX - caster.posX, target.posY - caster.posY, target.posZ - caster.posZ).normalize());
+			target.motionX += rev.xCoord * (0.5 * getLevel());
+			target.motionY += rev.yCoord * (0.5 * getLevel());
+			target.motionZ += rev.zCoord * (0.5 * getLevel());
 		});
 	}
 
