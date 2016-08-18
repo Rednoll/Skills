@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class BaseSkill {
 	
-	protected int[] maxCoolDown = new int[100];
+	
 	protected int coolDown = 0;
 	protected int isPassive = 0;
 	protected int level = 1;
@@ -17,6 +17,7 @@ public abstract class BaseSkill {
 	protected int[] damage;
 	protected int[] radius;
 	protected int[] maxCast;
+	protected int[] maxCoolDown;
 	protected int cast = 0;
 	protected boolean casting = false;
 	protected int interval = 0;
@@ -29,6 +30,7 @@ public abstract class BaseSkill {
 		damage = new int[MAX_SKILL_LVL];
 		radius = new int[MAX_SKILL_LVL];
 		maxCast = new int[MAX_SKILL_LVL];
+		maxCoolDown = new int[MAX_SKILL_LVL];
 	}
 	
 	public BaseSkill() {
