@@ -11,6 +11,7 @@ public class CFG
 	public static int LightBoltStrikeID;
 	public static int VoretexID;
 	public static int SwapID;
+	public static int VipeID;
 	
 	public static void init(Configuration cfg)
 	{
@@ -22,6 +23,7 @@ public class CFG
 		LightBoltStrikeID = getSkillId("LightBoltStrike", 4);
 		VoretexID = getSkillId("Vortex", 5);
 		SwapID = getSkillId("Swap", 6);
+		VipeID = getSkillId("VipeStrike", 7);
 		cfg.save();
 		CFG.cfg = null;
 	}
