@@ -10,10 +10,22 @@ import net.minecraft.entity.player.EntityPlayer;
 public abstract class ItemSkillBase {
 
 	public static enum ItemSkillType {
-		TICK, HITWEARER, /* Armor */
-		HITTARGET, /* Sword */
+		PASSIVE,//Decrease cd, e.t.c
+		TICK,
+		HITWEARER,//Armor
+		HITTARGET,//Sword 
 	}
 
+	public static class PassiveEffect
+	{
+		public int cddecrease = 0;
+		public int manadecrease = 0;//Unused at this moment
+		public int casttimedecrease = 0;
+		public int intevaldecrease = 0;
+		public int radiusincrease = 0;
+		public int damageincrease = 0;
+	}
+	
 	protected int level = 1;
 	protected int cd;
 	protected ItemSkillType type;
@@ -70,14 +82,21 @@ public abstract class ItemSkillBase {
 	public ItemSkillType getType() {
 		return type;
 	}
-	
+
 	public int getCd() {
 		return cd;
 	}
-	
-	public void decrCd()
-	{
+
+	public void decrCd() {
 		cd--;
+	}
+	
+	/**
+	 * Called with each cast of any skill
+	 */
+	public PassiveEffect getPassiveEffect(EntityPlayer ep)
+	{
+		return null;
 	}
 
 	public void preWhileUpdate(EntityPlayer ep) {
@@ -92,15 +111,21 @@ public abstract class ItemSkillBase {
 			interval++;
 		}
 	}
-	
-	public void preWearerHited(EntityPlayer ep, @Nullable Entity by)
-	{
-		
+
+	public void preWearerHited(EntityPlayer ep, @Nullable Entity by) {
+		if(cd < 0)
+		{
+			perform(ep, by);
+			cd = maxCd[level];
+		}
 	}
-	
-	public void preTargetHited(EntityPlayer ep, @Nullable Entity target)
-	{
-		
+
+	public void preTargetHited(EntityPlayer ep, @Nullable Entity target) {
+		if(cd < 0)
+		{
+			perform(ep, target);
+			cd = maxCd[level];
+		}
 	}
 
 	public void perform(EntityPlayer ep, @Nullable Entity e) {

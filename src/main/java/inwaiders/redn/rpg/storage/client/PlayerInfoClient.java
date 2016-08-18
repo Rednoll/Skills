@@ -5,6 +5,7 @@ import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.skills.armor.ItemSkillBase;
 import inwaiders.redn.rpg.skills.armor.ItemSkillBase.ItemSkillType;
+import inwaiders.redn.rpg.skills.armor.ItemSkillBase.PassiveEffect;
 import inwaiders.redn.rpg.utils.skillitem.ISkillContainerItem;
 
 import java.util.HashMap;
@@ -125,9 +126,14 @@ public class PlayerInfoClient {
 				}
 				case HITWEARER: {
 					skill.preWearerHited(ep, e);
+					break;
 				}
 				case HITTARGET: {
 					skill.preTargetHited(ep, e);
+					break;
+				}
+				default: {
+					break;
 				}
 			}
 		}
@@ -136,10 +142,33 @@ public class PlayerInfoClient {
 	public void updateOnWearerHurtSkills(Entity attacker) {
 		updateItemSkills(attacker, ItemSkillType.HITWEARER);
 	}
-	
+
 	public void updateOnTargetHurtSkills(Entity target) {
 		updateItemSkills(target, ItemSkillType.HITTARGET);
 	}
+	
+	public PassiveEffect getPassiveEffects()
+	{
+		PassiveEffect ret = new PassiveEffect();
+		for (int i = 0; i <= 4; i++) {
+			ItemStack item = ep.getEquipmentInSlot(i);
+			if (item != null && item.getItem() instanceof ISkillContainerItem) {
+				ISkillContainerItem container = (ISkillContainerItem) item.getItem();
+				ItemSkillBase skill = container.getSkill(item);
+				if (skill.getType() == ItemSkillType.PASSIVE)
+				{
+					PassiveEffect e = skill.getPassiveEffect(ep);
+					ret.casttimedecrease += e.casttimedecrease;
+					ret.cddecrease += e.cddecrease;
+					ret.intevaldecrease += e.intevaldecrease;
+					ret.manadecrease += e.manadecrease;
+					ret.radiusincrease += e.radiusincrease;
+				}
+			}
+		}
+		return ret;
+	}
+	
 
 	public void sync() {
 

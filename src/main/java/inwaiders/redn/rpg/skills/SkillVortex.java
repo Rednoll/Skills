@@ -34,7 +34,7 @@ public class SkillVortex extends BaseSkill {
 				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.2F, 0.153F, 0.82F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0D, 10D, 0D), ep, 20);
 			}
 		}
-		EasySkillCreator.applyAOEEffect(ep, getRadiusByLevel(getLevel()), Target.TARGET_ANOTHER, (caster, target) -> {
+		EasySkillCreator.applyAOEEffect(ep, getRadius(ep), Target.TARGET_ANOTHER, (caster, target) -> {
 			Vec3 rev = VectorUtils.negate(Vec3.createVectorHelper(target.posX - caster.posX, target.posY - caster.posY, target.posZ - caster.posZ).normalize());
 			target.motionX += rev.xCoord * (0.5 * getLevel());
 			target.motionY += rev.yCoord * (0.5 * getLevel());

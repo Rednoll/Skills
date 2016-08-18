@@ -24,7 +24,7 @@ public class SkillSwap extends BaseSkill {
 	@Override
 	public void skillStart(EntityPlayer ep) {
 
-		MovingObjectPosition object = MiscUtils.getPlayerTarget(ep, getRadiusByLevel(getLevel()), 0);
+		MovingObjectPosition object = MiscUtils.getPlayerTarget(ep, getRadius(ep), 0);
 
 
 		if (object == null || object.typeOfHit == MovingObjectType.BLOCK || object.typeOfHit == MovingObjectType.MISS) return;

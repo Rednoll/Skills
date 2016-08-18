@@ -54,26 +54,26 @@ public class SkillEarthquake extends BaseSkill
 				PacketDispatcher.sendToAllAround(new ParticlePacket("blockcrack_" + Block.getIdFromBlock(ep.worldObj.getBlock((int) ep.posX, (int) ep.posY - 1, (int) ep.posZ)) + "_0", ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, (r.nextDouble() - 0.5) * 10, 3, (r.nextDouble() - 0.5) * 10), ep, 20);
 			}
 		}
-		EasySkillCreator.applyAOEEffect(ep, getRadiusByLevel(getLevel()), target, (caster, target) ->{
-			EasySkillCreator.attack(caster, target, getDamageByLevel(getLevel()));
-			target.motionY += getDamageByLevel(getLevel()) / 8F;
+		EasySkillCreator.applyAOEEffect(ep, getRadius(ep), target, (caster, target) ->{
+			EasySkillCreator.attack(caster, target, getDamage(ep));
+			target.motionY += getDamage(ep) / 8F;
 			
 			switch(Core.r.nextInt(4)){
 				
 				case 0 :
-					target.motionX += getDamageByLevel(getLevel()) / 8F;
+					target.motionX += getDamage(ep) / 8F;
 				break;
 				
 				case 1 :
-					target.motionX -= getDamageByLevel(getLevel()) / 8F;
+					target.motionX -= getDamage(ep) / 8F;
 				break;
 				
 				case 2 :
-					target.motionZ += getDamageByLevel(getLevel()) / 8F;
+					target.motionZ += getDamage(ep) / 8F;
 				break;
 				
 				case 3 :
-					target.motionZ -= getDamageByLevel(getLevel()) / 8F;
+					target.motionZ -= getDamage(ep) / 8F;
 				break;
 			}
 			

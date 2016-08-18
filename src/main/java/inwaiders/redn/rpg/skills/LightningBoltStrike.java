@@ -35,7 +35,7 @@ public class LightningBoltStrike extends BaseSkill{
 	@Override
 	public void skillStart(EntityPlayer ep){
 		
-		MovingObjectPosition object = MiscUtils.getPlayerTarget(ep, getRadiusByLevel(getLevel()), 0);
+		MovingObjectPosition object = MiscUtils.getPlayerTarget(ep, getRadius(ep), 0);
 		
 		if(object == null) return;
 		
