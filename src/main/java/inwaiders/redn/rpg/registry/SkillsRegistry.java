@@ -64,6 +64,10 @@ public class SkillsRegistry {
 
 	public static boolean learnSkill(PlayerInfoServer p, int id) {
 		BaseSkill s = p.getSkillById(id);
+		if(s == null)
+		{
+			s = getSkillById(id);
+		}
 		if (p.canLearn(s) == 0) {
 			p.learnSkill(id);
 			p.learn(s);

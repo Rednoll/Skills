@@ -7,6 +7,7 @@ import inwaiders.redn.rpg.packet.LearnSkillPackect;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
+import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.storage.client.PlayerInfoClient;
 
 import java.awt.Color;
@@ -30,7 +31,11 @@ public class LearnGui extends GuiScreen {
 	public void drawScreen(int mouseX, int mouseY, float ticks) {
 		PlayerInfoClient info = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 		BaseSkill skill = info.getSkillById(id);
-		int price = skill.getPrice().getPrice();
+		if(skill == null)
+		{
+			skill = SkillsRegistry.getSkillById(id);
+		}
+		LearnPointsPrice price = skill.getPrice();
 		drawDefaultBackground();
 		ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		int k = width / 2;
@@ -42,10 +47,10 @@ public class LearnGui extends GuiScreen {
 		drawTexturedModalRect(guiX, guiZ, 0, 0, guiWidth / 4, guiHeight / 4);
 		super.drawScreen(mouseX, mouseY, ticks);
 		drawCenteredStringNS("Learn points: " + info.getLearnPoints(), 0, -85, new Color(100, 100, 100));
-		drawCenteredStringNS("Skill cost: " + price, 0, -75, info.canLearn(skill) == 0 ? new Color(50, 255, 50) : new Color(255, 100, 100));
+		drawCenteredStringNS("Skill cost: " + price.getPrice(), 0, -75, info.canLearn(skill) == 0 ? new Color(50, 255, 50) : new Color(255, 100, 100));
 		if (alert != null && !alert.equals(""))
 			drawCenteredStringNS(alert, 0, -105, alertC);
-		fontRendererObj.drawSplitString(skill.getPrice().getDescription(), k - 60, l + 10, 120, new Color(100, 100, 100).getRGB());
+		fontRendererObj.drawSplitString(price.getDescription(), k - 60, l + 10, 120, new Color(100, 100, 100).getRGB());
 	}
 
 	private void drawCenteredStringNS(String s, int x, int y, Color c) {
@@ -57,6 +62,10 @@ public class LearnGui extends GuiScreen {
 		if (b.id == 0) {
 			PlayerInfoClient l = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 			BaseSkill skill = l.getSkillById(id);
+			if(skill == null)
+			{
+				skill = SkillsRegistry.getSkillById(id);
+			}
 			switch(l.canLearn(skill))
 			{
 				case(0):
