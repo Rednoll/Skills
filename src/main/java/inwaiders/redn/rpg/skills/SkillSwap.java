@@ -26,9 +26,14 @@ public class SkillSwap extends BaseSkill {
 
 		MovingObjectPosition object = MiscUtils.getPlayerTarget(ep, getRadiusByLevel(getLevel()), 0);
 
-		if (object == null || object.typeOfHit == MovingObjectType.BLOCK || object.typeOfHit == MovingObjectType.MISS) {
-			return;
 
+		if (object == null || object.typeOfHit == MovingObjectType.BLOCK || object.typeOfHit == MovingObjectType.MISS) return;
+
+		System.out.println(object);
+		
+		if (object == null || object.typeOfHit != MovingObjectType.ENTITY) {
+
+			return;
 		}
 		
 		if (object.entityHit instanceof EntityLivingBase) {
