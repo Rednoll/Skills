@@ -140,7 +140,7 @@ public class PlayerInfoClient {
 	}
 
 	public boolean canLearn(int price) {
-		return this.getLearnPoints() - price >= 0 ? true : false;
+		return getLearnPoints() >= price;
 	}
 
 	public void learn(int price) {

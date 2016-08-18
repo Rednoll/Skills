@@ -28,58 +28,33 @@ public class LearnGui extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float ticks) {
-		PlayerInfoClient l = PlayerInfoManagerClient.instance.get(mc.thePlayer);
+		BaseSkill skill = SkillsRegistry.getSkillById(id);
+		PlayerInfoClient info = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 		drawDefaultBackground();
 		ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+		int k = width / 2;
+		int l = height / 2;
 		int guiWidth = 760, guiHeight = 980;
 		int guiX = (sr.getScaledWidth() - guiWidth / 4) / 2;
 		int guiZ = (sr.getScaledHeight() - guiHeight / 4) / 2;
 		mc.renderEngine.bindTexture(Core.guirlgen.generate("LearnBG"));
 		drawTexturedModalRect(guiX, guiZ, 0, 0, guiWidth / 4, guiHeight / 4);
 		super.drawScreen(mouseX, mouseY, ticks);
-		drawCenteredStringNS("Learn points: " + l.getLearnPoints(), 40, -85, new Color(100, 100, 100));
+		drawCenteredStringNS("Learn points: " + info.getLearnPoints(), 0, -85, new Color(100, 100, 100));
+		drawCenteredStringNS("Skill cost: " + skill.getPrice().getPrice(), 0, -75, new Color(100, 100, 100));
 		if (alert != null && !alert.equals(""))
-			drawCenteredStringNS(alert, -30, -105, alertC);
-		List<String> desc = getSd(SkillsRegistry.getSkillById(id));
+			drawCenteredStringNS(alert, 0, -105, alertC);
+		fontRendererObj.drawSplitString(skill.getPrice().getDescription(), k - 60, l + 10, 120, new Color(100, 100, 100).getRGB());
+		/*List<String> desc = getSd(SkillsRegistry.getSkillById(id));
 		for (int i = 0; i < desc.size(); i++)
-			fontRendererObj.drawString(desc.get(i), width / 2 - 60, height / 2 + (10 * (i + 1)) - 20, new Color(100, 100, 100).getRGB());
+			fontRendererObj.drawString(desc.get(i), width / 2 - 60, height / 2 + (10 * (i + 1)) - 20, new Color(100, 100, 100).getRGB());*/
 		// GL11.glScaled(0.27, 0.27, 0.27);
 		// TableHarrington.renderSuperFont(width / 2 + 310, height / 2,
 		// "Learn point: " + l.getLearnPoints(), this);
 	}
 
 	private void drawCenteredStringNS(String s, int x, int y, Color c) {
-		fontRendererObj.drawString(s, width / 2 + x - 150 + fontRendererObj.getStringWidth(s), height / 2 + y, c.getRGB());
-	}
-
-	public List<String> getSd(BaseSkill c) {
-
-		String arrWords[] = c.getPrice().getDescription().split(" ");
-		List<String> arrPhrases = new ArrayList<String>();
-
-		StringBuilder stringBuffer = new StringBuilder();
-		int cnt = 0;
-		int index = 0;
-		int length = arrWords.length;
-
-		while (index != length) {
-			if (cnt + arrWords[index].length() <= 20) {
-				cnt += arrWords[index].length() + 1;
-				stringBuffer.append(arrWords[index]).append(" ");
-				index++;
-			} else {
-				arrPhrases.add(stringBuffer.toString());
-				stringBuffer = new StringBuilder();
-				cnt = 0;
-			}
-
-		}
-
-		if (stringBuffer.length() > 0) {
-			arrPhrases.add(stringBuffer.toString());
-		}
-
-		return arrPhrases;
+		fontRendererObj.drawString(s, width / 2 + x - fontRendererObj.getStringWidth(s) / 2 , height / 2 + y, c.getRGB());
 	}
 
 	@Override
@@ -88,8 +63,8 @@ public class LearnGui extends GuiScreen {
 			BaseSkill skill = SkillsRegistry.getSkillById(id);
 			PlayerInfoClient l = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 			if (l.getSkillById(id).getLevel() < skill.getMaxLvl()) {
-				if (l.getLearnPoints() > skill.getPrice().getPrice()) {
-					alert("                Succes", new Color(50, 255, 50));
+				if (l.canLearn(skill.getPrice().getPrice())) {
+					alert("Succes", new Color(50, 255, 50));
 					PacketDispatcher.sendToServer(new LearnSkillPackect(id));
 				} else {
 					alert("Not enough learn points", new Color(255, 50, 50));
@@ -97,7 +72,7 @@ public class LearnGui extends GuiScreen {
 			}
 			else
 			{
-				alert("     Max level reached", new Color(255, 50, 50));
+				alert("Max level reached", new Color(255, 50, 50));
 			}
 		}
 	}
@@ -109,7 +84,7 @@ public class LearnGui extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		buttonList.add(new SkillButton(0, width / 2 - 32, height / 2 - 75, SkillsRegistry.getSkillById(id)));
+		buttonList.add(new SkillButton(0, width / 2 - 32, height / 2 - 60, SkillsRegistry.getSkillById(id)));
 	}
 
 	@Override
