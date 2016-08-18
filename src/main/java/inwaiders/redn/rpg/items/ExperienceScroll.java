@@ -29,7 +29,9 @@ public class ExperienceScroll extends ItemBase {
 	public ItemStack onItemRightClick(ItemStack stack, World w, EntityPlayer p) {
 		if(!w.isRemote)
 		{
-			PlayerInfoManagerServer.instance.get(p).addXp(100 * stack.getItemDamage());
+			PlayerInfoManagerServer.instance.get(p).addXp(100 * (stack.getItemDamage() + 1));
+			System.out.println("Added, current xp " + PlayerInfoManagerServer.instance.get(p).getXp());
+			
 		}
 		return stack;
 	}
