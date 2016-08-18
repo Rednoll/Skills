@@ -139,13 +139,16 @@ public class PlayerInfoClient {
 		return this.lpoints;
 	}
 
-	public boolean canLearn(int price) {
-		return getLearnPoints() >= price;
+	/**
+	 * @return 0 if can learn, 1 if max lvl reached, 2 id not enough points
+	 */
+	public int canLearn(BaseSkill skill) {
+		return getLearnPoints() >= skill.getPrice().getPrice() ? skill.getLevel() < skill.getMaxLvl() ? 0 : 1 : 2;
 	}
 
-	public void learn(int price) {
-		if (canLearn(price))
-			this.setLearnPoints(this.getLearnPoints() - price);
+	public void learn(BaseSkill skill) {
+		if (canLearn(skill) == 0)
+			this.setLearnPoints(this.getLearnPoints() - skill.getPrice().getPrice());
 	}
 
 	public int getXp() {
