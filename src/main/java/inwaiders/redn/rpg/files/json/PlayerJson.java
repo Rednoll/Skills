@@ -31,6 +31,9 @@ public class PlayerJson
 	public static final String HOTBAR = "hotbar";//Object
 	public static final String BANK = "bank";//Object
 	public static final String TEAM = "team";//String
+	public static final String LEARNPOINTS = "learnpts";//Int
+	public static final String XP = "XP";//Int
+	public static final String XPNEXT = "XPNEXT";//Int
 	//Hotbar
 	public static final String SKILLS = "skills";//Array
 	//Bank
@@ -169,6 +172,35 @@ public class PlayerJson
 	public String getTeam()
 	{
 		return json.get(TEAM).getAsString();
+	}
+	
+	//Learn
+	public void setLearnPoints(int points)
+	{
+		json.addProperty(LEARNPOINTS, points);
+	}
+	
+	public int getLearnPoints() {
+		return json.get(LEARNPOINTS).getAsInt();
+	}
+	
+	public void setXP(int xp)
+	{
+		json.addProperty(XP, xp);
+	}
+	
+	public int getXP() {
+		return json.get(XP).getAsInt();
+	}
+	
+	public void setXPForNextLevel(int xp)
+	{
+		json.addProperty(XPNEXT, xp);
+	}
+	
+	public int getXPForNextLevel()
+	{
+		return json.get(XPNEXT).getAsInt();
 	}
 	
 }
