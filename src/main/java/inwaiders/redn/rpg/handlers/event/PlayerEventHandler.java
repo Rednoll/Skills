@@ -8,9 +8,10 @@ import inwaiders.redn.rpg.storage.client.PlayerInfoClient;
 import inwaiders.redn.rpg.storage.server.PlayerInfoServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public class PlayerUpdate
+public class PlayerEventHandler
 {
 
 	@SubscribeEvent
@@ -35,6 +36,22 @@ public class PlayerUpdate
 				TeamManagerClient.instance.get(playerInfo.getTeam()).update(ep);
 
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onHit(LivingHurtEvent e)
+	{
+		if (e.entityLiving instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) e.entityLiving;
+			PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
+			info.updateOnWearerHurtSkills(e.source.getEntity());
+		}
+		else if (e.source.getEntity() instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) e.source.getEntity();
+			PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
+			info.updateOnTargetHurtSkills(e.entity);
 		}
 	}
 

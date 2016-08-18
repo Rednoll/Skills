@@ -1,9 +1,11 @@
 package inwaiders.redn.rpg.skills.armor;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import javax.annotation.Nullable;
+
 import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.utils.Targeting.Target;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class ItemSkillBase {
 
@@ -11,10 +13,13 @@ public abstract class ItemSkillBase {
 		TICK, HITWEARER, /* Armor */
 		HITTARGET, /* Sword */
 	}
+
 	protected int level = 1;
+	protected int cd;
 	protected ItemSkillType type;
 	protected int[] damage;
 	protected int[] radius;
+	protected int[] maxCd;
 	protected int interval = 0;
 	protected int maxInterval = 0;
 	protected Target target;
@@ -25,8 +30,9 @@ public abstract class ItemSkillBase {
 		MAX_SKILL_LVL = maxLvl;
 		damage = new int[MAX_SKILL_LVL];
 		radius = new int[MAX_SKILL_LVL];
+		maxCd = new int[MAX_SKILL_LVL];
 	}
-	
+
 	public ItemSkillBase() {
 		this(Constants.DEFAUL_MAX_SKILL_LVL);
 	}
@@ -64,19 +70,40 @@ public abstract class ItemSkillBase {
 	public ItemSkillType getType() {
 		return type;
 	}
+	
+	public int getCd() {
+		return cd;
+	}
+	
+	public void decrCd()
+	{
+		cd--;
+	}
 
 	public void preWhileUpdate(EntityPlayer ep) {
 
-		if (interval >= getMaxInterval()) {
+		if (type == ItemSkillType.TICK) {
+			if (interval >= getMaxInterval()) {
 
-			interval = 0;
-			whileUpdate(ep);
+				interval = 0;
+				perform(ep, null);
+			}
+
+			interval++;
 		}
-
-		interval++;
+	}
+	
+	public void preWearerHited(EntityPlayer ep, @Nullable Entity by)
+	{
+		
+	}
+	
+	public void preTargetHited(EntityPlayer ep, @Nullable Entity target)
+	{
+		
 	}
 
-	public void whileUpdate(EntityPlayer ep) {
+	public void perform(EntityPlayer ep, @Nullable Entity e) {
 
 	}
 
