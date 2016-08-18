@@ -12,16 +12,26 @@ import net.minecraft.util.ResourceLocation;
 
 public class SkillSwap extends BaseSkill {
 
+	public SkillSwap(){
+		setRadiusByLevel(1, 10);
+		setRadiusByLevel(2, 15);
+		setRadiusByLevel(3, 20);
+		setRadiusByLevel(4, 25);
+		setRadiusByLevel(4, 30);
+	}
+	
 	@Override
 	public void skillStart(EntityPlayer ep) {
 
 		MovingObjectPosition object = MiscUtils.getPlayerTarget(ep, getRadiusByLevel(getLevel()), 0);
 
+		System.out.println(object);
+		
 		if (object == null || object.typeOfHit == MovingObjectType.BLOCK || object.typeOfHit == MovingObjectType.MISS) {
 			return;
 
 		}
-
+		
 		if (object.entityHit instanceof EntityLivingBase) {
 
 			EntityLivingBase e = (EntityLivingBase) object.entityHit;
