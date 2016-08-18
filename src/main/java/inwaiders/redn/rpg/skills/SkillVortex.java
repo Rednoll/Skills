@@ -4,8 +4,11 @@ import java.util.Random;
 
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
+import inwaiders.redn.rpg.packet.ParticlePacket;
+import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.Targeting.Target;
+import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -19,10 +22,13 @@ public class SkillVortex extends BaseSkill {
 
 	@Override
 	public void skillStart(EntityPlayer ep) {
-		Random r = ep.worldObj.rand;
-		for(int i = 0; i < 50; i++)
+		if(!ep.worldObj.isRemote)
 		{
-			ep.worldObj.spawnParticle("witchMagic", ep.posX + r.nextDouble() - 0.5, ep.posY - 1.9/* + Math.max(Core.r.nextDouble(), 0.5)*/, ep.posZ + r.nextDouble() - 0.5, 0, 3, 0);
+			Random r = ep.worldObj.rand;
+			for(int i = 0; i < 200; i++)
+			{
+				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.2F, 0.153F, 0.82F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0D, 10D, 0D), ep, 20);
+			}
 		}
 		EasySkillCreator.applyAOEEffect(ep, getRadiusByLevel(getLevel()), Target.TARGET_ANOTHER, (caster, target) -> {
 			double x = target.posX < caster.posX ? 0.75 * getLevel() : target.posX > caster.posX ? -0.75 * getLevel() : 0;
