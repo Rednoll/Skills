@@ -1,5 +1,7 @@
 package inwaiders.redn.rpg.skills;
 
+import java.util.Random;
+
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
@@ -17,6 +19,11 @@ public class SkillVortex extends BaseSkill {
 
 	@Override
 	public void skillStart(EntityPlayer ep) {
+		Random r = ep.worldObj.rand;
+		for(int i = 0; i < 50; i++)
+		{
+			ep.worldObj.spawnParticle("witchMagic", ep.posX + r.nextDouble() - 0.5, ep.posY - 1.9/* + Math.max(Core.r.nextDouble(), 0.5)*/, ep.posZ + r.nextDouble() - 0.5, 0, 3, 0);
+		}
 		EasySkillCreator.applyAOEEffect(ep, getRadiusByLevel(getLevel()), Target.TARGET_ANOTHER, (caster, target) -> {
 			double x = target.posX < caster.posX ? 0.75 * getLevel() : target.posX > caster.posX ? -0.75 * getLevel() : 0;
 			double y = target.posY < caster.posY ? 0.75 * getLevel() : target.posZ > caster.posY ? -0.75 * getLevel() : 0;
@@ -24,7 +31,6 @@ public class SkillVortex extends BaseSkill {
 			target.motionX += x;
 			target.motionY += y;
 			target.motionZ += z;
-			caster.worldObj.spawnParticle("portal", target.posX, target.posY, target.posZ, x, y, z);
 		});
 	}
 
