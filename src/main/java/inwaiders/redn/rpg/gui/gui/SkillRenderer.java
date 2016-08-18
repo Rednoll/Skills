@@ -1,5 +1,8 @@
 package inwaiders.redn.rpg.gui.gui;
 
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.managers.client.PlayerInfoManagerClient;
 import inwaiders.redn.rpg.skills.BaseSkill;
@@ -10,10 +13,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class SkillRenderer extends Gui {
 	
@@ -26,7 +25,7 @@ public class SkillRenderer extends Gui {
         this.mc = mc;
     }
 
-    @SubscribeEvent
+    @SubscribeEvent()
     public void onHUDRender(RenderGameOverlayEvent event) {
     	
     	if(event.type == ElementType.HOTBAR){
@@ -73,16 +72,22 @@ public class SkillRenderer extends Gui {
     }
     
     public void renderSkill(int pos, int xPos, int yPos){
-    	PlayerInfoClient b = PlayerInfoManagerClient.instance.get(mc.thePlayer);
     	
-    	int id = b.getSkillIdByPos(pos);
-    	BaseSkill skill = b.getSkillById(id);
-    	if(skill != null){
-    		this.mc.getTextureManager().bindTexture(b.getSkillById(id).getTexture());	
+    	PlayerInfoClient se = PlayerInfoManagerClient.instance.get(mc.thePlayer);
+    	
+    	BaseSkill b = se.getSkillById(se.getSkillIdByPos(pos));
+    	
+    	if(b == null) return;
+    	
+    	ResourceLocation skilltexture = b.getTexture();
+    	
+    	if(skilltexture != null){
+    		this.mc.getTextureManager().bindTexture(skilltexture);	
     		GL11.glPushMatrix();
+    		GL11.glScalef(0.25F, 0.25F, 0.25F);
+    		mc.ingameGUI.drawTexturedModalRect(xPos, yPos, 0, 0, 64, 64);
     		GL11.glScalef(0.5F, 0.5F, 0.5F);
-    		mc.ingameGUI.drawTexturedModalRect(xPos*2, yPos*2, 0, 0, 32, 32);
-    		int cd = skill.getCoolDown();
+    		int cd = b.getCoolDown();
     		if(cd != 0)		
     			mc.fontRenderer.drawString(""+(cd/20), xPos*2 + 14 - mc.fontRenderer.getStringWidth(""+(cd/20))/2/2, yPos*2 +12 ,0xFFFFFF);
     		this.mc.getTextureManager().bindTexture(new ResourceLocation("minecraft:textures/gui/icons.png"));

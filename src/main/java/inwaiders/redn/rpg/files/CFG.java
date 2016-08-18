@@ -10,6 +10,8 @@ public class CFG
 	public static int EarthquakeID;
 	public static int LightBoltStrikeID;
 	public static int VoretexID;
+	public static int SwapID;
+	
 	public static void init(Configuration cfg)
 	{
 		CFG.cfg = cfg;
@@ -19,6 +21,7 @@ public class CFG
 		EarthquakeID = getSkillId("Earthquake", 3);
 		LightBoltStrikeID = getSkillId("LightBoltStrike", 4);
 		VoretexID = getSkillId("Vortex", 5);
+		SwapID = getSkillId("Swap", 6);
 		cfg.save();
 		CFG.cfg = null;
 	}

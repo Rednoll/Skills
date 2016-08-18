@@ -1,22 +1,20 @@
 package inwaiders.redn.rpg.registry;
 
+import java.util.HashMap;
+
+import cpw.mods.fml.common.FMLLog;
 import inwaiders.redn.rpg.managers.server.PlayerInfoManagerServer;
 import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.skills.LightningBoltStrike;
 import inwaiders.redn.rpg.skills.ReleaseOfPrana;
 import inwaiders.redn.rpg.skills.SkillBackJump;
 import inwaiders.redn.rpg.skills.SkillEarthquake;
+import inwaiders.redn.rpg.skills.SkillSwap;
 import inwaiders.redn.rpg.skills.SkillVortex;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.storage.server.PlayerInfoServer;
 import inwaiders.redn.rpg.utils.MiscUtils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.common.FMLLog;
 
 public class SkillsRegistry {
 
@@ -63,6 +61,7 @@ public class SkillsRegistry {
 		registerSkill(new SkillEarthquake());
 		registerSkill(new LightningBoltStrike());
 		registerSkill(new SkillVortex());
+		registerSkill(new SkillSwap());
 	}
 	
 	public static boolean learnSkill(PlayerInfoServer p, int id)
