@@ -47,16 +47,22 @@ public class ReleaseOfPrana extends BaseSkill {
 
 	@Override
 	public void skillStart(EntityPlayer ep) {
-		if(!ep.worldObj.isRemote)
-		{
+		if (!ep.worldObj.isRemote) {
 			Random r = ep.worldObj.rand;
-			for(int i = 0; i < 500; i++)
-			{
+			for (int i = 0; i < 500; i++) {
 				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.93F, 0.15F, 0F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, (r.nextDouble() - 0.5) * 20, 3, (r.nextDouble() - 0.5) * 20), ep, 20);
 			}
 		}
 		EasySkillCreator.attackAOE(ep, getRadiusByLevel(getLevel()), getDamageByLevel(getLevel()), getTarget());
 
+	}
+
+	@Override
+	public void castUpdate(EntityPlayer ep) {
+		if (!ep.worldObj.isRemote) {
+			Random r = ep.worldObj.rand;
+				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.93F, 0.15F, 0F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0, 5, 0), ep, 20);
+		}
 	}
 
 	@Override
