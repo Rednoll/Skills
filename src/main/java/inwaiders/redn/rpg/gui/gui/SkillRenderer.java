@@ -83,7 +83,6 @@ public class SkillRenderer extends Gui {
 			mc.ingameGUI.drawTexturedModalRect(xPos*4, yPos*4, 0, 0, 64, 64);
 			GL11.glScalef(2F, 2F, 2F);
 			int cd = b.getCoolDown();
-			System.out.println(cd);
 			if (cd != 0)
 				mc.fontRenderer.drawString("" + (cd / 20), xPos * 2 + 14 - mc.fontRenderer.getStringWidth("" + (cd / 20)) / 2 / 2, yPos * 2 + 12, 0xFFFFFF);
 			this.mc.getTextureManager().bindTexture(new ResourceLocation("minecraft:textures/gui/icons.png"));
