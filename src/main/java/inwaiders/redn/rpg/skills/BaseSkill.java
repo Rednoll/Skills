@@ -50,6 +50,7 @@ public abstract class BaseSkill {
 				
 				setCast(0);
 				casting = false;
+				if(!ep.capabilities.isCreativeMode)
 				setCoolDown(getMaxCoolDownByLevel(getLevel()));
 				skillStart(ep);
 			}

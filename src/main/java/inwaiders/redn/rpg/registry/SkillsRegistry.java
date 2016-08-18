@@ -6,6 +6,7 @@ import inwaiders.redn.rpg.skills.LightningBoltStrike;
 import inwaiders.redn.rpg.skills.ReleaseOfPrana;
 import inwaiders.redn.rpg.skills.SkillBackJump;
 import inwaiders.redn.rpg.skills.SkillEarthquake;
+import inwaiders.redn.rpg.skills.SkillVortex;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.storage.server.PlayerInfoServer;
 import inwaiders.redn.rpg.utils.MiscUtils;
@@ -61,6 +62,7 @@ public class SkillsRegistry {
 		registerSkill(new ReleaseOfPrana());
 		registerSkill(new SkillEarthquake());
 		registerSkill(new LightningBoltStrike());
+		registerSkill(new SkillVortex());
 	}
 	
 	public static boolean learnSkill(PlayerInfoServer p, int id)
