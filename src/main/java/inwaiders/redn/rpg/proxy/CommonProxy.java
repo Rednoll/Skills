@@ -7,6 +7,7 @@ import inwaiders.redn.rpg.files.SaveAndLoadPlayer;
 import inwaiders.redn.rpg.gui.GuiHandler;
 import inwaiders.redn.rpg.handlers.event.PlayerUpdate;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
+import inwaiders.redn.rpg.registry.BlockRegistry;
 import inwaiders.redn.rpg.registry.ItemRegistry;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +23,7 @@ public class CommonProxy {
 	{
 		CFG.init(new Configuration(e.getSuggestedConfigurationFile()));
 		ItemRegistry.init();
+		BlockRegistry.init();
 	}
 	
 	public void init(FMLInitializationEvent e)

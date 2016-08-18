@@ -27,9 +27,8 @@ public class SkillSwap extends BaseSkill {
 
 		System.out.println(object);
 		
-		if (object == null || object.typeOfHit == MovingObjectType.BLOCK || object.typeOfHit == MovingObjectType.MISS) {
+		if (object == null || object.typeOfHit != MovingObjectType.ENTITY) {
 			return;
-
 		}
 		
 		if (object.entityHit instanceof EntityLivingBase) {
