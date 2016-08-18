@@ -3,7 +3,7 @@ package inwaiders.redn.rpg.proxy;
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.files.SaveAndLoadTeam;
-import inwaiders.redn.rpg.files.SavePlayer;
+import inwaiders.redn.rpg.files.SaveAndLoadPlayer;
 import inwaiders.redn.rpg.gui.GuiHandler;
 import inwaiders.redn.rpg.handlers.event.PlayerUpdate;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
@@ -28,7 +28,7 @@ public class CommonProxy {
 	{
 		PacketDispatcher.registerPackets();
 		MinecraftForge.EVENT_BUS.register(new PlayerUpdate());
-		MinecraftForge.EVENT_BUS.register(new SavePlayer());
+		MinecraftForge.EVENT_BUS.register(new SaveAndLoadPlayer());
 		MinecraftForge.EVENT_BUS.register(new SaveAndLoadTeam());
 		NetworkRegistry.INSTANCE.registerGuiHandler(Core.instance, new GuiHandler());
 		SkillsRegistry.init();

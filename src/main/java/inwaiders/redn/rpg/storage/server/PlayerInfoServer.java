@@ -1,6 +1,6 @@
 package inwaiders.redn.rpg.storage.server;
 
-import inwaiders.redn.rpg.files.SavePlayer;
+import inwaiders.redn.rpg.files.SaveAndLoadPlayer;
 import inwaiders.redn.rpg.packet.sync.PlayerInfoSync;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.storage.client.PlayerInfoClient;
@@ -39,7 +39,7 @@ public class PlayerInfoServer extends PlayerInfoClient {
 	{
 		if (!loaded)
 		{
-			SavePlayer.load(ep);
+			SaveAndLoadPlayer.load(ep);
 			loaded = true;
 		}
 	}

@@ -10,7 +10,10 @@ import inwaiders.redn.rpg.storage.server.PlayerInfoServer;
 import io.netty.buffer.ByteBuf;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,16 +28,12 @@ public class PlayerInfoSync implements IMessage {
 	public PlayerInfoSync() {
 
 	}
-
+	private int i = 0;
 	public PlayerInfoSync(EntityPlayer ep) {
 		nbt = new NBTTagCompound();
-
 		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(ep);
-		List<BaseSkill> skills = b.getSkills();
-		for (int i = 0; i < skills.size(); i++) {
-			BaseSkill skill = skills.get(i);
-			nbt.setIntArray("Bank" + i, new int[] { skill.getId(), skill.getLevel(), skill.getCoolDown() });
-		}
+		b.getSkills().forEach((id, skill) -> nbt.setIntArray("Bank" + i++, new int[] { skill.getId(), skill.getLevel(), skill.getCoolDown() }));
+		i = 0;
 		nbt.setIntArray("Hot", b.hotbarSkills);
 		nbt.setString("Team", b.getTeam());
 		nbt.setInteger("LP", b.getLearnPoints());
@@ -61,7 +60,7 @@ public class PlayerInfoSync implements IMessage {
 
 			int iCount = 0;
 			b.hotbarSkills = message.nbt.getIntArray("Hot");
-			List<BaseSkill> skills = new ArrayList<BaseSkill>();
+			HashMap<Integer, BaseSkill> skills = new HashMap<Integer, BaseSkill>();
 			b.setSkills(skills);
 
 			while (message.nbt.hasKey("Bank" + iCount)) {
@@ -70,7 +69,7 @@ public class PlayerInfoSync implements IMessage {
 				s = SkillsRegistry.getSkillById(skill[0]);
 				s.setLevel(skill[1]);
 				s.setCoolDown(skill[2]);
-				skills.add(s);
+				skills.put(s.getId(), s);
 
 			}
 			b.setTeam(message.nbt.getString("Team"));

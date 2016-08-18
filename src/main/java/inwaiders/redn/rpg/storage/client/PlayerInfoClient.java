@@ -5,6 +5,8 @@ import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
@@ -16,12 +18,14 @@ import net.minecraft.util.ResourceLocation;
 
 public class PlayerInfoClient
 {
-	protected List<BaseSkill> bankSkills = new ArrayList();
+	protected HashMap<Integer, BaseSkill> bankSkills = new HashMap<Integer, BaseSkill>();
 	protected EntityPlayer ep;
 	protected String playername;
 	protected String team = "ANY";
 	public int[] hotbarSkills;
 	protected int lpoints = 0;
+	protected int xp = 0;
+	protected int nextXp = 1;
 	public PlayerInfoClient(EntityPlayer ep)
 	{
 		this.ep = ep;
@@ -29,15 +33,15 @@ public class PlayerInfoClient
 		hotbarSkills = new int[6];
 	}
 
-	public List<BaseSkill> getSkills() {
+	public HashMap<Integer, BaseSkill> getSkills() {
 		return bankSkills;
 	}
 	
-	public void setSkills(List<BaseSkill> skills) {
+	public void setSkills(HashMap<Integer, BaseSkill> skills) {
 		this.bankSkills = skills;
 	}
 
-	public void updateCoolDown()
+	protected void updateCoolDown()
 	{
 		for (int i = 0; i < bankSkills.size(); i++)
 		{
@@ -47,7 +51,7 @@ public class PlayerInfoClient
 		}
 	}
 
-	public void updateWhilesSkills()
+	protected void updateWhilesSkills()
 	{
 		for (int i = 0; i < bankSkills.size(); i++)
 		{
@@ -57,7 +61,7 @@ public class PlayerInfoClient
 		}
 	}
 
-	public void updateCastSkills()
+	protected void updateCastSkills()
 	{
 		for (int i = 0; i < bankSkills.size(); i++)
 		{
@@ -94,14 +98,39 @@ public class PlayerInfoClient
 	
 	public void learnSkill(int id)
 	{
-		this.bankSkills.add(SkillsRegistry.getSkillById(id));
+		
+		if(!bankSkills.containsKey(id))
+		{
+			this.bankSkills.put(id, SkillsRegistry.getSkillById(id));
+		}
+		else
+		{
+			BaseSkill skill = this.bankSkills.get(id);
+			skill.setLevel(skill.getLevel() + 1);
+		}
 	}
 
-	public void resetPlayer()
+	protected void resetPlayer()
 	{
 		if(ep == null)
 		{
 			ep = Minecraft.getMinecraft().thePlayer;
+		}
+	}
+	
+	protected void updateXp() {
+		if(xp > nextXp)
+		{
+			xp = 0;
+			if(nextXp < Integer.MAX_VALUE / 2)
+			{
+				nextXp *= 2;
+			}
+			else
+			{
+				nextXp = Integer.MAX_VALUE;
+			}
+			lpoints++;
 		}
 	}
 
@@ -116,6 +145,7 @@ public class PlayerInfoClient
 		updateWhilesSkills();
 		updateCastSkills();
 		resetPlayer();
+		updateXp();
 	}
 	
 	public String getTeam(){
@@ -149,6 +179,27 @@ public class PlayerInfoClient
 	public void learn(int price){
 		if(canLearn(price)) 
 			this.setLearnPoints(this.getLearnPoints() - price);
+	}
+	
+	public int getXp() {
+		return xp;
+	}
+	
+	public void setXp(int xp) {
+		this.xp = xp;
+	}
+	
+	public void addXp(int xp)
+	{
+		this.xp += xp;
+	}
+	
+	public void setXpForNextLevel(int nextXp) {
+		this.nextXp = nextXp;
+	}
+	
+	public int getXpForNextLevel() {
+		return nextXp;
 	}
 	
 }
