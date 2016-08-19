@@ -17,7 +17,6 @@ public class DebugItem extends ItemBase
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World w, EntityPlayer p)
 	{
-		p.openGui(Core.instance, GuiHandler.LEARN_ID, w, (int) p.posX, (int) p.posY, (int) p.posZ);
 		return stack;
 	}
 }

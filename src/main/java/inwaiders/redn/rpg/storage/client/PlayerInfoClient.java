@@ -1,11 +1,13 @@
 package inwaiders.redn.rpg.storage.client;
 
 import inwaiders.redn.rpg.Constants;
+import inwaiders.redn.rpg.registry.ItemRegistry;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.skills.item.ItemSkillBase;
 import inwaiders.redn.rpg.skills.item.ItemSkillBase.ItemSkillType;
 import inwaiders.redn.rpg.skills.item.ItemSkillBase.PassiveEffect;
+import inwaiders.redn.rpg.utils.MiscUtils;
 import inwaiders.redn.rpg.utils.skillitem.ISkillContainerItem;
 
 import java.util.HashMap;
@@ -28,7 +30,6 @@ public class PlayerInfoClient {
 	protected int lpoints = 0;
 	protected int xp = 0;
 	protected int level = 0;
-	protected int nextXp = Constants.DEFAUL_NEXT_XP[0];
 
 	public PlayerInfoClient(EntityPlayer ep) {
 		this.ep = ep;
@@ -94,9 +95,12 @@ public class PlayerInfoClient {
 
 	protected void updateXp() {
 		if (xp >= Constants.DEFAUL_NEXT_XP[level+1]) {
-			xp -= nextXp;
+			xp -= Constants.DEFAUL_NEXT_XP[level+1];
 			level++;
 			lpoints++;
+			ItemStack scroll = new ItemStack(ItemRegistry.skillScroll);
+			scroll.getItem().onCreated(scroll, ep.worldObj, ep);
+			MiscUtils.addItemToPlayer(ep, scroll);
 		}
 	}
 
@@ -238,14 +242,6 @@ public class PlayerInfoClient {
 	
 	public void addXp(int xp) {
 		this.xp += xp;
-	}
-
-	public void setXpForNextLevel(int nextXp) {
-		this.nextXp = nextXp;
-	}
-
-	public int getXpForNextLevel() {
-		return nextXp;
 	}
 
 }
