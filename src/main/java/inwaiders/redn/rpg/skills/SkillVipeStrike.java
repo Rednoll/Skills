@@ -29,7 +29,7 @@ public class SkillVipeStrike extends BaseSkill{
 	@Override
 	public void skillStart(EntityPlayer ep) {
 		
-		VipeEntity ve = new VipeEntity(ep.worldObj, ep, 2F, getDamageByLevel(getLevel()), getLevel());
+		VipeEntity ve = new VipeEntity(ep.worldObj, ep, 2F, getDamage(ep), getLevel());
 		ep.worldObj.spawnEntityInWorld(ve);
 	}
 	
