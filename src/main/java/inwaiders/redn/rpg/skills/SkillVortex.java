@@ -37,9 +37,9 @@ public class SkillVortex extends BaseSkill {
 		}
 		EasySkillCreator.applyAOEEffect(ep, getRadius(ep), Target.TARGET_ANOTHER, (caster, target) -> {
 			Vec3 rev = VectorUtils.negate(Vec3.createVectorHelper(target.posX - caster.posX, target.posY - caster.posY, target.posZ - caster.posZ).normalize());
-			target.motionX += rev.xCoord * (0.5 * getLevel() + 1);
-			target.motionY += rev.yCoord * (0.5 * getLevel() + 1);
-			target.motionZ += rev.zCoord * (0.5 * getLevel() + 1);
+			target.motionX += rev.xCoord * (0.5 * (getLevel() + 1));
+			target.motionY += rev.yCoord * (0.5 * (getLevel() + 1));
+			target.motionZ += rev.zCoord * (0.5 * (getLevel() + 1));
 		});
 	}
 
