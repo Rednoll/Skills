@@ -2,6 +2,7 @@ package inwaiders.redn.rpg.packetdispatcher;
 
 
 import inwaiders.redn.rpg.packet.LearnSkillPackect;
+import inwaiders.redn.rpg.packet.LightningPacket;
 import inwaiders.redn.rpg.packet.ParticlePacket;
 import inwaiders.redn.rpg.packet.SkillsStartPacket;
 import inwaiders.redn.rpg.packet.sync.PlayerInfoSync;
@@ -15,7 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 
 public class PacketDispatcher
 {
-	private static byte packetId = 0;
+	private static byte packetId = Byte.MIN_VALUE;
 	
 	private static final SimpleNetworkWrapper dispatcher = NetworkRegistry.INSTANCE.newSimpleChannel("rpg");
 	
@@ -25,6 +26,7 @@ public class PacketDispatcher
 		registerMessage(SkillsStartPacket.Handler.class, SkillsStartPacket.class, Side.SERVER);
 		registerMessage(LearnSkillPackect.Handler.class, LearnSkillPackect.class, Side.SERVER);
 		registerMessage(ParticlePacket.Handler.class, ParticlePacket.class, Side.CLIENT);
+		registerMessage(LightningPacket.Handler.class, LightningPacket.class, Side.CLIENT);
 	}
 
 	private static final void registerMessage(Class handlerClass, Class<? extends IMessage> messageClass, Side side) {
