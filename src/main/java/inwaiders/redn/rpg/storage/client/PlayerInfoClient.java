@@ -27,6 +27,7 @@ public class PlayerInfoClient {
 	public int[] hotbarSkills;
 	protected int lpoints = 0;
 	protected int xp = 0;
+	protected int level = 0;
 	protected int nextXp = Constants.DEFAUL_NEXT_XP[0];
 
 	public PlayerInfoClient(EntityPlayer ep) {
@@ -92,9 +93,9 @@ public class PlayerInfoClient {
 	}
 
 	protected void updateXp() {
-		if (xp >= nextXp) {
+		if (xp >= Constants.DEFAUL_NEXT_XP[level+1]) {
 			xp -= nextXp;
-
+			level++;
 			lpoints++;
 		}
 	}
@@ -222,11 +223,19 @@ public class PlayerInfoClient {
 	public int getXp() {
 		return xp;
 	}
+	
+	public int getLevel() {
+		return level;
+	}
 
 	public void setXp(int xp) {
 		this.xp = xp;
 	}
 
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	
 	public void addXp(int xp) {
 		this.xp += xp;
 	}

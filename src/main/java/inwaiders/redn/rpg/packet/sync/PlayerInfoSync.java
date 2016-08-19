@@ -37,6 +37,8 @@ public class PlayerInfoSync implements IMessage {
 		nbt.setIntArray("Hot", b.hotbarSkills);
 		nbt.setString("Team", b.getTeam());
 		nbt.setInteger("LP", b.getLearnPoints());
+		nbt.setInteger("xp", b.getXp());
+		nbt.setInteger("level", b.getLevel());
 	}
 
 	@Override
@@ -72,6 +74,8 @@ public class PlayerInfoSync implements IMessage {
 				skills.put(s.getId(), s);
 
 			}
+			b.setXp(message.nbt.getInteger("xp"));
+			b.setLevel(message.nbt.getInteger("level"));
 			b.setTeam(message.nbt.getString("Team"));
 			b.setLearnPoints(message.nbt.getInteger("LP"));
 			return null;
