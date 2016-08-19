@@ -59,15 +59,9 @@ public class VipeEntity extends Entity{
         this.setPosition(this.posX, this.posY, this.posZ);
         
 		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(this.posX-0.5F, this.posY-0.5F, this.posZ-0.5F, this.posX+0.5F, this.posY+0.5F, this.posZ+0.5F);
-		List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, aabb);
+		List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(ep, aabb);
 		
 		for(int i = 0;i<list.size();i++){
-			
-			if(list.get(i) instanceof EntityPlayer){
-				EntityPlayer e1 = (EntityPlayer)list.get(i);
-				if(e1.getCommandSenderName().equals(ep.getCommandSenderName()))
-					return;
-			}
 			
 			if(list.get(i) instanceof EntityLivingBase){
 				EntityLivingBase el = (EntityLivingBase)list.get(i);

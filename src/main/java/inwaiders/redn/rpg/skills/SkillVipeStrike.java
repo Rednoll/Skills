@@ -10,7 +10,8 @@ import net.minecraft.util.ResourceLocation;
 public class SkillVipeStrike extends BaseSkill{
 
 	public SkillVipeStrike(){
-		super(4);
+		super(5);
+		init();
 	}
 	
 	public void init(){
@@ -19,7 +20,7 @@ public class SkillVipeStrike extends BaseSkill{
 		setMaxCoolDownByLevel(2, 300);
 		setMaxCoolDownByLevel(3, 500);
 		setMaxCoolDownByLevel(4, 700);
-		
+		 
 		setDamageByLevel(1, 4);
 		setDamageByLevel(2, 6);
 		setDamageByLevel(3, 8);
