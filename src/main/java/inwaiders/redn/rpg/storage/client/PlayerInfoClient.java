@@ -101,20 +101,20 @@ public class PlayerInfoClient {
 		}
 	}
 
-	protected void updateItemSkills(Entity e, ItemSkillType type) {
+	protected void updateItemSkills(Entity e, ItemSkillType type, int damage) {
 		for (int i = 0; i <= 4; i++) {
 			ItemStack item = ep.getEquipmentInSlot(i);
 			if (item != null && item.getItem() instanceof ISkillContainerItem) {
 				ISkillContainerItem container = (ISkillContainerItem) item.getItem();
 				ItemSkillBase skill = container.getSkill(item);
 				if (skill != null && skill.getType() == type)
-					updateItemSkill(container.getSkill(item), e);
+					updateItemSkill(container.getSkill(item), e, damage);
 			}
 		}
 		// TODO Integrate with baubles
 	}
 
-	private void updateItemSkill(ItemSkillBase skill, @Nullable Entity e) {
+	private void updateItemSkill(ItemSkillBase skill, @Nullable Entity e, int damage) {
 		if (skill != null) {
 			if (skill.getCd() > 0) {
 				skill.decrCd();
@@ -125,11 +125,11 @@ public class PlayerInfoClient {
 					break;
 				}
 				case HITWEARER: {
-					skill.preWearerHited(ep, e);
+					skill.preWearerHited(ep, e, damage);
 					break;
 				}
 				case HITTARGET: {
-					skill.preTargetHited(ep, e);
+					skill.preTargetHited(ep, e, damage);
 					break;
 				}
 				default: {
@@ -139,12 +139,12 @@ public class PlayerInfoClient {
 		}
 	}
 
-	public void updateOnWearerHurtSkills(Entity attacker) {
-		updateItemSkills(attacker, ItemSkillType.HITWEARER);
+	public void updateOnWearerHurtSkills(Entity attacker, int damage) {
+		updateItemSkills(attacker, ItemSkillType.HITWEARER, damage);
 	}
 
-	public void updateOnTargetHurtSkills(Entity target) {
-		updateItemSkills(target, ItemSkillType.HITTARGET);
+	public void updateOnTargetHurtSkills(Entity target, int damage) {
+		updateItemSkills(target, ItemSkillType.HITTARGET, damage);
 	}
 	
 	public PassiveEffect getPassiveEffects()
@@ -179,7 +179,7 @@ public class PlayerInfoClient {
 		updateCoolDown();
 		updateWhilesSkills();
 		updateCastSkills();
-		updateItemSkills(null, ItemSkillType.TICK);
+		updateItemSkills(null, ItemSkillType.TICK, 0);
 		resetPlayer();
 		updateXp();
 	}

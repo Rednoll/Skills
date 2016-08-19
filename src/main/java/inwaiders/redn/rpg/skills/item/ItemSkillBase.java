@@ -110,30 +110,30 @@ public abstract class ItemSkillBase {
 			if (interval >= getMaxInterval()) {
 
 				interval = 0;
-				perform(ep, null);
+				perform(ep, null, 0);
 			}
 
 			interval++;
 		}
 	}
 
-	public void preWearerHited(EntityPlayer ep, @Nullable Entity by) {
+	public void preWearerHited(EntityPlayer ep, @Nullable Entity by, int damage) {
 		if(cd < 0)
 		{
-			perform(ep, by);
+			perform(ep, by, damage);
 			cd = maxCd[level];
 		}
 	}
 
-	public void preTargetHited(EntityPlayer ep, @Nullable Entity target) {
+	public void preTargetHited(EntityPlayer ep, @Nullable Entity target, int damage) {
 		if(cd < 0)
 		{
-			perform(ep, target);
+			perform(ep, target, damage);
 			cd = maxCd[level];
 		}
 	}
 
-	public void perform(EntityPlayer ep, @Nullable Entity e) {
+	public void perform(EntityPlayer ep, @Nullable Entity e,int damage) {
 
 	}
 
