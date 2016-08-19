@@ -8,8 +8,10 @@ import net.minecraft.inventory.IInventory;
 
 public class SkillInjectorGui extends GuiContainer{
 
+	TileSkillInjector te;
 	public SkillInjectorGui(IInventory playerInv, TileSkillInjector te) {
 		super(new SkillInjectorContainer(playerInv, te));
+		this.te = te;
 	}
 
 	@Override
@@ -18,6 +20,11 @@ public class SkillInjectorGui extends GuiContainer{
 	    int l = (this.height - this.ySize) / 2;
 	    mc.renderEngine.bindTexture(Core.guirlgen.generate("SkillInjector"));
 	    drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	    int work = te.getWorkTimeScaled();
+	    if(work != 0)
+	    {
+	    	drawTexturedModalRect(k + 81, l + 33, 176, 3, 19, work);
+	    }
 	}
 
 }
