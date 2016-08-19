@@ -4,6 +4,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.gui.GuiHandler;
 import inwaiders.redn.rpg.tiles.TileSkillInjector;
+import inwaiders.redn.rpg.utils.MiscUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,6 +45,13 @@ public class SkillInjector extends BlockBase implements ITileEntityProvider {
 	@Override
 	public boolean isNormalCube() {
 		return false;
+	}
+	
+	@Override
+	public void breakBlock(World w, int x, int y, int z, Block block, int meta) {
+		TileSkillInjector te = (TileSkillInjector) w.getTileEntity(x, y, z);
+		MiscUtils.dropItemsOnBreak(w, x, y, z, te);
+		super.breakBlock(w, x, y, z, block, meta);
 	}
 	
 	@Override

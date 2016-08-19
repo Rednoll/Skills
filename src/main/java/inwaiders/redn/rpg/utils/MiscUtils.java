@@ -2,9 +2,12 @@ package inwaiders.redn.rpg.utils;
 
 import java.util.HashSet;
 import java.util.List;
+
 import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -44,6 +47,17 @@ public class MiscUtils
 			{
 				tile.drain(dir, FluidContainerRegistry.getContainerCapacity(container), true);
 			}
+		}
+	}
+	
+	public static void dropItemsOnBreak(World w, int x, int y, int z, IInventory inv)
+	{
+		int size = inv.getSizeInventory();
+		for(int i = 0; i < size; i++)
+		{
+			ItemStack s = inv.getStackInSlot(i);
+			if(s != null)
+			w.spawnEntityInWorld(new EntityItem(w, x, y, z, s));
 		}
 	}
 
