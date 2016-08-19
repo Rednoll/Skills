@@ -7,6 +7,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -30,6 +31,8 @@ public class Core
 	public static final String path = "inwaiders.redn.rpg.proxy";
 	public static final ResourceLocGenerator guirlgen = new ResourceLocGenerator(MODID, "textures/gui", ".png");
 	public static final ResourceLocGenerator skillrlgen = new ResourceLocGenerator(MODID, "textures/sicons/", ".png");
+	public static final ResourceLocGenerator modelrlgen = new ResourceLocGenerator(MODID, "model", ".obj");
+	public static final ResourceLocGenerator modeltexrlgen = new ResourceLocGenerator(MODID, "model/texture", ".png");
 	public static final LocaleKeyGenerator skilllkgen = new LocaleKeyGenerator("rpg.skill.", ".name");
 	public static final LocaleKeyGenerator skilldescgen = new LocaleKeyGenerator("rpg.skill.", ".desc.name");
 	public static Random r = new Random();
@@ -61,6 +64,11 @@ public class Core
 		proxy.init(event);
 	}
 
+	public void postInit(FMLPostInitializationEvent e)
+	{
+		proxy.postInit(e);
+	}
+	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event)
 	{

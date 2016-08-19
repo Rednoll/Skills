@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -36,6 +37,11 @@ public class CommonProxy {
 		NetworkRegistry.INSTANCE.registerGuiHandler(Core.instance, new GuiHandler());
 		SkillsRegistry.init();
 		ItemSkillRegistry.init();
+	}
+	
+	public void postInit(FMLPostInitializationEvent e)
+	{
+		
 	}
 	
 	public EntityPlayer getPlayerEntity(MessageContext ctx)
