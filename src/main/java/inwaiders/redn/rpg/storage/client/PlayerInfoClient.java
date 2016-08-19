@@ -94,11 +94,7 @@ public class PlayerInfoClient {
 	protected void updateXp() {
 		if (xp >= nextXp) {
 			xp -= nextXp;
-			if (nextXp < Integer.MAX_VALUE / 2) {
-				nextXp *= 2;
-			} else {
-				nextXp = Integer.MAX_VALUE;
-			}
+
 			lpoints++;
 		}
 	}
