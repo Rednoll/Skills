@@ -82,7 +82,7 @@ public class SkillEarthquake extends BaseSkill
 	@Override
 	public LearnPointsPrice getPrice()
 	{
-		return new LearnPointsPrice(this, 2);
+		return new LearnPointsPrice(this, 5);
 	}
 
 	@Override

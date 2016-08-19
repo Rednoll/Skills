@@ -67,7 +67,7 @@ public class SkillBackJump extends BaseSkill {
 
 	@Override
 	public LearnPointsPrice getPrice() {
-		return new LearnPointsPrice(this, 200);
+		return new LearnPointsPrice(this, 1);
 	}
 
 	@Override

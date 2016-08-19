@@ -10,10 +10,9 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import inwaiders.redn.rpg.handlers.command.CADCommands;
+import inwaiders.redn.rpg.handlers.command.LevelCommands;
 import inwaiders.redn.rpg.handlers.command.TeamCommands;
-import inwaiders.redn.rpg.items.CAD.CadMemoryCard;
 import inwaiders.redn.rpg.proxy.CommonProxy;
 import inwaiders.redn.rpg.utils.LocaleKeyGenerator;
 import inwaiders.redn.rpg.utils.ResourceLocGenerator;
@@ -74,6 +73,6 @@ public class Core
 	{
 		event.registerServerCommand(new TeamCommands());
 		event.registerServerCommand(new CADCommands());
-		
+		event.registerServerCommand(new LevelCommands());
 	}
 }

@@ -55,7 +55,7 @@ public class SkillVortex extends BaseSkill {
 
 	@Override
 	public LearnPointsPrice getPrice() {
-		return new LearnPointsPrice(this, 1);
+		return new LearnPointsPrice(this, 2);
 	}
 
 	@Override

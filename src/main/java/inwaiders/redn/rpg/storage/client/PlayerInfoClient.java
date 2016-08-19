@@ -99,9 +99,12 @@ public class PlayerInfoClient {
 			xp -= nextXp;
 			level++;
 			lpoints++;
-			ItemStack scroll = new ItemStack(ItemRegistry.skillScroll);
-			scroll.getItem().onCreated(scroll, ep.worldObj, ep);
-			MiscUtils.addItemToPlayer(ep, scroll);
+			
+			if(level == 1 || level == 3 || level == 5 || level == 10 || level == 15){
+				ItemStack scroll = new ItemStack(ItemRegistry.skillScroll);
+				scroll.getItem().onCreated(scroll, ep.worldObj, ep);
+				MiscUtils.addItemToPlayer(ep, scroll);
+			}
 		}
 	}
 	

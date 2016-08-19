@@ -53,16 +53,26 @@ public class ReleaseOfPrana extends BaseSkill {
 				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.93F, 0.15F, 0F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, (r.nextDouble() - 0.5) * 20, 3, (r.nextDouble() - 0.5) * 20), ep, 20);
 			}
 		}
+		
 		EasySkillCreator.attackAOE(ep, getRadius(ep), getDamage(ep), getTarget());
-
+		
 	}
 
 	@Override
 	public void castUpdate(EntityPlayer ep) {
+		
 		if (!ep.worldObj.isRemote) {
 			Random r = ep.worldObj.rand;
 				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.93F, 0.15F, 0F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0, 5, 0), ep, 20);
 		}
+		
+		EasySkillCreator.applyAOEEffect(ep, getRadius(ep), target, (caster, target) ->{
+			
+			if (!ep.worldObj.isRemote) {
+				Random r = ep.worldObj.rand;
+					PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.93F, 0.15F, 0F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0, 5, 0), ep, 20);
+			}
+		});
 	}
 
 	@Override
@@ -77,7 +87,7 @@ public class ReleaseOfPrana extends BaseSkill {
 
 	@Override
 	public LearnPointsPrice getPrice() {
-		return new LearnPointsPrice(this, 2);
+		return new LearnPointsPrice(this, 3);
 	}
 
 	@Override
