@@ -4,9 +4,12 @@ import net.minecraftforge.common.config.Configuration;
 
 public class CFG
 {
+	//Internal
 	private static int skillid = 1;
 	private static int itemskillid = 1;
 	private static Configuration cfg;
+	
+	//Skills
 	public static int BackJumpID;
 	public static int ReleaseOfPranaID;
 	public static int EarthquakeID;
@@ -14,6 +17,8 @@ public class CFG
 	public static int VoretexID;
 	public static int SwapID;
 	
+	//ItemSkills
+	public static int cooldowdecID;
 	public static void init(Configuration cfg)
 	{
 		CFG.cfg = cfg;
@@ -36,7 +41,7 @@ public class CFG
 	
 	private static void initItemSkills()
 	{
-		
+		cooldowdecID = getItemSkillId("CooldownDecreaser");
 	}
 	
 	private static int getSkillId(String name)

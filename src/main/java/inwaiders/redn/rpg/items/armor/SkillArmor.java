@@ -1,10 +1,13 @@
 package inwaiders.redn.rpg.items.armor;
 
+import java.util.List;
+
 import inwaiders.redn.rpg.core.Core;
-import inwaiders.redn.rpg.skills.armor.ItemSkillBase;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase;
 import inwaiders.redn.rpg.utils.skillitem.ISkillContainerItem;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
@@ -25,4 +28,12 @@ public class SkillArmor extends ItemArmor implements ISkillContainerItem {
 		return Core.MODID + ":textures/armor/" + armorTextureName + ".png";
 	}
 
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean p_77624_4_) {
+		if(getSkill(stack) != null)
+		{
+			info.add(getSkill(stack).getName());
+		}
+	}
+	
 }

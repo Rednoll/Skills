@@ -1,6 +1,7 @@
 package inwaiders.redn.rpg.registry;
 
-import inwaiders.redn.rpg.skills.armor.ItemSkillBase;
+import inwaiders.redn.rpg.skills.item.CooldownDecrease;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase;
 import inwaiders.redn.rpg.utils.MiscUtils;
 
 import java.util.HashMap;
@@ -31,5 +32,10 @@ public class ItemSkillRegistry {
 			}
 		}
 		return null;
+	}
+	
+	public static void init()
+	{
+		register(new CooldownDecrease());
 	}
 }

@@ -9,6 +9,7 @@ import inwaiders.redn.rpg.handlers.event.PlayerEventHandler;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.registry.BlockRegistry;
 import inwaiders.redn.rpg.registry.ItemRegistry;
+import inwaiders.redn.rpg.registry.ItemSkillRegistry;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,6 +35,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SaveAndLoadTeam());
 		NetworkRegistry.INSTANCE.registerGuiHandler(Core.instance, new GuiHandler());
 		SkillsRegistry.init();
+		ItemSkillRegistry.init();
 	}
 	
 	public EntityPlayer getPlayerEntity(MessageContext ctx)

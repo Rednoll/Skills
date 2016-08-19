@@ -1,4 +1,4 @@
-package inwaiders.redn.rpg.skills.armor;
+package inwaiders.redn.rpg.skills.item;
 
 import javax.annotation.Nullable;
 
@@ -89,6 +89,11 @@ public abstract class ItemSkillBase {
 
 	public void decrCd() {
 		cd--;
+	}
+	
+	public void setLevel(int level)
+	{
+		this.level = level;
 	}
 	
 	/**
