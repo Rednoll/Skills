@@ -44,6 +44,10 @@ public class VipeEntity extends Entity{
 
     public void onUpdate()
     {
+    	if(onGround || ticksExisted > 1000)
+    	{
+    		this.setDead();
+    	}
         this.onEntityUpdate();
         
         float cosY = (float)Math.cos(Math.toRadians(-rotateY));
