@@ -13,7 +13,7 @@ public class CooldownDecrease extends ItemSkillBase {
 	@Override
 	public PassiveEffect getPassiveEffect(EntityPlayer ep) {
 		PassiveEffect ret = new PassiveEffect();
-		ret.cddecrease = 2 * getLevel();
+		ret.cddecrease = 2 * getLevel() + 1;
 		return ret;
 	}
 	

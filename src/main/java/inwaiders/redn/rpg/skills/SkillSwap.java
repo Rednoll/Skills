@@ -13,11 +13,11 @@ import net.minecraft.util.ResourceLocation;
 public class SkillSwap extends BaseSkill {
 
 	public SkillSwap(){
-		
-		setRadiusByLevel(1, 10);
-		setRadiusByLevel(2, 15);
-		setRadiusByLevel(3, 20);
-		setRadiusByLevel(4, 25);
+		super(4);
+		setRadiusByLevel(0, 10);
+		setRadiusByLevel(1, 15);
+		setRadiusByLevel(2, 20);
+		setRadiusByLevel(3, 25);
 		setRadiusByLevel(4, 30);
 	}
 	

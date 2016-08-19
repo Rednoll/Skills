@@ -17,7 +17,6 @@ public class SkillBackJump extends BaseSkill {
 	public SkillBackJump() {
 		super(5);
 		setLevel(1);
-
 		init();
 	}
 
@@ -30,8 +29,8 @@ public class SkillBackJump extends BaseSkill {
 		float cosY = (float) Math.cos(Math.toRadians(ep.rotationPitch));
 		float sinY = (float) Math.sin(Math.toRadians(ep.rotationPitch));
 
-		float speed = getLevel();
-		float wertSpeed = getLevel() / 1.5F;
+		float speed = getLevel() + 1;
+		float wertSpeed = (getLevel() + 1) / 1.5F;
 
 		ep.motionZ -= cosX * speed;
 		ep.motionX += sinX * speed;
@@ -46,13 +45,15 @@ public class SkillBackJump extends BaseSkill {
 
 	public void init() {
 
+		setMaxCast(0, 0);
 		setMaxCast(1, 0);
 		setMaxCast(2, 0);
 		setMaxCast(3, 0);
-		setMaxCast(4, 0);
 
-		setMaxCoolDownByLevel(1, 1800);
-		setMaxCoolDownByLevel(2, 2700);
+		setMaxCoolDownByLevel(0, 1800);
+		setMaxCoolDownByLevel(1, 2700);
+		setMaxCoolDownByLevel(2, 3000);
+		setMaxCoolDownByLevel(3, 3300);
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;import net.minecraft.util.Vec3;
 public class SkillVortex extends BaseSkill {
 
 	public SkillVortex() {
+		super(4);
 		setDamageByLevel(1, 2);
 		setMaxCoolDownByLevel(1, 100);
 		setRadiusByLevel(1, 6);
@@ -36,9 +37,9 @@ public class SkillVortex extends BaseSkill {
 		}
 		EasySkillCreator.applyAOEEffect(ep, getRadius(ep), Target.TARGET_ANOTHER, (caster, target) -> {
 			Vec3 rev = VectorUtils.negate(Vec3.createVectorHelper(target.posX - caster.posX, target.posY - caster.posY, target.posZ - caster.posZ).normalize());
-			target.motionX += rev.xCoord * (0.5 * getLevel());
-			target.motionY += rev.yCoord * (0.5 * getLevel());
-			target.motionZ += rev.zCoord * (0.5 * getLevel());
+			target.motionX += rev.xCoord * (0.5 * getLevel() + 1);
+			target.motionY += rev.yCoord * (0.5 * getLevel() + 1);
+			target.motionZ += rev.zCoord * (0.5 * getLevel() + 1);
 		});
 	}
 

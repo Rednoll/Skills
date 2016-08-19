@@ -17,20 +17,21 @@ public class LightningBoltStrike extends BaseSkill{
 
 	
 	public LightningBoltStrike(){
+		super(3);
 		setLevel(1);
 		setTarget(Target.TARGET_ANOTHER);
-		setMaxCoolDownByLevel(1, 2000);
-		setMaxCoolDownByLevel(2, 3000);
-		setMaxCoolDownByLevel(3, 4000);
-		setMaxCoolDownByLevel(4, 7000);
-		setDamageByLevel(1, 8);
-		setDamageByLevel(2, 10);
-		setDamageByLevel(3, 12);
-		setDamageByLevel(4, 14);	
-		setRadiusByLevel(1, 30);
-		setRadiusByLevel(2, 60);
-		setRadiusByLevel(3, 90);
-		setRadiusByLevel(4, 120);
+		setMaxCoolDownByLevel(0, 2000);
+		setMaxCoolDownByLevel(1, 3000);
+		setMaxCoolDownByLevel(2, 4000);
+		setMaxCoolDownByLevel(3, 7000);
+		setDamageByLevel(0, 8);
+		setDamageByLevel(1, 10);
+		setDamageByLevel(2, 12);
+		setDamageByLevel(3, 14);	
+		setRadiusByLevel(0, 30);
+		setRadiusByLevel(1, 60);
+		setRadiusByLevel(2, 90);
+		setRadiusByLevel(3, 120);
 	}
 	
 	
