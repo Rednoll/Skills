@@ -16,6 +16,7 @@ public class CFG
 	public static int LightBoltStrikeID;
 	public static int VoretexID;
 	public static int SwapID;
+	public static int VipeID;
 	
 	//ItemSkills
 	public static int cooldowdecID;
@@ -23,8 +24,18 @@ public class CFG
 	{
 		CFG.cfg = cfg;
 		cfg.load();
+
+		BackJumpID = getSkillId("BackJump");
+		ReleaseOfPranaID = getSkillId("ReleaseOfPrana");
+		EarthquakeID = getSkillId("Earthquake");
+		LightBoltStrikeID = getSkillId("LightBoltStrike");
+		VoretexID = getSkillId("Vortex");
+		SwapID = getSkillId("Swap");
+		VipeID = getSkillId("VipeStrike");
+
 		initSkills();
 		initItemSkills();
+
 		cfg.save();
 		CFG.cfg = null;
 	}

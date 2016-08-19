@@ -2,6 +2,8 @@ package inwaiders.redn.rpg.registry;
 
 import inwaiders.redn.rpg.items.DebugItem;
 import inwaiders.redn.rpg.items.ExperienceScroll;
+import inwaiders.redn.rpg.items.CAD.CadMemoryCard;
+import inwaiders.redn.rpg.items.CAD.CastingAssistantDevice;
 import inwaiders.redn.rpg.items.armor.SkillArmor;
 import inwaiders.redn.rpg.items.itemskills.CooldowDecreaser;
 import net.minecraft.item.Item;
@@ -15,6 +17,8 @@ public class ItemRegistry
 	public static Item skillLeggins;
 	public static Item skillBoots;
 	public static Item cdd;
+	public static Item cadMemory;
+	public static Item cad;
 	public static void init()
 	{
 		debugItem = new DebugItem();
@@ -24,5 +28,8 @@ public class ItemRegistry
 		skillLeggins = new SkillArmor(2);
 		skillBoots = new SkillArmor(3);
 		cdd = new CooldowDecreaser();
+		cadMemory = new CadMemoryCard();
+		cad = new CastingAssistantDevice();
+		
 	}
 }
