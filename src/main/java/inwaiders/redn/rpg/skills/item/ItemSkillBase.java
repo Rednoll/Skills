@@ -120,7 +120,7 @@ public abstract class ItemSkillBase {
 	}
 
 	public void preWearerHited(LivingHurtEvent e) {
-		if(cd < 0)
+		if(cd <= 0)
 		{
 			perform(e);
 			cd = maxCd[level];
@@ -128,7 +128,7 @@ public abstract class ItemSkillBase {
 	}
 
 	public void preTargetHited(LivingHurtEvent e) {
-		if(cd < 0)
+		if(cd <= 0)
 		{
 			perform(e);
 			cd = maxCd[level];

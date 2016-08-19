@@ -46,7 +46,7 @@ public class CFG
 	private static void initItemSkills()
 	{
 		cooldowdecID = getItemSkillId("CooldownDecreaser");
-		InstantShieldID = getItemSkillId("CooldownDecreaser");
+		InstantShieldID = getItemSkillId("InstantShield");
 	}
 	
 	private static int getSkillId(String name)

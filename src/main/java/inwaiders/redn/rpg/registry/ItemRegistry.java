@@ -6,6 +6,7 @@ import inwaiders.redn.rpg.items.CAD.CadMemoryCard;
 import inwaiders.redn.rpg.items.CAD.CastingAssistantDevice;
 import inwaiders.redn.rpg.items.armor.SkillArmor;
 import inwaiders.redn.rpg.items.itemskills.CooldowDecreaser;
+import inwaiders.redn.rpg.items.itemskills.IS;
 import net.minecraft.item.Item;
 
 public class ItemRegistry
@@ -19,6 +20,7 @@ public class ItemRegistry
 	public static Item cdd;
 	public static Item cadMemory;
 	public static Item cad;
+	public static Item is;
 	public static void init()
 	{
 		debugItem = new DebugItem();
@@ -30,6 +32,6 @@ public class ItemRegistry
 		cdd = new CooldowDecreaser();
 		cadMemory = new CadMemoryCard();
 		cad = new CastingAssistantDevice();
-		
+		is = new IS();
 	}
 }

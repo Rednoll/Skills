@@ -1,6 +1,7 @@
 package inwaiders.redn.rpg.registry;
 
 import inwaiders.redn.rpg.skills.item.CooldownDecrease;
+import inwaiders.redn.rpg.skills.item.InstantShield;
 import inwaiders.redn.rpg.skills.item.ItemSkillBase;
 import inwaiders.redn.rpg.utils.MiscUtils;
 
@@ -37,5 +38,6 @@ public class ItemSkillRegistry {
 	public static void init()
 	{
 		register(new CooldownDecrease());
+		register(new InstantShield());
 	}
 }
