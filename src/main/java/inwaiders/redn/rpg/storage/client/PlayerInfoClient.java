@@ -16,6 +16,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class PlayerInfoClient {
 	protected HashMap<Integer, BaseSkill> bankSkills = new HashMap<Integer, BaseSkill>();
@@ -101,7 +103,7 @@ public class PlayerInfoClient {
 		}
 	}
 
-	protected void updateItemSkills(Entity e, ItemSkillType type, int damage) {
+	protected void updateItemSkills(LivingHurtEvent e, ItemSkillType type) {
 		for (int i = 0; i <= 4; i++) {
 			ItemStack item = ep.getEquipmentInSlot(i);
 			if (item != null && item.getItem() instanceof ISkillContainerItem) {
@@ -114,7 +116,7 @@ public class PlayerInfoClient {
 		// TODO Integrate with baubles
 	}
 
-	private void updateItemSkill(ItemSkillBase skill, @Nullable Entity e, int damage) {
+	private void updateItemSkill(ItemSkillBase skill, LivingHurtEvent e) {
 		if (skill != null) {
 			if (skill.getCd() > 0) {
 				skill.decrCd();
@@ -125,11 +127,11 @@ public class PlayerInfoClient {
 					break;
 				}
 				case HITWEARER: {
-					skill.preWearerHited(ep, e, damage);
+					skill.preWearerHited(ep, e, e);
 					break;
 				}
 				case HITTARGET: {
-					skill.preTargetHited(ep, e, damage);
+					skill.preTargetHited(ep, e, e);
 					break;
 				}
 				default: {
@@ -139,12 +141,12 @@ public class PlayerInfoClient {
 		}
 	}
 
-	public void updateOnWearerHurtSkills(Entity attacker, int damage) {
-		updateItemSkills(attacker, ItemSkillType.HITWEARER, damage);
+	public void updateOnWearerHurtSkills(LivingHurtEvent e) {
+		updateItemSkills(e, ItemSkillType.HITWEARER);
 	}
 
-	public void updateOnTargetHurtSkills(Entity target, int damage) {
-		updateItemSkills(target, ItemSkillType.HITTARGET, damage);
+	public void updateOnTargetHurtSkills(LivingHurtEvent e) {
+		updateItemSkills(e, ItemSkillType.HITTARGET);
 	}
 	
 	public PassiveEffect getPassiveEffects()

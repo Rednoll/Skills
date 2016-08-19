@@ -48,13 +48,13 @@ public class PlayerEventHandler
 			if (e.entityLiving instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) e.entityLiving;
 				PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
-				info.updateOnWearerHurtSkills(e.source.getEntity(), (int)e.ammount);
+				info.updateOnWearerHurtSkills(e);
 			}
 			else if (e.source.getEntity() instanceof EntityPlayer)
 			{
 				EntityPlayer player = (EntityPlayer) e.source.getEntity();
 				PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
-				info.updateOnTargetHurtSkills(e.entity, (int)e.ammount);
+				info.updateOnTargetHurtSkills(e);
 			}
 		}
 		catch(EventCancelException ex)

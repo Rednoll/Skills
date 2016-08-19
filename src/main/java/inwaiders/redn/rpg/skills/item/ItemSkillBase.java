@@ -6,6 +6,8 @@ import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.utils.Targeting.Target;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public abstract class ItemSkillBase {
 
@@ -110,31 +112,47 @@ public abstract class ItemSkillBase {
 			if (interval >= getMaxInterval()) {
 
 				interval = 0;
-				perform(ep, null, 0);
+				perform(null);
 			}
 
 			interval++;
 		}
 	}
 
-	public void preWearerHited(EntityPlayer ep, @Nullable Entity by, int damage) {
+	public void preWearerHited(LivingHurtEvent e) {
 		if(cd < 0)
 		{
-			perform(ep, by, damage);
+			perform(e);
 			cd = maxCd[level];
 		}
 	}
 
-	public void preTargetHited(EntityPlayer ep, @Nullable Entity target, int damage) {
+	public void preTargetHited(LivingHurtEvent e) {
 		if(cd < 0)
 		{
-			perform(ep, target, damage);
+			perform(e);
 			cd = maxCd[level];
 		}
 	}
 
-	public void perform(EntityPlayer ep, @Nullable Entity e,int damage) {
-
+	/**
+	 *  <div>E - {@code e.entity} or {@code e.entityLiving}</div>
+	 *  <div>D - {@code e.amount} - damge dealt</div>
+	 *  <div>A - {@code e.source.getEntity()}</div>
+	 *  <br>
+	 *  <div><i><span style="color: #993E83;">TYPE</span> - <span style="color: #6BDAF8;">HITWEARER</span>:</i></div>
+	 *  E - Player<br>
+	 *  A = Attacker<br>
+	 * 	<div><i><span style="color: #993E83;">TYPE</span> - <span style="color: #6BDAF8;">HITTARGET</span>:</i></div>
+	 *  E - target<br>
+	 *  A - Player<br>
+	 *  <div><i><span style="color: #993E83;">TYPE</span> - <span style="color: #6BDAF8;">TICK</span>:</i></div>
+	 *  Argument always <span style="color: #A42867;">null</span>
+	 *  <div><i><span style="color: #993E83;">TYPE</span> - <span style="color: #6BDAF8;">PASSIVE</span>:</i></div>
+	 *  Never called
+	 */
+	public void perform(@Nullable LivingHurtEvent e) {
+		
 	}
 
 	public abstract int getId();
