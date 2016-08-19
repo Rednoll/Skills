@@ -94,14 +94,24 @@ public class PlayerInfoClient {
 	}
 
 	protected void updateXp() {
-		if (xp >= Constants.DEFAUL_NEXT_XP[level+1]) {
-			xp -= Constants.DEFAUL_NEXT_XP[level+1];
+		int nextXp = getNextXp(level + 1);
+		if (xp >= nextXp) {
+			xp -= nextXp;
 			level++;
 			lpoints++;
 			ItemStack scroll = new ItemStack(ItemRegistry.skillScroll);
 			scroll.getItem().onCreated(scroll, ep.worldObj, ep);
 			MiscUtils.addItemToPlayer(ep, scroll);
 		}
+	}
+	
+	protected int getNextXp(int lvl)
+	{
+		if(Constants.DEFAUL_NEXT_XP.length > lvl)
+		{
+			return Constants.DEFAUL_NEXT_XP[lvl];
+		}
+		return (int) ((int) getNextXp(lvl - 1) * 1.5);
 	}
 
 	protected void updateItemSkills(LivingHurtEvent e, ItemSkillType type) {

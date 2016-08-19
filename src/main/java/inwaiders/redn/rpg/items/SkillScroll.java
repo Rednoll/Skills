@@ -27,7 +27,12 @@ public class SkillScroll extends ItemBase {
 	
 	@Override
 	public void onCreated(ItemStack s, World w, EntityPlayer p) {
-		ItemNBT.setInt(s, "Skill", w.rand.nextInt(SkillsRegistry.getSize()));
+		int id;
+		while(SkillsRegistry.getSkillById(id = Core.r.nextInt(SkillsRegistry.getSize() + 1)) == null)
+		{
+			
+		} 
+		ItemNBT.setInt(s, "Skill", id);
 	}
 	
 	@Override
