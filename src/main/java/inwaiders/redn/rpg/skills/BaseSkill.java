@@ -115,12 +115,12 @@ public abstract class BaseSkill {
 	
 	public int getMaxCoolDown(EntityPlayer ep){
 		int i = getLevel();
-		return (maxCoolDown[i] == 0 ? maxCoolDown[1] * i : maxCoolDown[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().cddecrease; 
+		return Math.max(0, (maxCoolDown[i] == 0 ? maxCoolDown[1] * i : maxCoolDown[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().cddecrease); 
 	}
 	
 	public int getRadius(EntityPlayer ep){
 		int i = getLevel();
-		return (radius[i] == 0 ? radius[1] * i : radius[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().radiusincrease;
+		return Math.max(0, (radius[i] == 0 ? radius[1] * i : radius[i]) + PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().radiusincrease);
 	}
 	
 	public int getMaxInterval(){
@@ -133,7 +133,7 @@ public abstract class BaseSkill {
 	
 	public int getMaxCast(EntityPlayer ep){
 		int i = getLevel();
-		return (maxCast[i] == 0 ? maxCast[1] * i : maxCast[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().casttimedecrease;
+		return Math.max(0, (maxCast[i] == 0 ? maxCast[1] * i : maxCast[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().casttimedecrease);
 	}
 	
 	public int getCoolDown(){
@@ -174,7 +174,7 @@ public abstract class BaseSkill {
 	
 	public int getDamage(EntityPlayer ep){
 		int i = getLevel();
-		return (damage[i] == 0 ? damage[1] * i : damage[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().damageincrease;
+		return Math.max(0, (damage[i] == 0 ? damage[1] * i : damage[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().damageincrease);
 	}
 	
 	public void setMaxCast(int i, int c){
