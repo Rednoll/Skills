@@ -3,9 +3,9 @@ package inwaiders.redn.rpg.storage.client;
 import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
-import inwaiders.redn.rpg.skills.armor.ItemSkillBase;
-import inwaiders.redn.rpg.skills.armor.ItemSkillBase.ItemSkillType;
-import inwaiders.redn.rpg.skills.armor.ItemSkillBase.PassiveEffect;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase.ItemSkillType;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase.PassiveEffect;
 import inwaiders.redn.rpg.utils.skillitem.ISkillContainerItem;
 
 import java.util.HashMap;
@@ -107,7 +107,7 @@ public class PlayerInfoClient {
 			if (item != null && item.getItem() instanceof ISkillContainerItem) {
 				ISkillContainerItem container = (ISkillContainerItem) item.getItem();
 				ItemSkillBase skill = container.getSkill(item);
-				if (skill.getType() == type)
+				if (skill != null && skill.getType() == type)
 					updateItemSkill(container.getSkill(item), e);
 			}
 		}
@@ -155,7 +155,7 @@ public class PlayerInfoClient {
 			if (item != null && item.getItem() instanceof ISkillContainerItem) {
 				ISkillContainerItem container = (ISkillContainerItem) item.getItem();
 				ItemSkillBase skill = container.getSkill(item);
-				if (skill.getType() == ItemSkillType.PASSIVE)
+				if (skill != null && skill.getType() == ItemSkillType.PASSIVE)
 				{
 					PassiveEffect e = skill.getPassiveEffect(ep);
 					ret.casttimedecrease += e.casttimedecrease;
