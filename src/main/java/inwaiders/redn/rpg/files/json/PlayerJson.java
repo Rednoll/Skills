@@ -34,7 +34,7 @@ public class PlayerJson
 	public static final String TEAM = "team";//String
 	public static final String LEARNPOINTS = "learnpts";//Int
 	public static final String XP = "XP";//Int
-	public static final String XPNEXT = "XPNEXT";//Int
+	public static final String LEVEL = "lvl";
 	//Bank skill
 	public static final String ID = "id";//Int
 	public static final String LVL = "lvl";//Int
@@ -80,7 +80,7 @@ public class PlayerJson
 		json.addProperty(TEAM, "ANY");
 		json.addProperty(LEARNPOINTS, 0);
 		json.addProperty(XP, 0);
-		json.addProperty(XPNEXT, Constants.DEFAUL_NEXT_XP[0]);
+		json.addProperty(LVL, 0);
 	}
 
 	public void write()
@@ -193,14 +193,14 @@ public class PlayerJson
 		return json.get(XP).getAsInt();
 	}
 	
-	public void setXPForNextLevel(int xp)
+	public void setLvl(int lvl)
 	{
-		json.addProperty(XPNEXT, xp);
+		json.addProperty(LVL, lvl);
 	}
 	
-	public int getXPForNextLevel()
+	public int getLvl()
 	{
-		return json.get(XPNEXT).getAsInt();
+		return json.get(LVL).getAsInt();
 	}
 	
 }

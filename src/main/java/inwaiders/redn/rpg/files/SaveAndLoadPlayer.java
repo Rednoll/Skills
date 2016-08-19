@@ -33,7 +33,7 @@ public class SaveAndLoadPlayer
 		}
 		pjson.setTeam(b.getTeam());
 		pjson.setXP(b.getXp());
-		pjson.setXPForNextLevel(b.getXpForNextLevel());
+		pjson.setLvl(b.getLevel());
 		pjson.setLearnPoints(b.getLearnPoints());
 		pjson.write();
 	}
@@ -65,7 +65,7 @@ public class SaveAndLoadPlayer
 		}
 		b.setTeam(pjson.getTeam());
 		b.setXp(pjson.getXP());
-		b.setXpForNextLevel(pjson.getXPForNextLevel());
+		b.setLevel(pjson.getLvl());
 		b.setLearnPoints(pjson.getLearnPoints());
 	}
 
