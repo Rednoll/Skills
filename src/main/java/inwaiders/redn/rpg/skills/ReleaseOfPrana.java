@@ -16,9 +16,7 @@ import net.minecraft.util.ResourceLocation;
 public class ReleaseOfPrana extends BaseSkill {
 
 	public ReleaseOfPrana() {
-
-		setLevel(1);
-
+		super(3);
 		setTarget(Target.TARGET_ANOTHER);
 
 		init();
@@ -26,23 +24,25 @@ public class ReleaseOfPrana extends BaseSkill {
 
 	public void init() {
 
-		setMaxCast(1, 50);
-		setMaxCast(2, 70);
-		setMaxCast(3, 110);
-		setMaxCast(4, 150);
+		setMaxCast(0, 50);
+		setMaxCast(1, 70);
+		setMaxCast(2, 110);
+		setMaxCast(3, 150);
 
-		setDamageByLevel(1, 6);
-		setDamageByLevel(2, 8);
-		setDamageByLevel(3, 10);
-		setDamageByLevel(4, 14);
+		setDamageByLevel(0, 6);
+		setDamageByLevel(1, 8);
+		setDamageByLevel(2, 10);
+		setDamageByLevel(3, 14);
 
-		setRadiusByLevel(1, 8);
-		setRadiusByLevel(2, 12);
-		setRadiusByLevel(3, 16);
-		setRadiusByLevel(4, 18);
+		setRadiusByLevel(0, 8);
+		setRadiusByLevel(1, 12);
+		setRadiusByLevel(2, 16);
+		setRadiusByLevel(3, 18);
 
-		setMaxCoolDownByLevel(1, 1800);
-		setMaxCoolDownByLevel(2, 2700);
+		setMaxCoolDownByLevel(0, 1800);
+		setMaxCoolDownByLevel(1, 2700);
+		setMaxCoolDownByLevel(2, 3000);
+		setMaxCoolDownByLevel(3, 3300);
 	}
 
 	@Override

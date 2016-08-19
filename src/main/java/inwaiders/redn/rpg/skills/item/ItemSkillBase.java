@@ -28,7 +28,7 @@ public abstract class ItemSkillBase {
 		public int damageincrease = 0;
 	}
 	
-	protected int level = 1;
+	protected int level = 0;
 	protected int cd;
 	protected ItemSkillType type;
 	protected int[] damage;
@@ -53,12 +53,12 @@ public abstract class ItemSkillBase {
 
 	public int getDamage() {
 		int lvl = getLevel();
-		return damage[lvl] == 0 ? damage[1] * lvl : damage[lvl];
+		return damage[lvl] == 0 ? damage[0] * lvl : damage[lvl];
 	}
 
 	public int getRadius() {
 		int lvl = getLevel();
-		return radius[lvl] == 0 ? radius[1] * lvl : radius[lvl];
+		return radius[lvl] == 0 ? radius[0] * lvl : radius[lvl];
 	}
 
 	public int getMaxInterval() {

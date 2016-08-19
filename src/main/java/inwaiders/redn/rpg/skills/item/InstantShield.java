@@ -14,11 +14,11 @@ import scala.math.Ordering.CharOrdering;
 
 public class InstantShield extends ItemSkillBase {
 
-	int[] damageDefendet;
+	private float[] damageDefendet;
 
 	public InstantShield() {
-		super(5);
-		damage = new int[] { 1, 3, 5, 7, 10 };
+		super(4);
+		damageDefendet = new float[] {1F, 3F, 5F, 7F};
 		type = ItemSkillType.HITWEARER;
 	}
 

@@ -70,7 +70,7 @@ public class VipeEntity extends Entity{
 			if(list.get(i) instanceof EntityLivingBase){
 				EntityLivingBase el = (EntityLivingBase)list.get(i);
 				EasySkillCreator.attack(ep, el, damage);
-				el.addPotionEffect(new PotionEffect(Potion.poison.id, 400, level-1));
+				el.addPotionEffect(new PotionEffect(Potion.poison.id, 400, level));
 				this.setDead();
 			}
 

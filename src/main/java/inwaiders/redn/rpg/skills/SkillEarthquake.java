@@ -20,21 +20,21 @@ public class SkillEarthquake extends BaseSkill
 {
 
 	public SkillEarthquake(){
-		
+		super(3);
 		setLevel(1);
 		setTarget(Target.TARGET_ANOTHER);
-		setMaxCoolDownByLevel(1, 2000);
-		setMaxCoolDownByLevel(2, 3000);
-		setMaxCoolDownByLevel(3, 4000);
-		setMaxCoolDownByLevel(4, 7000);
-		setDamageByLevel(1, 6);
-		setDamageByLevel(2, 8);
-		setDamageByLevel(3, 10);
-		setDamageByLevel(4, 12);
-		setRadiusByLevel(1, 5);
-		setRadiusByLevel(2, 10);
-		setRadiusByLevel(3, 12);
-		setRadiusByLevel(4, 15);
+		setMaxCoolDownByLevel(0, 2000);
+		setMaxCoolDownByLevel(1, 3000);
+		setMaxCoolDownByLevel(2, 4000);
+		setMaxCoolDownByLevel(3, 7000);
+		setDamageByLevel(0, 6);
+		setDamageByLevel(1, 8);
+		setDamageByLevel(2, 10);
+		setDamageByLevel(3, 12);
+		setRadiusByLevel(0, 5);
+		setRadiusByLevel(1, 10);
+		setRadiusByLevel(2, 12);
+		setRadiusByLevel(3, 15);
 	}
 	
 	@Override
