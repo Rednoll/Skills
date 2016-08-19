@@ -21,7 +21,6 @@ public class SkillEarthquake extends BaseSkill
 
 	public SkillEarthquake(){
 		super(3);
-		setLevel(1);
 		setTarget(Target.TARGET_ANOTHER);
 		setMaxCoolDownByLevel(0, 2000);
 		setMaxCoolDownByLevel(1, 3000);

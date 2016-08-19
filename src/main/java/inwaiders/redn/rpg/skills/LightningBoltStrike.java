@@ -18,7 +18,6 @@ public class LightningBoltStrike extends BaseSkill{
 	
 	public LightningBoltStrike(){
 		super(3);
-		setLevel(1);
 		setTarget(Target.TARGET_ANOTHER);
 		setMaxCoolDownByLevel(0, 2000);
 		setMaxCoolDownByLevel(1, 3000);

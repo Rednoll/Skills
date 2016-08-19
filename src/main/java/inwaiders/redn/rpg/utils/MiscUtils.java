@@ -71,6 +71,29 @@ public class MiscUtils
 		return AxisAlignedBB.getBoundingBox(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius);
 	}
 	
+	public static void addItemToPlayer(EntityPlayer e, ItemStack s)
+	{
+		IInventory inv = e.inventory;
+		for(int i = 0; i < inv.getSizeInventory(); i++)
+		{
+			ItemStack slot = inv.getStackInSlot(i);
+			if(slot == null)
+			{
+				inv.setInventorySlotContents(i, s);
+				return;
+			}
+			else
+			{
+				if(slot.getItem() == s.getItem() && slot.getItemDamage() == s.getItemDamage() && slot.stackSize + s.stackSize <= s.getMaxStackSize())
+				{
+					inv.setInventorySlotContents(i, new ItemStack(s.getItem(), slot.stackSize + s.stackSize, s.getItemDamage()));
+					return;
+				}
+			}
+		}
+		e.worldObj.spawnEntityInWorld(new EntityItem(e.worldObj, e.posX, e.posY, e.posZ, s));
+	}
+	
 	/**
 	 * @author Azanor
 	 */

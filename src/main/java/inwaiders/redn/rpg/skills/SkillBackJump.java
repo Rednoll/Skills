@@ -16,7 +16,6 @@ public class SkillBackJump extends BaseSkill {
 
 	public SkillBackJump() {
 		super(5);
-		setLevel(1);
 		init();
 	}
 

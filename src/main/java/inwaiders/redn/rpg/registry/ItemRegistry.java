@@ -2,6 +2,7 @@ package inwaiders.redn.rpg.registry;
 
 import inwaiders.redn.rpg.items.DebugItem;
 import inwaiders.redn.rpg.items.ExperienceScroll;
+import inwaiders.redn.rpg.items.SkillScroll;
 import inwaiders.redn.rpg.items.CAD.CadMemoryCard;
 import inwaiders.redn.rpg.items.CAD.CastingAssistantDevice;
 import inwaiders.redn.rpg.items.armor.SkillArmor;
@@ -13,6 +14,7 @@ public class ItemRegistry
 {
 	public static Item debugItem;
 	public static Item xpScroll;
+	public static Item skillScroll;
 	public static Item skillHelm;
 	public static Item skillChestplater;
 	public static Item skillLeggins;
@@ -25,6 +27,7 @@ public class ItemRegistry
 	{
 		debugItem = new DebugItem();
 		xpScroll = new ExperienceScroll();
+		skillScroll = new SkillScroll();
 		skillHelm = new SkillArmor(0);
 		skillChestplater = new SkillArmor(1);
 		skillLeggins = new SkillArmor(2);

@@ -1,11 +1,13 @@
 package inwaiders.redn.rpg.gui;
 
-import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.gui.container.SkillInjectorContainer;
 import inwaiders.redn.rpg.gui.gui.LearnGui;
 import inwaiders.redn.rpg.gui.gui.SkillInjectorGui;
+import inwaiders.redn.rpg.items.SkillScroll;
 import inwaiders.redn.rpg.tiles.TileSkillInjector;
+import inwaiders.redn.rpg.utils.ItemNBT;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -38,14 +40,11 @@ public class GuiHandler implements IGuiHandler
 		{
 			case (LEARN_ID):
 			{
-				if(!player.isSneaking())
-				{
-					return new LearnGui(CFG.BackJumpID);
+				ItemStack scroll = player.getHeldItem();
+				if(scroll != null && scroll.getItem() instanceof SkillScroll && ItemNBT.verifyExistance(scroll, "Skill")) { //Just in case
+					return new LearnGui(ItemNBT.getInt(scroll, "Skill", -1));
 				}
-				else
-				{
-					return new LearnGui(CFG.ReleaseOfPranaID);
-				}
+				return null;
 			}
 			case(INJECTOR_ID):
 			{
