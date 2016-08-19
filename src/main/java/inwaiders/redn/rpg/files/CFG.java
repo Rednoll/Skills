@@ -24,18 +24,8 @@ public class CFG
 	{
 		CFG.cfg = cfg;
 		cfg.load();
-
-		BackJumpID = getSkillId("BackJump");
-		ReleaseOfPranaID = getSkillId("ReleaseOfPrana");
-		EarthquakeID = getSkillId("Earthquake");
-		LightBoltStrikeID = getSkillId("LightBoltStrike");
-		VoretexID = getSkillId("Vortex");
-		SwapID = getSkillId("Swap");
-		VipeID = getSkillId("VipeStrike");
-
 		initSkills();
 		initItemSkills();
-
 		cfg.save();
 		CFG.cfg = null;
 	}
@@ -48,6 +38,7 @@ public class CFG
 		LightBoltStrikeID = getSkillId("LightBoltStrike");
 		VoretexID = getSkillId("Vortex");
 		SwapID = getSkillId("Swap");
+		VipeID = getSkillId("VipeStrike");
 	}
 	
 	private static void initItemSkills()
