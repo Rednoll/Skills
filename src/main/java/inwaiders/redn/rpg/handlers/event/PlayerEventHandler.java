@@ -1,6 +1,7 @@
 package inwaiders.redn.rpg.handlers.event;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import inwaiders.redn.rpg.handlers.EventCancelException;
 import inwaiders.redn.rpg.managers.client.PlayerInfoManagerClient;
 import inwaiders.redn.rpg.managers.client.TeamManagerClient;
 import inwaiders.redn.rpg.managers.server.PlayerInfoManagerServer;
@@ -42,16 +43,23 @@ public class PlayerEventHandler
 	@SubscribeEvent
 	public void onHit(LivingHurtEvent e)
 	{
-		if (e.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) e.entityLiving;
-			PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
-			info.updateOnWearerHurtSkills(e.source.getEntity(), (int)e.ammount);
-		}
-		else if (e.source.getEntity() instanceof EntityPlayer)
+		try
 		{
-			EntityPlayer player = (EntityPlayer) e.source.getEntity();
-			PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
-			info.updateOnTargetHurtSkills(e.entity, (int)e.ammount);
+			if (e.entityLiving instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer) e.entityLiving;
+				PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
+				info.updateOnWearerHurtSkills(e.source.getEntity(), (int)e.ammount);
+			}
+			else if (e.source.getEntity() instanceof EntityPlayer)
+			{
+				EntityPlayer player = (EntityPlayer) e.source.getEntity();
+				PlayerInfoServer info = PlayerInfoManagerServer.instance.get(player);
+				info.updateOnTargetHurtSkills(e.entity, (int)e.ammount);
+			}
+		}
+		catch(EventCancelException ex)
+		{
+			e.setCanceled(true);
 		}
 	}
 
