@@ -7,6 +7,7 @@ import inwaiders.redn.rpg.skills.EasySkillCreator;
 import inwaiders.redn.rpg.skills.item.ItemSkillBase.ItemSkillType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class InstantShield extends ItemSkillBase{
 
@@ -19,8 +20,8 @@ public class InstantShield extends ItemSkillBase{
 	}
 	
 	@Override
-	public void perform(EntityPlayer ep, @Nullable Entity e, int damage) {
-		EasySkillCreator.attack(ep, ep, damage - damageDefendet[getLevel()]);
+	public void perform(LivingHurtEvent e) {
+		EasySkillCreator.attack((EntityPlayer) e.entityLiving, e.entityLiving, (int) (e.ammount - damageDefendet[getLevel()]));
 	}
 	
 	@Override

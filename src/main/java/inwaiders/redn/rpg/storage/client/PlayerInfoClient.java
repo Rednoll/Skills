@@ -110,7 +110,7 @@ public class PlayerInfoClient {
 				ISkillContainerItem container = (ISkillContainerItem) item.getItem();
 				ItemSkillBase skill = container.getSkill(item);
 				if (skill != null && skill.getType() == type)
-					updateItemSkill(container.getSkill(item), e, damage);
+					updateItemSkill(container.getSkill(item), e);
 			}
 		}
 		// TODO Integrate with baubles
@@ -127,11 +127,11 @@ public class PlayerInfoClient {
 					break;
 				}
 				case HITWEARER: {
-					skill.preWearerHited(ep, e, e);
+					skill.preWearerHited(e);
 					break;
 				}
 				case HITTARGET: {
-					skill.preTargetHited(ep, e, e);
+					skill.preTargetHited(e);
 					break;
 				}
 				default: {
@@ -181,7 +181,7 @@ public class PlayerInfoClient {
 		updateCoolDown();
 		updateWhilesSkills();
 		updateCastSkills();
-		updateItemSkills(null, ItemSkillType.TICK, 0);
+		updateItemSkills(null, ItemSkillType.TICK);
 		resetPlayer();
 		updateXp();
 	}
