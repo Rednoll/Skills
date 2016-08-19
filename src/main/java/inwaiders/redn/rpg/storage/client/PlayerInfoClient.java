@@ -27,7 +27,7 @@ public class PlayerInfoClient {
 	public int[] hotbarSkills;
 	protected int lpoints = 0;
 	protected int xp = 0;
-	protected int nextXp = Constants.DEFAUL_NEXT_XP;
+	protected int nextXp = Constants.DEFAUL_NEXT_XP[0];
 
 	public PlayerInfoClient(EntityPlayer ep) {
 		this.ep = ep;

@@ -80,7 +80,7 @@ public class PlayerJson
 		json.addProperty(TEAM, "ANY");
 		json.addProperty(LEARNPOINTS, 0);
 		json.addProperty(XP, 0);
-		json.addProperty(XPNEXT, Constants.DEFAUL_NEXT_XP);
+		json.addProperty(XPNEXT, Constants.DEFAUL_NEXT_XP[0]);
 	}
 
 	public void write()
