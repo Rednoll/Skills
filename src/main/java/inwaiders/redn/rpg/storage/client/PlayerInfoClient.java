@@ -1,21 +1,21 @@
 package inwaiders.redn.rpg.storage.client;
 
 import inwaiders.redn.rpg.Constants;
-import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase.ItemSkillType;
+import inwaiders.redn.rpg.skills.item.ItemSkillBase.PassiveEffect;
+import inwaiders.redn.rpg.utils.skillitem.ISkillContainerItem;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import javax.annotation.Nullable;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemStack;
 
 public class PlayerInfoClient {
 	protected HashMap<Integer, BaseSkill> bankSkills = new HashMap<Integer, BaseSkill>();
@@ -101,6 +101,75 @@ public class PlayerInfoClient {
 		}
 	}
 
+	protected void updateItemSkills(Entity e, ItemSkillType type) {
+		for (int i = 0; i <= 4; i++) {
+			ItemStack item = ep.getEquipmentInSlot(i);
+			if (item != null && item.getItem() instanceof ISkillContainerItem) {
+				ISkillContainerItem container = (ISkillContainerItem) item.getItem();
+				ItemSkillBase skill = container.getSkill(item);
+				if (skill != null && skill.getType() == type)
+					updateItemSkill(container.getSkill(item), e);
+			}
+		}
+		// TODO Integrate with baubles
+	}
+
+	private void updateItemSkill(ItemSkillBase skill, @Nullable Entity e) {
+		if (skill != null) {
+			if (skill.getCd() > 0) {
+				skill.decrCd();
+			}
+			switch (skill.getType()) {
+				case TICK: {
+					skill.preWhileUpdate(ep);
+					break;
+				}
+				case HITWEARER: {
+					skill.preWearerHited(ep, e);
+					break;
+				}
+				case HITTARGET: {
+					skill.preTargetHited(ep, e);
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}
+
+	public void updateOnWearerHurtSkills(Entity attacker) {
+		updateItemSkills(attacker, ItemSkillType.HITWEARER);
+	}
+
+	public void updateOnTargetHurtSkills(Entity target) {
+		updateItemSkills(target, ItemSkillType.HITTARGET);
+	}
+	
+	public PassiveEffect getPassiveEffects()
+	{
+		PassiveEffect ret = new PassiveEffect();
+		for (int i = 0; i <= 4; i++) {
+			ItemStack item = ep.getEquipmentInSlot(i);
+			if (item != null && item.getItem() instanceof ISkillContainerItem) {
+				ISkillContainerItem container = (ISkillContainerItem) item.getItem();
+				ItemSkillBase skill = container.getSkill(item);
+				if (skill != null && skill.getType() == ItemSkillType.PASSIVE)
+				{
+					PassiveEffect e = skill.getPassiveEffect(ep);
+					ret.casttimedecrease += e.casttimedecrease;
+					ret.cddecrease += e.cddecrease;
+					ret.intevaldecrease += e.intevaldecrease;
+					ret.manadecrease += e.manadecrease;
+					ret.radiusincrease += e.radiusincrease;
+				}
+			}
+		}
+		return ret;
+	}
+	
+
 	public void sync() {
 
 	}
@@ -110,6 +179,7 @@ public class PlayerInfoClient {
 		updateCoolDown();
 		updateWhilesSkills();
 		updateCastSkills();
+		updateItemSkills(null, ItemSkillType.TICK);
 		resetPlayer();
 		updateXp();
 	}
@@ -123,7 +193,7 @@ public class PlayerInfoClient {
 	}
 
 	public void setSkillIdByPos(int pos, int id) {
-		//System.out.println("Setting " + pos + " to " + id);
+		// System.out.println("Setting " + pos + " to " + id);
 		hotbarSkills[pos] = id;
 	}
 

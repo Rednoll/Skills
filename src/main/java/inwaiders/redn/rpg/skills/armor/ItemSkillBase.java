@@ -1,20 +1,37 @@
 package inwaiders.redn.rpg.skills.armor;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import javax.annotation.Nullable;
+
 import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.utils.Targeting.Target;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class ItemSkillBase {
 
 	public static enum ItemSkillType {
-		TICK, HITWEARER, /* Armor */
-		HITTARGET, /* Sword */
+		PASSIVE,//Decrease cd, e.t.c
+		TICK,
+		HITWEARER,//Armor
+		HITTARGET,//Sword 
 	}
+
+	public static class PassiveEffect
+	{
+		public int cddecrease = 0;
+		public int manadecrease = 0;//Unused at this moment
+		public int casttimedecrease = 0;
+		public int intevaldecrease = 0;
+		public int radiusincrease = 0;
+		public int damageincrease = 0;
+	}
+	
 	protected int level = 1;
+	protected int cd;
 	protected ItemSkillType type;
 	protected int[] damage;
 	protected int[] radius;
+	protected int[] maxCd;
 	protected int interval = 0;
 	protected int maxInterval = 0;
 	protected Target target;
@@ -25,8 +42,9 @@ public abstract class ItemSkillBase {
 		MAX_SKILL_LVL = maxLvl;
 		damage = new int[MAX_SKILL_LVL];
 		radius = new int[MAX_SKILL_LVL];
+		maxCd = new int[MAX_SKILL_LVL];
 	}
-	
+
 	public ItemSkillBase() {
 		this(Constants.DEFAUL_MAX_SKILL_LVL);
 	}
@@ -65,18 +83,52 @@ public abstract class ItemSkillBase {
 		return type;
 	}
 
-	public void preWhileUpdate(EntityPlayer ep) {
-
-		if (interval >= getMaxInterval()) {
-
-			interval = 0;
-			whileUpdate(ep);
-		}
-
-		interval++;
+	public int getCd() {
+		return cd;
 	}
 
-	public void whileUpdate(EntityPlayer ep) {
+	public void decrCd() {
+		cd--;
+	}
+	
+	/**
+	 * Called with each cast of any skill
+	 */
+	public PassiveEffect getPassiveEffect(EntityPlayer ep)
+	{
+		return null;
+	}
+
+	public void preWhileUpdate(EntityPlayer ep) {
+
+		if (type == ItemSkillType.TICK) {
+			if (interval >= getMaxInterval()) {
+
+				interval = 0;
+				perform(ep, null);
+			}
+
+			interval++;
+		}
+	}
+
+	public void preWearerHited(EntityPlayer ep, @Nullable Entity by) {
+		if(cd < 0)
+		{
+			perform(ep, by);
+			cd = maxCd[level];
+		}
+	}
+
+	public void preTargetHited(EntityPlayer ep, @Nullable Entity target) {
+		if(cd < 0)
+		{
+			perform(ep, target);
+			cd = maxCd[level];
+		}
+	}
+
+	public void perform(EntityPlayer ep, @Nullable Entity e) {
 
 	}
 

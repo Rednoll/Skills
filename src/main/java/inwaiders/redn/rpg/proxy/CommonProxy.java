@@ -5,7 +5,7 @@ import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.files.SaveAndLoadTeam;
 import inwaiders.redn.rpg.files.SaveAndLoadPlayer;
 import inwaiders.redn.rpg.gui.GuiHandler;
-import inwaiders.redn.rpg.handlers.event.PlayerUpdate;
+import inwaiders.redn.rpg.handlers.event.PlayerEventHandler;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.registry.BlockRegistry;
 import inwaiders.redn.rpg.registry.ItemRegistry;
@@ -29,7 +29,7 @@ public class CommonProxy {
 	public void init(FMLInitializationEvent e)
 	{
 		PacketDispatcher.registerPackets();
-		MinecraftForge.EVENT_BUS.register(new PlayerUpdate());
+		MinecraftForge.EVENT_BUS.register(new PlayerEventHandler());
 		MinecraftForge.EVENT_BUS.register(new SaveAndLoadPlayer());
 		MinecraftForge.EVENT_BUS.register(new SaveAndLoadTeam());
 		NetworkRegistry.INSTANCE.registerGuiHandler(Core.instance, new GuiHandler());

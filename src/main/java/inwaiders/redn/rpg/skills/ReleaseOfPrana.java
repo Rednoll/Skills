@@ -53,7 +53,7 @@ public class ReleaseOfPrana extends BaseSkill {
 				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.93F, 0.15F, 0F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, (r.nextDouble() - 0.5) * 20, 3, (r.nextDouble() - 0.5) * 20), ep, 20);
 			}
 		}
-		EasySkillCreator.attackAOE(ep, getRadiusByLevel(getLevel()), getDamageByLevel(getLevel()), getTarget());
+		EasySkillCreator.attackAOE(ep, getRadius(ep), getDamage(ep), getTarget());
 
 	}
 

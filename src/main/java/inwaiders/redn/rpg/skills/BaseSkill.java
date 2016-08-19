@@ -2,6 +2,7 @@ package inwaiders.redn.rpg.skills;
 
 import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.core.Core;
+import inwaiders.redn.rpg.managers.server.PlayerInfoManagerServer;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.Targeting.Target;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,12 +62,12 @@ public abstract class BaseSkill {
 		
 		if(casting){
 			
-			if(getCast() >= getMaxCastByLevel(getLevel())){
+			if(getCast() >= getMaxCast(ep)){
 				
 				setCast(0);
 				casting = false;
 				if(!ep.capabilities.isCreativeMode)
-				setCoolDown(getMaxCoolDownByLevel(getLevel()));
+				setCoolDown(getMaxCoolDown(ep));
 				skillStart(ep);
 			}
 		
@@ -112,12 +113,14 @@ public abstract class BaseSkill {
 		isAura = i;
 	}
 	
-	public int getMaxCoolDownByLevel(int i ){
-		return maxCoolDown[i] == 0 ? maxCoolDown[1] * i : maxCoolDown[i]; 
+	public int getMaxCoolDown(EntityPlayer ep){
+		int i = getLevel();
+		return (maxCoolDown[i] == 0 ? maxCoolDown[1] * i : maxCoolDown[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().cddecrease; 
 	}
 	
-	public int getRadiusByLevel(int i){
-		return radius[i] == 0 ? radius[1] * i : radius[i];
+	public int getRadius(EntityPlayer ep){
+		int i = getLevel();
+		return (radius[i] == 0 ? radius[1] * i : radius[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().radiusincrease;
 	}
 	
 	public int getMaxInterval(){
@@ -128,8 +131,9 @@ public abstract class BaseSkill {
 		return cast;
 	}
 	
-	public int getMaxCastByLevel(int i){
-		return maxCast[i] == 0 ? maxCast[1] * i : maxCast[i];
+	public int getMaxCast(EntityPlayer ep){
+		int i = getLevel();
+		return (maxCast[i] == 0 ? maxCast[1] * i : maxCast[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().casttimedecrease;
 	}
 	
 	public int getCoolDown(){
@@ -157,7 +161,7 @@ public abstract class BaseSkill {
 	}
 	
 	public void setLevel(int i){
-		level = Math.min(99, i);
+		level = Math.min(MAX_SKILL_LVL, i);
 	}
 	
 	public void setMaxInterval(int i){
@@ -168,8 +172,9 @@ public abstract class BaseSkill {
 		cast = i;
 	}
 	
-	public int getDamageByLevel(int i){
-		return damage[i] == 0 ? damage[1] * i : damage[i];
+	public int getDamage(EntityPlayer ep){
+		int i = getLevel();
+		return (damage[i] == 0 ? damage[1] * i : damage[i]) - PlayerInfoManagerServer.instance.get(ep).getPassiveEffects().damageincrease;
 	}
 	
 	public void setMaxCast(int i, int c){
