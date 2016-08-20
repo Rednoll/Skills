@@ -2,6 +2,7 @@ package inwaiders.redn.rpg.gui.gui;
 
 import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.core.Core;
+import inwaiders.redn.rpg.gui.button.SkillButton;
 import inwaiders.redn.rpg.managers.client.PlayerInfoManagerClient;
 import inwaiders.redn.rpg.packet.LearnSkillPackect;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
@@ -9,11 +10,9 @@ import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.storage.client.PlayerInfoClient;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;

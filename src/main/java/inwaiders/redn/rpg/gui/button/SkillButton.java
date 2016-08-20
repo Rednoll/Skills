@@ -1,4 +1,4 @@
-package inwaiders.redn.rpg.gui.gui;
+package inwaiders.redn.rpg.gui.button;
 
 import inwaiders.redn.rpg.skills.BaseSkill;
 import net.minecraft.client.Minecraft;
