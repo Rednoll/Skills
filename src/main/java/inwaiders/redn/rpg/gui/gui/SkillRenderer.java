@@ -36,7 +36,7 @@ public class SkillRenderer extends Gui {
 
 			int xPos = (sr.getScaledWidth() / 2) / k - 61;
 
-			int yPos = (int) (sr.getScaledWidth() / 2.08F) / k;
+			int yPos = (int) (sr.getScaledHeight() / 2.08F) / k;
 
 			yPos = 0;
 

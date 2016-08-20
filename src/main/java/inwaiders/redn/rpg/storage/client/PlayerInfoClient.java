@@ -96,7 +96,8 @@ public class PlayerInfoClient extends PlayerNbt {
 		if (xp >= nextXp) {
 			xp -= nextXp;
 			setLearnPoints(getLearnPoints() + 1);
-			if(++level % 5 == 0){
+			
+			if(++level % 5 == 0 || level++ == 1 || level++ == 3){
 				ItemStack scroll = new ItemStack(ItemRegistry.skillScroll);
 				scroll.getItem().onCreated(scroll, ep.worldObj, ep);
 				MiscUtils.addItemToPlayer(ep, scroll);

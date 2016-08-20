@@ -25,7 +25,7 @@ public class XPRegistry {
 	
 	public static void init()
 	{
-		register(EntityCreeper.class, 10);
+		register(EntityCreeper.class, 50);
 	}
 	
 }

@@ -16,6 +16,7 @@ public class SkillScroll extends ItemBase {
 	
 	public SkillScroll() {
 		super("SkillScroll");
+		this.setMaxStackSize(1);
 	}
 	
 	@Override
