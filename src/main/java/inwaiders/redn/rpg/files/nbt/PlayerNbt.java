@@ -9,7 +9,7 @@ public class PlayerNbt {
 	// Names
 	public static final String TAGNAME = "SkillEngine";
 	// Main
-	public static final String HOTBAR = "hotbar";// int array of 6
+	public static final String HOTBAR = "hotbar";// Object of 6 strings, named by their position
 	public static final String BANK = "bank";// Array
 	public static final String TEAM = "team";// String
 	public static final String LEARNPOINTS = "learnpts";// Int
@@ -17,7 +17,7 @@ public class PlayerNbt {
 	//BankSkill|Main
 	public static final String LEVEL = "lvl";
 	// Bank skill
-	public static final String ID = "id";// Int
+	public static final String NAME = "name";// Int
 	public static final String COOLDOWN = "cd";// Int
 
 	public NBTTagCompound nbt;
@@ -52,7 +52,12 @@ public class PlayerNbt {
 	}
 
 	private void initHotbar() {
-		nbt.setIntArray(HOTBAR, new int[] {-1, -1, -1, -1, -1, -1});
+		NBTTagCompound hotbar = new NBTTagCompound();
+		for(int i = 0; i < 6; i++)
+		{
+			hotbar.setString(i + "", "NONE");
+		}
+		nbt.setTag(HOTBAR, hotbar);
 	}
 	
 	private void initBank() {
@@ -78,10 +83,10 @@ public class PlayerNbt {
 		}
 	}
 	
-	public void addBank(int id, int lvl, int cd)
+	public void addBank(String name, int lvl, int cd)
 	{
 		NBTTagCompound skill = new NBTTagCompound();
-		skill.setInteger(ID, id);
+		skill.setString(NAME, name);
 		skill.setInteger(LEVEL, lvl);
 		skill.setInteger(COOLDOWN, cd);
 		nbt.getTagList(BANK, 10).appendTag(skill);
@@ -90,7 +95,7 @@ public class PlayerNbt {
 	public BankSkill getBank(int slot)
 	{
 		NBTTagCompound skill = nbt.getTagList(BANK, 10).getCompoundTagAt(slot);
-		return new BankSkill(skill.getInteger(ID), skill.getInteger(LEVEL), skill.getInteger(COOLDOWN));
+		return skill.hasKey(NAME) ? new BankSkill(skill.getString(NAME), skill.getInteger(LEVEL), skill.getInteger(COOLDOWN)) : null;
 	}
 	
 	public int getBankSize()
@@ -98,24 +103,34 @@ public class PlayerNbt {
 		return nbt.getTagList(BANK, 10).tagCount();
 	}
 	
-	public void setHotbar(int slot, int id)
+	public void setHotbar(int slot, String name)
 	{
-		nbt.getIntArray(HOTBAR)[slot] = id;
+		nbt.getCompoundTag(HOTBAR).setString(slot + "", name);
 	}
 	
-	public int getHotbar(int slot)
+	public String getHotbar(int slot)
 	{
-		return nbt.getIntArray(HOTBAR)[slot];
+		return nbt.getCompoundTag(HOTBAR).getString(slot + "");
 	}
 	
-	public int[] getHotbarSkills()
+	public String[] getHotbarSkills()
 	{
-		return nbt.getIntArray(HOTBAR);
+		NBTTagCompound hotbar = nbt.getCompoundTag(HOTBAR);
+		String[] ret = new String[6];
+		for(int i = 0; i < 6; i++)
+		{
+			ret[i] = hotbar.getString(i + "");
+		}
+		return ret;
 	}
 	
-	public void setHotbarSkills(int[] skills)
+	public void setHotbarSkills(String[] skills)
 	{
-		nbt.setIntArray(HOTBAR, skills);
+		NBTTagCompound hotbar = nbt.getCompoundTag(HOTBAR);
+		for(int i = 0; i < 6; i++)
+		{
+			hotbar.setString(i + "", skills[i]);
+		}
 	}
 	
 	public void setTeam(String team)

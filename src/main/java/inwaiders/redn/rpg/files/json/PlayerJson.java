@@ -29,14 +29,14 @@ public class PlayerJson
 {
 	//Names
 	//Main
-	public static final String HOTBAR = "hotbar";//Object, contains 6 ints, named by their position (1,2,3,4,5,6)
+	public static final String HOTBAR = "hotbar";//Object, contains 6 string, named by their position (1,2,3,4,5,6)
 	public static final String BANK = "bank";//Array
 	public static final String TEAM = "team";//String
 	public static final String LEARNPOINTS = "learnpts";//Int
 	public static final String XP = "XP";//Int
 	public static final String LEVEL = "lvl";
 	//Bank skill
-	public static final String ID = "id";//Int
+	public static final String NAME = "name";//String
 	public static final String LVL = "lvl";//Int
 	public static final String COOLDOWN = "cd";//Int
 	
@@ -102,21 +102,21 @@ public class PlayerJson
 		JsonObject hotbar = new JsonObject();
 		for (int i = 0; i < 6; i++)
 		{
-			hotbar.addProperty(i + "", -1);
+			hotbar.addProperty(i + "", "NONE");
 		}
 		json.add(HOTBAR, hotbar);
 	}
 
-	public void setHotbar(int slot, int id)
+	public void setHotbar(int slot, String name)
 	{
 		JsonObject skills = json.getAsJsonObject(HOTBAR);
-		skills.addProperty(slot + "", id);
+		skills.addProperty(slot + "", name);
 		json.add(HOTBAR, skills);
 	}
 
-	public int getHotbar(int slot)
+	public String getHotbar(int slot)
 	{
-		return json.getAsJsonObject(HOTBAR).get(slot + "").getAsInt();
+		return json.getAsJsonObject(HOTBAR).get(slot + "").getAsString();
 	}
 	
 	//Bank
@@ -126,11 +126,11 @@ public class PlayerJson
 		json.add(BANK, bank);
 	}
 	
-	public void addBank(int id, int lvl, int cd)
+	public void addBank(String name, int lvl, int cd)
 	{
 		JsonArray bank = json.getAsJsonArray(BANK);
 		JsonObject skill = new JsonObject();
-		writeSkill(skill, id, lvl, cd);
+		writeSkill(skill, name, lvl, cd);
 		bank.add(skill);
 	}
 	 
@@ -142,22 +142,23 @@ public class PlayerJson
 			return null;
 		}
 		JsonObject skill = bank.get(slot).getAsJsonObject();
-		return new BankSkill(skill.get(ID).getAsInt(), skill.get(LVL).getAsInt(), skill.get(COOLDOWN).getAsInt());
+		return new BankSkill(skill.get(NAME).getAsString(), skill.get(LVL).getAsInt(), skill.get(COOLDOWN).getAsInt());
 	}
 	
-	private static void writeSkill(JsonObject json, int id, int lvl, int cd)
+	private static void writeSkill(JsonObject json, String name, int lvl, int cd)
 	{
-		json.addProperty(ID, id);
+		json.addProperty(NAME, name);
 		json.addProperty(LVL, lvl);
 		json.addProperty(COOLDOWN, cd);
 	}
 	
 	public static class BankSkill
 	{
-		public final int id, lvl, cd;
-		public BankSkill(int id, int lvl, int cd)
+		public final int lvl, cd;
+		public final String name;
+		public BankSkill(String name, int lvl, int cd)
 		{
-			this.id = id;
+			this.name = name;
 			this.lvl = lvl;
 			this.cd = cd;
 		}

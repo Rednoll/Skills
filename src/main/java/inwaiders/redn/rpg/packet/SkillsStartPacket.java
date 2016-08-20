@@ -11,25 +11,25 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 public class SkillsStartPacket  implements IMessage{
 	
-	private int i = 0;
+	private String i;
 	
 	public SkillsStartPacket(){
 		
 	}
 	
-	public SkillsStartPacket(int i){
+	public SkillsStartPacket(String i){
 		this.i = i;
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		this.i = ByteBufUtils.readVarShort(buf);
+		this.i = ByteBufUtils.readUTF8String(buf);
 		
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		ByteBufUtils.writeVarShort(buf, this.i);
+		ByteBufUtils.writeUTF8String(buf, this.i);
 		
 	}
 

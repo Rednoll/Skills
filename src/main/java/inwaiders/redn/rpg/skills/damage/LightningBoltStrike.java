@@ -1,10 +1,11 @@
-package inwaiders.redn.rpg.skills;
+package inwaiders.redn.rpg.skills.damage;
 
 import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.packet.LightningPacket;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
+import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.MiscUtils;
 import inwaiders.redn.rpg.utils.Targeting.Target;
@@ -47,11 +48,6 @@ public class LightningBoltStrike extends BaseSkill{
 		}
 		
 		//System.out.println("Coords : X = "+MiscUtils.getPlayerTarget(ep, 30, 0).blockX+", Y = "+MiscUtils.getPlayerTarget(ep, 30, 0).blockY+", Z ="+MiscUtils.getPlayerTarget(ep, 30, 0).blockZ);
-	}
-	
-	@Override
-	public int getId() {
-		return CFG.LightBoltStrikeID;
 	}
 
 	@Override

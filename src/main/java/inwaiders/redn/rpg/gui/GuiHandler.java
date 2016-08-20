@@ -42,7 +42,7 @@ public class GuiHandler implements IGuiHandler
 			{
 				ItemStack scroll = player.getHeldItem();
 				if(scroll != null && scroll.getItem() instanceof SkillScroll && ItemNBT.verifyExistance(scroll, "Skill")) { //Just in case
-					return new LearnGui(ItemNBT.getInt(scroll, "Skill", -1));
+					return new LearnGui(ItemNBT.getString(scroll, "Skill", "NONE"));
 				}
 				return null;
 			}

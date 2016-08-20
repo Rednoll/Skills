@@ -1,8 +1,9 @@
-package inwaiders.redn.rpg.skills;
+package inwaiders.redn.rpg.skills.damage;
 
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.entity.VipeEntity;
 import inwaiders.redn.rpg.files.CFG;
+import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -36,12 +37,6 @@ public class SkillVipeStrike extends BaseSkill {
 
 		VipeEntity ve = new VipeEntity(ep.worldObj, ep, 2F, getDamage(ep), getLevel());
 		ep.worldObj.spawnEntityInWorld(ve);
-	}
-
-	@Override
-	public int getId() {
-
-		return CFG.VipeID;
 	}
 
 	@Override

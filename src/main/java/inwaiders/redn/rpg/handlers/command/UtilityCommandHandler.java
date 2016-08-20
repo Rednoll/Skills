@@ -1,7 +1,11 @@
 package inwaiders.redn.rpg.handlers.command;
 
 import inwaiders.redn.rpg.managers.server.PlayerInfoManagerServer;
+import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.storage.server.PlayerInfoServer;
+
+import java.util.HashMap;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,9 +43,16 @@ public class UtilityCommandHandler extends CommandBase {
 				}
 				PlayerInfoServer i = PlayerInfoManagerServer.instance.get(getCommandSenderAsPlayer(sender));
 				i.nbt = new NBTTagCompound();
+				i.setSkills(new HashMap<String, BaseSkill>());
 				i.resetNBT();
 				sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Succesfully reseted nbt"));
 				return;
+			}
+			case("bank"):
+			{
+				PlayerInfoServer i = PlayerInfoManagerServer.instance.get(getCommandSenderAsPlayer(sender));
+				i.setSkills(i.getSkills());
+				break;
 			}
 			default:
 			{

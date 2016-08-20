@@ -10,26 +10,26 @@ import java.util.HashMap;
 import cpw.mods.fml.common.FMLLog;
 
 public class ItemSkillRegistry {
-	private static HashMap<Integer, Class<? extends ItemSkillBase>> skills = new HashMap<Integer, Class<? extends ItemSkillBase>>();
+	private static HashMap<String, Class<? extends ItemSkillBase>> skills = new HashMap<String, Class<? extends ItemSkillBase>>();
 
-	public static void register(int id, Class<? extends ItemSkillBase> skill) {
-		if (skills.containsKey(id)) {
-			FMLLog.warning("ItemSpell with id " + id + " alredy registered, skipping");
+	public static void register(String name, Class<? extends ItemSkillBase> skill) {
+		if (skills.containsKey(name)) {
+			FMLLog.warning("ItemSpell with name " + name + " alredy registered, skipping");
 			return;
 		}
-		skills.put(id, skill);
+		skills.put(name, skill);
 	}
 
 	public static void register(ItemSkillBase skill) {
-		register(skill.getId(), skill.getClass());
+		register(skill.getName(), skill.getClass());
 	}
 
-	public static ItemSkillBase getById(int id) {
-		if (skills.containsKey(id)) {
+	public static ItemSkillBase getByName(String name) {
+		if (skills.containsKey(name)) {
 			try {
-				return skills.get(id).newInstance();
+				return skills.get(name).newInstance();
 			} catch (Exception e) {
-				MiscUtils.crashGame("Unable to get ItemSkill with id " + id + " from registry, contact mod author", e);
+				MiscUtils.crashGame("Unable to get ItemSkill with name " + name + " from registry, contact mod author", e);
 			}
 		}
 		return null;

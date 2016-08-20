@@ -1,6 +1,7 @@
 package inwaiders.redn.rpg.storage.client;
 
 import inwaiders.redn.rpg.Constants;
+import inwaiders.redn.rpg.files.json.PlayerJson.BankSkill;
 import inwaiders.redn.rpg.files.nbt.PlayerNbt;
 import inwaiders.redn.rpg.registry.ItemRegistry;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
@@ -23,7 +24,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public class PlayerInfoClient extends PlayerNbt {
-	protected HashMap<Integer, BaseSkill> bankSkills = new HashMap<Integer, BaseSkill>();
+	protected HashMap<String, BaseSkill> bankSkills = new HashMap<String, BaseSkill>();
 	protected String playername;
 
 	public PlayerInfoClient(EntityPlayer ep) {
@@ -31,52 +32,53 @@ public class PlayerInfoClient extends PlayerNbt {
 		playername = ep.getCommandSenderName();
 	}
 
-	public HashMap<Integer, BaseSkill> getSkills() {
+	public HashMap<String, BaseSkill> getSkills() {
 		return bankSkills;
 	}
 
-	public void setSkills(HashMap<Integer, BaseSkill> skills) {
+	public void setSkills(HashMap<String, BaseSkill> skills) {
+		skills.forEach((n, skill) -> System.out.println(n + "/" + skill));
 		this.bankSkills = skills;
 	}
 
 	protected void updateCoolDown() {
-		bankSkills.forEach((id, skill) -> {
+		bankSkills.forEach((name, skill) -> {
 			if (skill.getCoolDown() > 0)
 				skill.setCoolDown(skill.getCoolDown() - 1);
 		});
 	}
 
 	protected void updateWhilesSkills() {
-		bankSkills.forEach((id, skill) -> {
+		bankSkills.forEach((name, skill) -> {
 			if (skill.isPassive() == 1)
 				skill.preWhileUpdate(ep);
 		});
 	}
 
 	protected void updateCastSkills() {
-		bankSkills.forEach((id, skill) -> skill.preCast(ep));
+		bankSkills.forEach((name, skill) -> skill.preCast(ep));
 	}
 
-	public void activateSkill(int id, EntityPlayer ep) {
-		if (getSkillById(id) != null) {
-			getSkillById(id).startCasting();
+	public void activateSkill(String name, EntityPlayer ep) {
+		if (getSkillByName(name) != null) {
+			getSkillByName(name).startCasting();
 		}
 	}
 
-	public BaseSkill getSkillById(int id) {
-		return bankSkills.get(id);
+	public BaseSkill getSkillByName(String name) {
+		return bankSkills.get(name);
 	}
 
-	public boolean hasSkill(int id) {
-		return getSkillById(id) != null;
+	public boolean hasSkill(String name) {
+		return getSkillByName(name) != null;
 	}
 
-	public void learnSkill(int id) {
-
-		if (!bankSkills.containsKey(id)) {
-			this.bankSkills.put(id, SkillsRegistry.getSkillById(id));
+	public void learnSkill(String name) {
+		
+		if (!bankSkills.containsKey(name)) {
+			this.bankSkills.put(name, SkillsRegistry.getSkillByName(name));
 		} else {
-			BaseSkill skill = this.bankSkills.get(id);
+			BaseSkill skill = this.bankSkills.get(name);
 			skill.setLevel(skill.getLevel() + 1);
 		}
 	}
@@ -210,6 +212,23 @@ public class PlayerInfoClient extends PlayerNbt {
 	
 	public void addXp(int xp) {
 		setXp(getXp() + xp);
+	}
+	
+	public void saveBank()
+	{
+		bankSkills.forEach((name, skill) -> addBank(skill.getName(), skill.getLevel(), skill.getCoolDown()));
+	}
+	
+	public void loadBank()
+	{
+		int i = 0;
+		for(BankSkill skill = getBank(i); skill != null; skill = getBank(++i))
+		{
+			BaseSkill result = SkillsRegistry.getSkillByName(skill.name);
+			result.setLevel(skill.lvl);
+			result.setCoolDown(skill.cd);
+			bankSkills.put(result.getName(), result);
+		}
 	}
 
 }

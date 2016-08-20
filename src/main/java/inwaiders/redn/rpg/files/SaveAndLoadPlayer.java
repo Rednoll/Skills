@@ -18,12 +18,13 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class SaveAndLoadPlayer {
 	@SubscribeEvent
 	public void save(SaveToFile e) {
+		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(e.entityPlayer);
 		if(CFG.forceJson)
 		{
-			PlayerInfoServer b = PlayerInfoManagerServer.instance.get(e.entityPlayer);
-			HashMap<Integer, BaseSkill> skills = b.getSkills();
+			
+			HashMap<String, BaseSkill> skills = b.getSkills();
 			PlayerJson pjson = new PlayerJson(e.entityPlayer, true);
-			skills.forEach((id, skill) -> pjson.addBank(skill.getId(), skill.getLevel(), skill.getCoolDown()));
+			skills.forEach((name, skill) -> pjson.addBank(skill.getName(), skill.getLevel(), skill.getCoolDown()));
 			for (int i = 0; i < 6; i++) {
 				pjson.setHotbar(i, b.getHotbar(i));
 			}
@@ -33,21 +34,25 @@ public class SaveAndLoadPlayer {
 			pjson.setLearnPoints(b.getLearnPoints());
 			pjson.write();
 		}
+		else
+		{
+			b.saveBank();
+		}
 	}
 
 	public static void load(EntityPlayer ep) {
+		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(ep);
 		if(CFG.forceJson)
 		{
-			PlayerInfoServer b = PlayerInfoManagerServer.instance.get(ep);
 			PlayerJson pjson = new PlayerJson(ep);
-			b.setSkills(new HashMap<Integer, BaseSkill>());
+			b.setSkills(new HashMap<String, BaseSkill>());
 			int iCount = 0;
 			for (BankSkill skill = pjson.getBank(iCount); skill != null; skill = pjson.getBank(++iCount)) {
 				try {
-					BaseSkill s = SkillsRegistry.getSkillById(skill.id);
+					BaseSkill s = SkillsRegistry.getSkillByName(skill.name);
 					s.setLevel(skill.lvl);
 					s.setCoolDown(skill.cd);
-					b.getSkills().put(s.getId(), s);
+					b.getSkills().put(s.getName(), s);
 				} catch (Exception e) {
 					MiscUtils.crashGame("Unbable to load skill", e);
 				}
@@ -59,6 +64,10 @@ public class SaveAndLoadPlayer {
 			b.setXp(pjson.getXP());
 			b.setLevel(pjson.getLvl());
 			b.setLearnPoints(pjson.getLearnPoints());
+		}
+		else
+		{
+			b.loadBank();
 		}
 	}
 

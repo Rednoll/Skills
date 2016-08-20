@@ -8,10 +8,10 @@ import inwaiders.redn.rpg.utils.ItemNBT;
 public interface ISkillContainerItem {
 	public default void setSkill(ItemStack stack, ItemSkillBase skill)
 	{
-		ItemNBT.setInt(stack, "SKILL", skill.getId());
+		ItemNBT.setString(stack, "SKILL", skill.getName());
 	}
 	public default ItemSkillBase getSkill(ItemStack stack)
 	{
-		return ItemSkillRegistry.getById(ItemNBT.getInt(stack, "SKILL", -1));
+		return ItemSkillRegistry.getByName(ItemNBT.getString(stack, "SKILL", "NONE"));
 	}
 }

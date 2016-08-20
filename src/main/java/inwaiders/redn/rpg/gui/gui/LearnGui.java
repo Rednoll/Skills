@@ -21,19 +21,19 @@ import net.minecraft.client.gui.ScaledResolution;
 public class LearnGui extends GuiScreen {
 	private String alert;
 	private Color alertC;
-	private int id;
+	private String name;
 
-	public LearnGui(int id) {
-		this.id = id;
+	public LearnGui(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float ticks) {
 		PlayerInfoClient info = PlayerInfoManagerClient.instance.get(mc.thePlayer);
-		BaseSkill skill = info.getSkillById(id);
+		BaseSkill skill = info.getSkillByName(name);
 		if(skill == null)
 		{
-			skill = SkillsRegistry.getSkillById(id);
+			skill = SkillsRegistry.getSkillByName(name);
 		}
 		LearnPointsPrice price = skill.getPrice();
 		drawDefaultBackground();
@@ -61,16 +61,16 @@ public class LearnGui extends GuiScreen {
 	protected void actionPerformed(GuiButton b) {
 		if (b.id == 0) {
 			PlayerInfoClient l = PlayerInfoManagerClient.instance.get(mc.thePlayer);
-			BaseSkill skill = l.getSkillById(id);
+			BaseSkill skill = l.getSkillByName(name);
 			if(skill == null)
 			{
-				skill = SkillsRegistry.getSkillById(id);
+				skill = SkillsRegistry.getSkillByName(name);
 			}
 			switch(l.canLearn(skill))
 			{
 				case(0):
 				{
-					PacketDispatcher.sendToServer(new LearnSkillPackect(id, mc.thePlayer.inventory.currentItem));
+					PacketDispatcher.sendToServer(new LearnSkillPackect(name, mc.thePlayer.inventory.currentItem));
 					if(!mc.thePlayer.capabilities.isCreativeMode)
 					{
 						mc.displayGuiScreen(null);
@@ -100,7 +100,7 @@ public class LearnGui extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		buttonList.add(new SkillButton(0, width / 2 - 32, height / 2 - 60, SkillsRegistry.getSkillById(id)));
+		buttonList.add(new SkillButton(0, width / 2 - 32, height / 2 - 60, SkillsRegistry.getSkillByName(name)));
 	}
 
 	@Override

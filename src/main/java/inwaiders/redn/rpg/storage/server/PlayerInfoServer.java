@@ -1,8 +1,11 @@
 package inwaiders.redn.rpg.storage.server;
 
 import inwaiders.redn.rpg.files.SaveAndLoadPlayer;
+import inwaiders.redn.rpg.files.json.PlayerJson.BankSkill;
 import inwaiders.redn.rpg.packet.sync.PlayerInfoSync;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
+import inwaiders.redn.rpg.registry.SkillsRegistry;
+import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.storage.client.PlayerInfoClient;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -52,6 +55,5 @@ public class PlayerInfoServer extends PlayerInfoClient {
 			ep = (EntityPlayer) MinecraftServer.getServer().getConfigurationManager().getPlayerList(playername).get(0);
 		}
 	}
-
 
 }

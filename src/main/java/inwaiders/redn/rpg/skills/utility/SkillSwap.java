@@ -1,7 +1,8 @@
-package inwaiders.redn.rpg.skills;
+package inwaiders.redn.rpg.skills.utility;
 
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
+import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.MiscUtils;
 import net.minecraft.entity.EntityLivingBase;
@@ -54,11 +55,6 @@ public class SkillSwap extends BaseSkill {
 
 	}
 
-	@Override
-	public int getId() {
-
-		return CFG.SwapID;
-	}
 
 	@Override
 	public String getName() {

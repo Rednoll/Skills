@@ -14,16 +14,16 @@ public class LearnSkillPackect implements IMessage
 
 	
 	
-	private int id;
+	private String name;
 	private int slotnum;
 	public LearnSkillPackect()
 	{
 		
 	}
 	
-	public LearnSkillPackect(int id, int slotnum)
+	public LearnSkillPackect(String name, int slotnum)
 	{
-		this.id = id;
+		this.name = name;
 		this.slotnum = slotnum;
 	}
 	
@@ -31,7 +31,7 @@ public class LearnSkillPackect implements IMessage
 	public void fromBytes(ByteBuf buf)
 	{
 		NBTTagCompound nbt = ByteBufUtils.readTag(buf);
-		id = nbt.getInteger("id");
+		name = nbt.getString("name");
 		slotnum = nbt.getInteger("slot");
 	}
 
@@ -39,7 +39,7 @@ public class LearnSkillPackect implements IMessage
 	public void toBytes(ByteBuf buf)
 	{
 		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setInteger("id", id);
+		nbt.setString("name", name);
 		nbt.setInteger("slot", slotnum);
 		ByteBufUtils.writeTag(buf, nbt);
 	}
@@ -50,7 +50,7 @@ public class LearnSkillPackect implements IMessage
 		@Override
 		public IMessage handleServerMessage(EntityPlayer player, LearnSkillPackect message, MessageContext ctx)
 		{
-			SkillsRegistry.learnSkill(player, message.id);
+			SkillsRegistry.learnSkill(player, message.name);
 			if(!player.capabilities.isCreativeMode)
 			{
 				player.inventory.setInventorySlotContents(message.slotnum, null);

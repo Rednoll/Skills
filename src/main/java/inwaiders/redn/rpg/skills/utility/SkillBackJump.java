@@ -1,4 +1,4 @@
-package inwaiders.redn.rpg.skills;
+package inwaiders.redn.rpg.skills.utility;
 
 import java.util.Random;
 
@@ -6,6 +6,7 @@ import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.packet.ParticlePacket;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
+import inwaiders.redn.rpg.skills.BaseSkill;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntitySpellParticleFX;
@@ -68,11 +69,6 @@ public class SkillBackJump extends BaseSkill {
 	@Override
 	public LearnPointsPrice getPrice() {
 		return new LearnPointsPrice(this, 1);
-	}
-
-	@Override
-	public int getId() {
-		return CFG.BackJumpID;
 	}
 
 	@Override

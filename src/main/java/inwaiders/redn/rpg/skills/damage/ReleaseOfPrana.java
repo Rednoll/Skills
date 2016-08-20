@@ -1,4 +1,4 @@
-package inwaiders.redn.rpg.skills;
+package inwaiders.redn.rpg.skills.damage;
 
 import java.util.Random;
 
@@ -6,6 +6,8 @@ import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.packet.ParticlePacket;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
+import inwaiders.redn.rpg.skills.BaseSkill;
+import inwaiders.redn.rpg.skills.EasySkillCreator;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.Targeting.Target;
 import net.minecraft.client.Minecraft;
@@ -88,11 +90,6 @@ public class ReleaseOfPrana extends BaseSkill {
 	@Override
 	public LearnPointsPrice getPrice() {
 		return new LearnPointsPrice(this, 3);
-	}
-
-	@Override
-	public int getId() {
-		return CFG.ReleaseOfPranaID;
 	}
 
 	@Override

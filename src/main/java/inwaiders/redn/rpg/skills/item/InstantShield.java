@@ -15,7 +15,7 @@ import scala.math.Ordering.CharOrdering;
 public class InstantShield extends ItemSkillBase {
 
 	private float[] damageDefendet;
-
+	public static final String NAME = "ItemSkillInstantShield";
 	public InstantShield() {
 		super(4);
 		damageDefendet = new float[] {1F, 3F, 5F, 7F};
@@ -29,15 +29,9 @@ public class InstantShield extends ItemSkillBase {
 	}
 
 	@Override
-	public int getId() {
-
-		return CFG.InstantShieldID;
-	}
-
-	@Override
 	public String getName() {
 
-		return "ItemSkillInstantShield";
+		return NAME;
 	}
 
 	@Override

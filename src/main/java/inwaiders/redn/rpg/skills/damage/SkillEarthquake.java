@@ -1,4 +1,4 @@
-package inwaiders.redn.rpg.skills;
+package inwaiders.redn.rpg.skills.damage;
 
 import java.util.Random;
 
@@ -7,6 +7,8 @@ import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.packet.ParticlePacket;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
+import inwaiders.redn.rpg.skills.BaseSkill;
+import inwaiders.redn.rpg.skills.EasySkillCreator;
 import inwaiders.redn.rpg.skills.EasySkillCreator.IEffect;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.Targeting.Target;
@@ -89,12 +91,6 @@ public class SkillEarthquake extends BaseSkill
 	public ResourceLocation getTexture()
 	{
 		return Core.skillrlgen.generate("earthquake");
-	}
-
-	@Override
-	public int getId()
-	{
-		return CFG.EarthquakeID;
 	}
 	
 	@Override

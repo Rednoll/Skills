@@ -7,16 +7,17 @@ import inwaiders.redn.rpg.skills.item.ItemSkillBase;
 import inwaiders.redn.rpg.utils.skillitem.ISkillItem;
 
 public class ItemSkillItemBase extends ItemBase implements ISkillItem {
-	protected final int id, lvl;
-	public ItemSkillItemBase(String name, int itemskillid, int lvl) {
+	protected final int lvl;
+	protected final String skillname;
+	public ItemSkillItemBase(String name, String itemskillName, int lvl) {
 		super(name);
-		id = itemskillid;
+		skillname = itemskillName;
 		this.lvl = lvl;
 	}
 
 	@Override
 	public ItemSkillBase getSkill(ItemStack stack) {
-		ItemSkillBase ret = ItemSkillRegistry.getById(id);
+		ItemSkillBase ret = ItemSkillRegistry.getByName(skillname);
 		ret.setLevel(lvl);
 		return ret;
 	}

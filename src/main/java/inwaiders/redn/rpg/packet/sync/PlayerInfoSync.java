@@ -32,7 +32,9 @@ public class PlayerInfoSync implements IMessage {
 	private int i = 0;
 
 	public PlayerInfoSync(EntityPlayer ep) {
-		this.nbt = PlayerInfoManagerServer.instance.get(ep).nbt;
+		PlayerInfoServer i = PlayerInfoManagerServer.instance.get(ep);
+		i.saveBank();
+		this.nbt = i.nbt;
 	}
 
 	@Override
@@ -49,7 +51,9 @@ public class PlayerInfoSync implements IMessage {
 
 		@Override
 		public IMessage handleClientMessage(EntityPlayer player, PlayerInfoSync message, MessageContext ctx) {
-			PlayerInfoManagerClient.instance.get(player).nbt = message.nbt;
+			PlayerInfoClient i = PlayerInfoManagerClient.instance.get(player);
+			i.nbt = message.nbt;
+			i.loadBank();
 			return null;
 		}
 	}

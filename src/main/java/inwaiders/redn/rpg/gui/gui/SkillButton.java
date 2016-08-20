@@ -18,9 +18,9 @@ public class SkillButton extends GuiButton
 		this(id, x, y, 64, 64, skill);
 	}
 	
-	public int getSkillID()
+	public String getSkillName()
 	{
-		return skill.getId();
+		return skill.getName();
 	}
 	
 	@Override

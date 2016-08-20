@@ -74,7 +74,7 @@ public class SkillRenderer extends Gui {
 
 		PlayerInfoClient se = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 
-		BaseSkill b = se.getSkillById(se.getHotbar(pos));
+		BaseSkill b = se.getSkillByName(se.getHotbar(pos));
 		//System.out.println(se.getHotbar(pos));
 		if (b != null) {
 			this.mc.getTextureManager().bindTexture(b.getTexture());

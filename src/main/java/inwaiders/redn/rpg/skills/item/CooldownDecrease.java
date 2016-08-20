@@ -5,7 +5,8 @@ import inwaiders.redn.rpg.files.CFG;
 
 public class CooldownDecrease extends ItemSkillBase {
 
-	
+	public static final String NAME = "ItemSkillCoolldownDecrease";
+
 	public CooldownDecrease() {
 		type = ItemSkillType.PASSIVE;
 	}
@@ -16,16 +17,10 @@ public class CooldownDecrease extends ItemSkillBase {
 		ret.cddecrease = 2 * getLevel() + 1;
 		return ret;
 	}
-	
-	
-	@Override
-	public int getId() {
-		return CFG.cooldowdecID;
-	}
 
 	@Override
 	public String getName() {
-		return "ItemSkillCoolldownDecrease";
+		return NAME;
 	}
 
 	@Override

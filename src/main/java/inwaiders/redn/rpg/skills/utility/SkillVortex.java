@@ -1,6 +1,7 @@
-package inwaiders.redn.rpg.skills;
+package inwaiders.redn.rpg.skills.utility;
 
 import java.util.Random;
+
 
 
 
@@ -8,6 +9,8 @@ import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.packet.ParticlePacket;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
+import inwaiders.redn.rpg.skills.BaseSkill;
+import inwaiders.redn.rpg.skills.EasySkillCreator;
 import inwaiders.redn.rpg.storage.LearnPointsPrice;
 import inwaiders.redn.rpg.utils.VectorUtils;
 import inwaiders.redn.rpg.utils.Targeting.Target;
@@ -41,11 +44,6 @@ public class SkillVortex extends BaseSkill {
 			target.motionY += rev.yCoord * (0.5 * (getLevel() + 1));
 			target.motionZ += rev.zCoord * (0.5 * (getLevel() + 1));
 		});
-	}
-
-	@Override
-	public int getId() {
-		return CFG.VoretexID;
 	}
 
 	@Override

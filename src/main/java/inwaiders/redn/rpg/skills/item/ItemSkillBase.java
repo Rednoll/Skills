@@ -155,8 +155,6 @@ public abstract class ItemSkillBase {
 		
 	}
 
-	public abstract int getId();
-
 	public abstract String getName();
 
 	public abstract int getInstallCost();

@@ -20,7 +20,7 @@ public class SkillScroll extends ItemBase {
 	
 	@Override
 	public void addInformation(ItemStack s, EntityPlayer p, List info, boolean p_77624_4_) {
-		BaseSkill skill = SkillsRegistry.getSkillById(ItemNBT.getInt(s, "Skill", -1));
+		BaseSkill skill = SkillsRegistry.getSkillByName(ItemNBT.getString(s, "Skill", "NONE"));
 		if(skill != null)
 		info.add(skill.getName());
 		setMaxStackSize(1);
@@ -28,12 +28,12 @@ public class SkillScroll extends ItemBase {
 	
 	@Override
 	public void onCreated(ItemStack s, World w, EntityPlayer p) {
-		int id;
-		while(SkillsRegistry.getSkillById(id = Core.r.nextInt(SkillsRegistry.getSize() + 1)) == null)
+		String name;	
+		while(SkillsRegistry.getSkillByName(name = SkillsRegistry.getRandomSkillName()) == null)
 		{
 			
 		} 
-		ItemNBT.setInt(s, "Skill", id);
+		ItemNBT.setString(s, "Skill", name);
 	}
 	
 	@Override

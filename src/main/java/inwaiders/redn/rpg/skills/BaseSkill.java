@@ -190,8 +190,6 @@ public abstract class BaseSkill {
 	{
 		return MAX_SKILL_LVL;
 	}
-	
-	public abstract int getId();
 	public abstract String getName();
 	public abstract LearnPointsPrice getPrice();
 	public abstract ResourceLocation getTexture();
