@@ -3,6 +3,7 @@ package inwaiders.redn.rpg.registry;
 import inwaiders.redn.rpg.items.DebugItem;
 import inwaiders.redn.rpg.items.ExperienceScroll;
 import inwaiders.redn.rpg.items.SkillScroll;
+import inwaiders.redn.rpg.items.ThirdEye;
 import inwaiders.redn.rpg.items.CAD.CadMemoryCard;
 import inwaiders.redn.rpg.items.CAD.CastingAssistantDevice;
 import inwaiders.redn.rpg.items.armor.SkillArmor;
@@ -23,6 +24,7 @@ public class ItemRegistry
 	public static Item cadMemory;
 	public static Item cad;
 	public static Item is;
+	public static Item thirdEye;
 	public static void init()
 	{
 		debugItem = new DebugItem();
@@ -35,6 +37,7 @@ public class ItemRegistry
 		cdd = new CooldowDecreaser();
 		cadMemory = new CadMemoryCard();
 		cad = new CastingAssistantDevice();
+		thirdEye = new ThirdEye();
 		is = new IS();
 	}
 }

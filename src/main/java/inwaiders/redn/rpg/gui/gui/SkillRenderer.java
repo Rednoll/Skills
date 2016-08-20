@@ -27,7 +27,7 @@ public class SkillRenderer extends Gui {
 
 	@SubscribeEvent()
 	public void onHUDRender(RenderGameOverlayEvent event) {
-
+		
 		if (event.type == ElementType.HOTBAR) {
 
 			ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
