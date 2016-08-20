@@ -21,7 +21,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
-@Mod(modid = Core.MODID, version = Core.VERSION, name = Core.NAME)
+@Mod(modid = Core.MODID, version = Core.VERSION, name = Core.NAME, dependencies = "after:Baubles")
 public class Core
 {
 
