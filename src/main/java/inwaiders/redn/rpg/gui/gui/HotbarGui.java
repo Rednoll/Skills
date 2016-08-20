@@ -1,14 +1,18 @@
 package inwaiders.redn.rpg.gui.gui;
 
 import org.lwjgl.opengl.GL11;
+
 import inwaiders.redn.rpg.core.Core;
 import inwaiders.redn.rpg.gui.button.HotbarButton;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 
 public class HotbarGui extends GuiScreen
 {
 
+	private HotbarButton lastSeleced;
 	private int xsize = 176;
 	private int ysize = 166;
 	@Override
@@ -23,9 +27,25 @@ public class HotbarGui extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		int k = (width - 426) / 2;
+		ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+		int k = 2;
+		int xPos = (sr.getScaledWidth() / 2) / k - 61;
+		GL11.glScalef(0.25F, 0.25F, 0.25F);
 		for(int i = 0; i < 6; i++)
-		buttonList.add(new HotbarButton(0, k + 94 + 40 * i, 4));
+		buttonList.add(new HotbarButton(i, xPos * 2 + 4 + 40 * i, 4));
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton b) {
+		if(b.id < 6 && b instanceof HotbarButton)
+		{
+			((HotbarButton) b).selected = true;
+			if(lastSeleced != null)
+			{
+				lastSeleced.selected = false;
+			}
+			lastSeleced = (HotbarButton) b;
+		}
 	}
 	
 	@Override
