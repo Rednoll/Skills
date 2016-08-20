@@ -25,7 +25,7 @@ public class ThirdEye extends ItemBase{
         
     	MovingObjectPosition o = MiscUtils.getPlayerTarget(ep, 120, 0);
     	
-    	if(o.entityHit != null && o.typeOfHit == MovingObjectType.ENTITY && o.entityHit instanceof EntityLivingBase){
+    	if(o != null && o.entityHit != null && o.typeOfHit == MovingObjectType.ENTITY && o.entityHit instanceof EntityLivingBase){
     		
     		EntityLivingBase e = (EntityLivingBase)o.entityHit;
     		EasySkillCreator.attack(ep, e, 600);

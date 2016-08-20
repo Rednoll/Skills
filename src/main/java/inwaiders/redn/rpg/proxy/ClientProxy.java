@@ -25,7 +25,7 @@ public class ClientProxy extends CommonProxy{
 		SkillsKeys.init();
 		FMLCommonHandler.instance().bus().register(new SkillsKeys());
 		MinecraftForge.EVENT_BUS.register(new SkillRenderer(Minecraft.getMinecraft()));
-		//MinecraftForge.EVENT_BUS.register(new ThirdEyeGui(Minecraft.getMinecraft()));
+		MinecraftForge.EVENT_BUS.register(new ThirdEyeGui(Minecraft.getMinecraft()));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSkillInjector.class, new SkillInjectorRenderer());
 		
 	}

@@ -29,7 +29,7 @@ public class ThirdEyeGui extends Gui {
 	@SubscribeEvent()
 	public void onHUDRender(RenderGameOverlayEvent event) {
 
-		if(mc.thePlayer.getHeldItem() != null ? mc.thePlayer.getHeldItem().getItem() == ItemRegistry.thirdEye : false)
+		if(mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() == ItemRegistry.thirdEye)
 			if (event.type == ElementType.HOTBAR) {
 	
 				ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
