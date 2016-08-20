@@ -86,7 +86,17 @@ public class MiscUtils
 			{
 				if(slot.getItem() == s.getItem() && slot.getItemDamage() == s.getItemDamage() && slot.stackSize + s.stackSize <= s.getMaxStackSize())
 				{
-					inv.setInventorySlotContents(i, new ItemStack(s.getItem(), slot.stackSize + s.stackSize, s.getItemDamage()));
+					System.out.println(slot.stackSize + "/" + s.stackSize + "/" + s.getMaxStackSize());
+					ItemStack result = new ItemStack(s.getItem(), slot.stackSize + s.stackSize, s.getItemDamage());
+					if(s.stackTagCompound != null)
+					{
+						result.stackTagCompound = s.stackTagCompound;
+					}
+					else
+					{
+						result.stackTagCompound = slot.stackTagCompound;
+					}
+					inv.setInventorySlotContents(i, result);
 					return;
 				}
 			}

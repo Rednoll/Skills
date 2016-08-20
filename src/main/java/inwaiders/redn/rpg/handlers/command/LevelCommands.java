@@ -43,7 +43,7 @@ public class LevelCommands implements ICommand{
 		 EntityPlayer ep = (EntityPlayer)icommandsender;
 		 PlayerInfoServer te = PlayerInfoManagerServer.instance.get(ep);
 		 
-		 if(args.length <= 1){
+		 if(args.length < 1){
 
 			 ep.addChatComponentMessage(new ChatComponentText("Invalid arguments"));
 			 return;
@@ -54,7 +54,7 @@ public class LevelCommands implements ICommand{
 		 		case "get" :
 		 			
 		 			ep.addChatComponentMessage(new ChatComponentText("Level : " + te.getLevel()));
-		 			ep.addChatComponentMessage(new ChatComponentText("Exp : " + te.getXp() + "/" + Constants.DEFAUL_NEXT_XP[te.getLevel()+1] + "   " + (Constants.DEFAUL_NEXT_XP[te.getLevel()+1]/100*te.getXp())+"% !"));
+		 			ep.addChatComponentMessage(new ChatComponentText("Exp : " + te.getXp() + "/" + te.getNextXp(te.getLevel() + 1) + "   " + ((te.getXp()*100)/te.getNextXp(te.getLevel() + 1))+"% !"));
 		 			
 			   	break;
 	   

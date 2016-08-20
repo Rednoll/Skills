@@ -13,6 +13,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import inwaiders.redn.rpg.handlers.command.CADCommands;
 import inwaiders.redn.rpg.handlers.command.LevelCommands;
 import inwaiders.redn.rpg.handlers.command.TeamCommands;
+import inwaiders.redn.rpg.handlers.command.UtilityCommandHandler;
 import inwaiders.redn.rpg.proxy.CommonProxy;
 import inwaiders.redn.rpg.utils.LocaleKeyGenerator;
 import inwaiders.redn.rpg.utils.ResourceLocGenerator;
@@ -74,5 +75,6 @@ public class Core
 		event.registerServerCommand(new TeamCommands());
 		event.registerServerCommand(new CADCommands());
 		event.registerServerCommand(new LevelCommands());
+		event.registerServerCommand(new UtilityCommandHandler());
 	}
 }

@@ -1,6 +1,7 @@
 package inwaiders.redn.rpg.storage.client;
 
 import inwaiders.redn.rpg.Constants;
+import inwaiders.redn.rpg.files.nbt.PlayerNbt;
 import inwaiders.redn.rpg.registry.ItemRegistry;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
@@ -21,20 +22,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
-public class PlayerInfoClient {
+public class PlayerInfoClient extends PlayerNbt {
 	protected HashMap<Integer, BaseSkill> bankSkills = new HashMap<Integer, BaseSkill>();
-	protected EntityPlayer ep;
 	protected String playername;
-	protected String team = "ANY";
-	public int[] hotbarSkills;
-	protected int lpoints = 0;
-	protected int xp = 0;
-	protected int level = 0;
 
 	public PlayerInfoClient(EntityPlayer ep) {
-		this.ep = ep;
+		super(ep);
 		playername = ep.getCommandSenderName();
-		hotbarSkills = new int[6];
 	}
 
 	public HashMap<Integer, BaseSkill> getSkills() {
@@ -94,27 +88,29 @@ public class PlayerInfoClient {
 	}
 
 	protected void updateXp() {
+		int level = getLevel();
+		int xp = getXp();
 		int nextXp = getNextXp(level + 1);
 		if (xp >= nextXp) {
 			xp -= nextXp;
-			level++;
-			lpoints++;
-			
-			if(level == 1 || level == 3 || level == 5 || level == 10 || level == 15){
+			setLearnPoints(getLearnPoints() + 1);
+			if(++level % 5 == 0){
 				ItemStack scroll = new ItemStack(ItemRegistry.skillScroll);
 				scroll.getItem().onCreated(scroll, ep.worldObj, ep);
 				MiscUtils.addItemToPlayer(ep, scroll);
 			}
+			setLevel(level);
+			setXp(xp);
 		}
 	}
 	
-	protected int getNextXp(int lvl)
+	public int getNextXp(int lvl)
 	{
 		if(Constants.DEFAUL_NEXT_XP.length > lvl)
 		{
 			return Constants.DEFAUL_NEXT_XP[lvl];
 		}
-		return (int) ((int) getNextXp(lvl - 1) * 1.5);
+		return (int) ((int) getNextXp(lvl - 1) * 1.2);
 	}
 
 	protected void updateItemSkills(LivingHurtEvent e, ItemSkillType type) {
@@ -200,31 +196,6 @@ public class PlayerInfoClient {
 		updateXp();
 	}
 
-	public String getTeam() {
-		return team;
-	}
-
-	public void setTeam(String team) {
-		this.team = team;
-	}
-
-	public void setSkillIdByPos(int pos, int id) {
-		// System.out.println("Setting " + pos + " to " + id);
-		hotbarSkills[pos] = id;
-	}
-
-	public int getSkillIdByPos(int pos) {
-		return hotbarSkills[pos];
-	}
-
-	public void setLearnPoints(int i) {
-		this.lpoints = i;
-	}
-
-	public int getLearnPoints() {
-		return this.lpoints;
-	}
-
 	/**
 	 * @return 0 if can learn, 1 if max lvl reached, 2 id not enough points
 	 */
@@ -236,25 +207,9 @@ public class PlayerInfoClient {
 		if (canLearn(skill) == 0)
 			this.setLearnPoints(this.getLearnPoints() - skill.getPrice().getPrice());
 	}
-
-	public int getXp() {
-		return xp;
-	}
-	
-	public int getLevel() {
-		return level;
-	}
-
-	public void setXp(int xp) {
-		this.xp = xp;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
 	
 	public void addXp(int xp) {
-		this.xp += xp;
+		setXp(getXp() + xp);
 	}
 
 }

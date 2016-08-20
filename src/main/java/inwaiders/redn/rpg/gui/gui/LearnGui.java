@@ -70,8 +70,13 @@ public class LearnGui extends GuiScreen {
 			{
 				case(0):
 				{
-					alert("Succes", new Color(50, 255, 50));
-					PacketDispatcher.sendToServer(new LearnSkillPackect(id));
+					PacketDispatcher.sendToServer(new LearnSkillPackect(id, mc.thePlayer.inventory.currentItem));
+					if(!mc.thePlayer.capabilities.isCreativeMode)
+					{
+						mc.displayGuiScreen(null);
+				        if (mc.currentScreen == null)
+				            mc.setIngameFocus();
+					}
 					return;
 				}
 				case(1):

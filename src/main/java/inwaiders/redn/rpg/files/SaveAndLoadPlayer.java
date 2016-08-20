@@ -15,58 +15,51 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent.SaveToFile;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public class SaveAndLoadPlayer
-{
+public class SaveAndLoadPlayer {
 	@SubscribeEvent
-	public void save(SaveToFile e)
-	{
-
-		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(e.entityPlayer);
-		
-		HashMap<Integer, BaseSkill> skills = b.getSkills();
-		PlayerJson pjson = new PlayerJson(e.entityPlayer, true);
-		skills.forEach((id, skill) -> pjson.addBank(skill.getId(), skill.getLevel(), skill.getCoolDown()));
-		for (int i = 0; i < b.hotbarSkills.length; i++)
+	public void save(SaveToFile e) {
+		if(CFG.forceJson)
 		{
-			//System.out.println(i + "/" + b.getSkillIdByPos(i));
-			pjson.setHotbar(i, b.getSkillIdByPos(i));
+			PlayerInfoServer b = PlayerInfoManagerServer.instance.get(e.entityPlayer);
+			HashMap<Integer, BaseSkill> skills = b.getSkills();
+			PlayerJson pjson = new PlayerJson(e.entityPlayer, true);
+			skills.forEach((id, skill) -> pjson.addBank(skill.getId(), skill.getLevel(), skill.getCoolDown()));
+			for (int i = 0; i < 6; i++) {
+				pjson.setHotbar(i, b.getHotbar(i));
+			}
+			pjson.setTeam(b.getTeam());
+			pjson.setXP(b.getXp());
+			pjson.setLvl(b.getLevel());
+			pjson.setLearnPoints(b.getLearnPoints());
+			pjson.write();
 		}
-		pjson.setTeam(b.getTeam());
-		pjson.setXP(b.getXp());
-		pjson.setLvl(b.getLevel());
-		pjson.setLearnPoints(b.getLearnPoints());
-		pjson.write();
 	}
 
-	public static void load(EntityPlayer ep)
-	{
-
-		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(ep);
-		PlayerJson pjson = new PlayerJson(ep);
-		b.setSkills(new HashMap<Integer, BaseSkill>());
-		int iCount = 0;
-		for (BankSkill skill = pjson.getBank(iCount); skill != null; skill = pjson.getBank(++iCount))
+	public static void load(EntityPlayer ep) {
+		if(CFG.forceJson)
 		{
-			try
-			{
-				BaseSkill s = SkillsRegistry.getSkillById(skill.id);
-				s.setLevel(skill.lvl);
-				s.setCoolDown(skill.cd);
-				b.getSkills().put(s.getId(), s);
+			PlayerInfoServer b = PlayerInfoManagerServer.instance.get(ep);
+			PlayerJson pjson = new PlayerJson(ep);
+			b.setSkills(new HashMap<Integer, BaseSkill>());
+			int iCount = 0;
+			for (BankSkill skill = pjson.getBank(iCount); skill != null; skill = pjson.getBank(++iCount)) {
+				try {
+					BaseSkill s = SkillsRegistry.getSkillById(skill.id);
+					s.setLevel(skill.lvl);
+					s.setCoolDown(skill.cd);
+					b.getSkills().put(s.getId(), s);
+				} catch (Exception e) {
+					MiscUtils.crashGame("Unbable to load skill", e);
+				}
 			}
-			catch (Exception e)
-			{
-				MiscUtils.crashGame("Unbable to load skill", e);
+			for (int i = 0; i < 6; i++) {
+				b.setHotbar(i, pjson.getHotbar(i));
 			}
+			b.setTeam(pjson.getTeam());
+			b.setXp(pjson.getXP());
+			b.setLevel(pjson.getLvl());
+			b.setLearnPoints(pjson.getLearnPoints());
 		}
-		for (int i = 0; i < b.hotbarSkills.length; i++)
-		{
-			b.setSkillIdByPos(i, pjson.getHotbar(i));
-		}
-		b.setTeam(pjson.getTeam());
-		b.setXp(pjson.getXP());
-		b.setLevel(pjson.getLvl());
-		b.setLearnPoints(pjson.getLearnPoints());
 	}
 
 }
