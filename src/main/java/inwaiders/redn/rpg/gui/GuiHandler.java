@@ -1,6 +1,7 @@
 package inwaiders.redn.rpg.gui;
 
 import inwaiders.redn.rpg.gui.container.SkillInjectorContainer;
+import inwaiders.redn.rpg.gui.gui.HotbarGui;
 import inwaiders.redn.rpg.gui.gui.LearnGui;
 import inwaiders.redn.rpg.gui.gui.SkillInjectorGui;
 import inwaiders.redn.rpg.items.SkillScroll;
@@ -15,6 +16,7 @@ public class GuiHandler implements IGuiHandler
 {
 	public static final int LEARN_ID = 0;
 	public static final int INJECTOR_ID = 1;
+	public static final int HOTBAR_ID = 2;
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
@@ -49,6 +51,10 @@ public class GuiHandler implements IGuiHandler
 			case(INJECTOR_ID):
 			{
 				return new SkillInjectorGui(player.inventory, (TileSkillInjector) world.getTileEntity(x, y, z));
+			}
+			case(HOTBAR_ID):
+			{
+				return new HotbarGui();
 			}
 		}
 		return null;
