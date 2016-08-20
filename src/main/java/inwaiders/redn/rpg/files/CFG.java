@@ -22,12 +22,16 @@ public class CFG
 	public static int cooldowdecID;
 	public static int InstantShieldID;
 	
+	//Misc
+	public static int xpRadius;
+	
 	public static void init(Configuration cfg)
 	{
 		CFG.cfg = cfg;
 		cfg.load();
 		initSkills();
 		initItemSkills();
+		initMisc();
 		cfg.save();
 		CFG.cfg = null;
 	}
@@ -47,6 +51,11 @@ public class CFG
 	{
 		cooldowdecID = getItemSkillId("CooldownDecreaser");
 		InstantShieldID = getItemSkillId("InstantShield");
+	}
+	
+	private static void initMisc()
+	{
+		xpRadius = cfg.getInt("xpRadius", "Misc", 15, 1, Integer.MAX_VALUE, "When mob killed players inside this radius will get xp");
 	}
 	
 	private static int getSkillId(String name)
