@@ -1,6 +1,9 @@
 package inwaiders.redn.rpg.gui.button;
 
 import java.awt.Color;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
@@ -16,6 +19,8 @@ public class HotbarButton extends GuiButton
 	@Override
 	public void drawButton(Minecraft mc, int mouseX, int mouseY)
 	{
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height)
 		{
 			drawRect(xPosition, yPosition, xPosition + width, yPosition + height, new Color(44, 44, 44, 44).getRGB());
@@ -24,6 +29,8 @@ public class HotbarButton extends GuiButton
 		{
 			drawRect(xPosition, yPosition, xPosition + width, yPosition + height, new Color(100, 100, 100, 150).getRGB());
 		}
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 
 }

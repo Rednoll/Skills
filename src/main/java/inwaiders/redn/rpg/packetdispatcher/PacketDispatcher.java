@@ -4,6 +4,7 @@ package inwaiders.redn.rpg.packetdispatcher;
 import inwaiders.redn.rpg.packet.LearnSkillPackect;
 import inwaiders.redn.rpg.packet.LightningPacket;
 import inwaiders.redn.rpg.packet.ParticlePacket;
+import inwaiders.redn.rpg.packet.SetHotbarPacket;
 import inwaiders.redn.rpg.packet.SkillsStartPacket;
 import inwaiders.redn.rpg.packet.sync.PlayerInfoSync;
 import inwaiders.redn.rpg.packet.sync.SyncTeam;
@@ -27,6 +28,7 @@ public class PacketDispatcher
 		registerMessage(LearnSkillPackect.Handler.class, LearnSkillPackect.class, Side.SERVER);
 		registerMessage(ParticlePacket.Handler.class, ParticlePacket.class, Side.CLIENT);
 		registerMessage(LightningPacket.Handler.class, LightningPacket.class, Side.CLIENT);
+		registerMessage(SetHotbarPacket.Handler.class, SetHotbarPacket.class, Side.SERVER);
 	}
 
 	private static final void registerMessage(Class handlerClass, Class<? extends IMessage> messageClass, Side side) {
