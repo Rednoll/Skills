@@ -45,7 +45,7 @@ public class LearnGui extends GuiScreen {
 		mc.renderEngine.bindTexture(Core.guirlgen.generate("LearnBG"));
 		drawTexturedModalRect(guiX, guiZ, 0, 0, guiWidth / 4, guiHeight / 4);
 		super.drawScreen(mouseX, mouseY, ticks);
-		drawCenteredStringNS("Learn points: " + info.getLearnPoints(), 0, -85, new Color(100, 100, 100));
+		drawCenteredStringNS("Learn points: " + info.learnpoints, 0, -85, new Color(100, 100, 100));
 		drawCenteredStringNS("Skill cost: " + price.getPrice(), 0, -75, info.canLearn(skill) == 0 ? new Color(50, 255, 50) : new Color(255, 100, 100));
 		if (alert != null && !alert.equals(""))
 			drawCenteredStringNS(alert, 0, -105, alertC);

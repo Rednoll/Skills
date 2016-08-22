@@ -52,14 +52,14 @@ public class TeamCommands implements ICommand{
 	   	
 		 		case "join" :
 		 			
-		 			if(te.getTeam().equals("ANY")){
+		 			if(te.team.equals("ANY")){
 		 				
 			 			TeamServer teg = TeamManagerServer.instance.get(args[1]);
 			 			
 			 			if(teg.getTeamSize() == 0){
 			 				
 			 				teg.joinToPlayer(ep);
-			 				te.setTeam(args[1]);
+			 				te.team = args[1];
 					   		ep.addChatComponentMessage(new ChatComponentText("You first join to Team : " + args[1] + " !"));
 			 			}
 			 			else{
@@ -70,16 +70,16 @@ public class TeamCommands implements ICommand{
 				   		
 		 			}
 		 			else{
-		 				ep.addChatComponentMessage(new ChatComponentText("You in Team : " + te.getTeam() + " !"));
+		 				ep.addChatComponentMessage(new ChatComponentText("You in Team : " + te.team + " !"));
 		 			}
 				
 			   	break;
 			   	
 		 		case "acces" :
 		 			
-		 			if(!te.getTeam().equals("ANY")){
+		 			if(!te.team.equals("ANY")){
 		 				
-		 				TeamServer teg = TeamManagerServer.instance.get(te.getTeam());
+		 				TeamServer teg = TeamManagerServer.instance.get(te.team);
 		 				
 		 					if(teg.getOwnerName().equals(ep.getCommandSenderName())){
 		 						
@@ -87,7 +87,7 @@ public class TeamCommands implements ICommand{
 		 							
 		 							
 		 							PlayerInfoServer te1 = PlayerInfoManagerServer.instance.get(teg.accesWait.get(teg.hasInAcces(args[1])));
-					 				te1.setTeam(teg.getTeamName());
+					 				te1.team = teg.getTeamName();
 					 				teg.accesWait.get(teg.hasInAcces(args[1])).addChatComponentMessage(new ChatComponentText("Your Accesed To Team : " + teg.getTeamName()));
 					 				teg.accesing(teg.hasInAcces(args[1]));
 		 							ep.addChatComponentMessage(new ChatComponentText("Your Acces "+args[1]));
@@ -102,7 +102,7 @@ public class TeamCommands implements ICommand{
 		 						ep.addChatComponentMessage(new ChatComponentText("You no Owner"));
 		 					}
 		 					
-		 				TeamManagerServer.instance.set(te.getTeam(), teg);
+		 				TeamManagerServer.instance.set(te.team, teg);
 		 			}
 		 			else{
 		 				ep.addChatComponentMessage(new ChatComponentText("You no have team ;("));
@@ -112,12 +112,12 @@ public class TeamCommands implements ICommand{
 		 	
 		 		case "leave" :
 		 		
-		 			if(!te.getTeam().equals("ANY")){
+		 			if(!te.team.equals("ANY")){
 		 				
 		 				TeamServer teg = TeamManagerServer.instance.get(args[1]);
 		 				teg.leavePlayer(ep);
-			 			ep.addChatComponentMessage(new ChatComponentText("You leave of Team : " + te.getTeam() + " !"));
-			 			te.setTeam("ANY");
+			 			ep.addChatComponentMessage(new ChatComponentText("You leave of Team : " + te.team + " !"));
+			 			te.team = "ANY";
 		 			}
 			
 		   		break;
@@ -131,14 +131,14 @@ public class TeamCommands implements ICommand{
  					
 		 			PlayerInfoServer te2 = PlayerInfoManagerServer.instance.get(ep.worldObj.getPlayerEntityByName(args[1]));
 		 			
-		 			if(te.getTeam().equals(te2.getTeam())){
+		 			if(te.team.equals(te2.team)){
 		 				
-		 				TeamServer teg = TeamManagerServer.instance.get(te.getTeam());
+		 				TeamServer teg = TeamManagerServer.instance.get(te.team);
 		 				
 		 				if(teg.getOwnerName().equals(ep.getCommandSenderName())){
 
 		 					teg.leavePlayer(ep.worldObj.getPlayerEntityByName(args[1]));
-		 					te2.setTeam("ANY");
+		 					te2.team = "ANY";
 		 					ep.addChatComponentMessage(new ChatComponentText("You kicked " + args[1] + " !"));
 		 				}
 			 			else{
@@ -153,9 +153,9 @@ public class TeamCommands implements ICommand{
 		   		
 		 		case "iowner" :
 			 		
-		 			if(!te.getTeam().equals("ANY")){
+		 			if(!te.team.equals("ANY")){
 		 				
-		 				TeamServer teg = TeamManagerServer.instance.get(te.getTeam());
+		 				TeamServer teg = TeamManagerServer.instance.get(te.team);
 		 				
 		 					if(teg.getOwnerName().equals("")){
 		 						teg.setOwner(ep);

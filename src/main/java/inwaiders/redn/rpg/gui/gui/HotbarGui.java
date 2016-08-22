@@ -50,14 +50,13 @@ public class HotbarGui extends GuiScreen
 		int buttonPos = sr.getScaledWidth() / 2 - 61;
 		for(int i = 0; i < skills.length; i++)
 		{
-			buttonList.add(new SkillButton(i + 6, buttonPos - 56 + 40 * i - (40 * 6 * (i / 6)), 45 + 40 * (i / 6), 32, 32, skills[i], 0.5F, 0.5F, 0.5F, buttonPos * 2 - 112 + 80 * i - (80 * 6 * (i / 6)), 90 + 80 * (i / 6)));
+			buttonList.add(new SkillButton(i + 6, buttonPos - 56 + 40 * i - (40 * 6 * (i / 6)), 45 + 40 * (i / 6), 32, 32, skills[i], 0.5F, 0.5F, 0.5F, buttonPos * 2 - 112 + 80 * i - (80 * 6 * (i / 6)), 90 + 80 * (i / 6), fontRendererObj));
 		}
 		GL11.glPopMatrix();
 	}
 	
 	@Override
 	protected void actionPerformed(GuiButton b) {
-		System.out.println((b instanceof SkillButton) + "/" + lastSeleced);
 		if(b.id < 6 && b instanceof HotbarButton)
 		{
 			((HotbarButton) b).selected = true;

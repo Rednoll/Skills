@@ -23,9 +23,9 @@ public class SkillVortex extends BaseSkill {
 
 	public SkillVortex() {
 		super(4);
-		setDamageByLevel(1, 2);
-		setMaxCoolDownByLevel(1, 100);
-		setRadiusByLevel(1, 6);
+		setDamageByLevel(0, 2);
+		setMaxCoolDownByLevel(0, 100);
+		setRadiusByLevel(0, 6);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class SkillVortex extends BaseSkill {
 
 	@Override
 	public String getName() {
-		return "vortex";
+		return "Vortex";
 	}
 
 	@Override

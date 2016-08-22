@@ -74,8 +74,7 @@ public class SkillRenderer extends Gui {
 
 		PlayerInfoClient se = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 
-		BaseSkill b = se.getSkillByName(se.getHotbar(pos));
-		//System.out.println(se.getHotbar(pos));
+		BaseSkill b = se.getSkillByName(se.hotbar[pos]);
 		if (b != null) {
 			this.mc.getTextureManager().bindTexture(b.getTexture());
 			GL11.glPushMatrix();

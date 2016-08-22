@@ -13,7 +13,7 @@ public abstract class BaseSkill {
 	
 	protected int coolDown = 0;
 	protected int isPassive = 0;
-	protected int level = 1;
+	protected int level = 0;
 	protected int isAura = 0;
 	protected int[] damage;
 	protected int[] radius;

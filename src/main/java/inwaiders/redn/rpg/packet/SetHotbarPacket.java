@@ -45,7 +45,7 @@ public class SetHotbarPacket implements IMessage {
 		public IMessage handleServerMessage(EntityPlayer player, SetHotbarPacket message, MessageContext ctx)
 		{
 			PlayerInfoServer i = PlayerInfoManagerServer.instance.get(player);
-			i.setHotbar(message.slotnum, message.name);
+			i.hotbar[message.slotnum] = message.name;
 			return null;
 		}
 		

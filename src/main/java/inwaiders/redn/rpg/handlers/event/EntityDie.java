@@ -34,7 +34,6 @@ public class EntityDie {
 		for(EntityPlayer p : players)
 		{
 			PlayerInfoManagerServer.instance.get(p).addXp(xpByPlayer);
-			System.out.println(PlayerInfoManagerServer.instance.get(p).getXp());
 		}
 	}
 }

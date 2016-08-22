@@ -86,7 +86,6 @@ public class MiscUtils
 			{
 				if(slot.getItem() == s.getItem() && slot.getItemDamage() == s.getItemDamage() && slot.stackSize + s.stackSize <= s.getMaxStackSize())
 				{
-					System.out.println(slot.stackSize + "/" + s.stackSize + "/" + s.getMaxStackSize());
 					ItemStack result = new ItemStack(s.getItem(), slot.stackSize + s.stackSize, s.getItemDamage());
 					if(s.stackTagCompound != null)
 					{

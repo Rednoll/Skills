@@ -1,6 +1,8 @@
 package inwaiders.redn.rpg.files.nbt;
 
 import inwaiders.redn.rpg.files.json.PlayerJson.BankSkill;
+import inwaiders.redn.rpg.storage.client.PlayerInfoClient;
+import inwaiders.redn.rpg.storage.server.PlayerInfoServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -36,8 +38,9 @@ public class PlayerNbt {
 	}
 
 	public void resetNBT() {
+		nbt = new NBTTagCompound();
 		initNbt();
-		ep.getEntityData().setTag(TAGNAME, nbt);
+		ep.getEntityData().setTag(TAGNAME, nbt = new NBTTagCompound());
 	}
 
 	private void initNbt() {
@@ -83,7 +86,9 @@ public class PlayerNbt {
 			skill.setString(NAME, name);
 			skill.setInteger(LEVEL, lvl);
 			skill.setInteger(COOLDOWN, cd);
-			nbt.getTagList(BANK, 10).appendTag(skill);
+			NBTTagList b = nbt.getTagList(BANK, 10);
+			b.appendTag(skill);
+			nbt.setTag(BANK, b);
 		}
 	}
 
@@ -128,6 +133,7 @@ public class PlayerNbt {
 		for (int i = 0; i < 6; i++) {
 			hotbar.setString(i + "", skills[i]);
 		}
+		nbt.setTag(HOTBAR, hotbar);
 	}
 
 	public void setTeam(String team) {
@@ -162,4 +168,38 @@ public class PlayerNbt {
 		return nbt.getInteger(LEVEL);
 	}
 
+	public void nssave(PlayerInfoServer i)
+	{
+		resetNBT();
+		setHotbarSkills(i.hotbar);
+		setLearnPoints(i.learnpoints);
+		setLevel(i.lvl);
+		setTeam(i.team);
+		setXp(i.xp);
+		i.saveBank(this);
+	}
+	
+	public void nsload(PlayerInfoClient i)
+	{
+		i.hotbar = getHotbarSkills();
+		i.learnpoints = getLearnPoints();
+		i.lvl = getLevel();
+		i.team = getTeam();
+		i.xp = getXp();
+		i.loadBank(nbt.getTagList(BANK, 10));
+	}
+	
+	public static PlayerNbt save(PlayerInfoServer i)
+	{
+		PlayerNbt nbt = new PlayerNbt(i.ep);
+		nbt.nssave(i);
+		return nbt;
+	}
+	
+	public static PlayerNbt load(PlayerInfoClient i)
+	{
+		PlayerNbt nbt = new PlayerNbt(i.ep);
+		nbt.nsload(i);
+		return nbt;
+	}
 }

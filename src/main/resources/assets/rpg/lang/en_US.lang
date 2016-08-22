@@ -1,3 +1,7 @@
-rpg.skill.bj.desc.name="You jump back!"
-rpg.skill.rop.desc.name=You Release you Prana And Damage All Around!
-rpg.skill.eq.desc.name=Smash earth and deal damage to all around, launching them into air
+rpg.skill.BackJump.desc.name=You jump back!
+rpg.skill.ReleaseOfPrana.desc.name=You release your Prana and damage all around!
+rpg.skill.EarthQuake.desc.name=Smash earth and deal damage to all around, launching them into air!
+rpg.skill.Vortex.desc.name=Pull enemies around to you!
+rpg.skill.Swap.desc.name=Swap with enemy!
+rpg.skill.LightBoltStrike.desc.name=Summon lightning!
+rpg.skill.VipeStrike.desc.name=Launch poisonus projectile!

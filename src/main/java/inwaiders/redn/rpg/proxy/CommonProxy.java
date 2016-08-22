@@ -26,8 +26,10 @@ public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e)
 	{
 		CFG.init(new Configuration(e.getSuggestedConfigurationFile()));
+		SkillsRegistry.init();
 		ItemRegistry.init();
 		BlockRegistry.init();
+		ItemSkillRegistry.init();
 		XPRegistry.init();
 	}
 	
@@ -39,8 +41,6 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new SaveAndLoadTeam());
 		MinecraftForge.EVENT_BUS.register(new EntityDie());
 		NetworkRegistry.INSTANCE.registerGuiHandler(Core.instance, new GuiHandler());
-		SkillsRegistry.init();
-		ItemSkillRegistry.init();
 	}
 	
 	public void postInit(FMLPostInitializationEvent e)

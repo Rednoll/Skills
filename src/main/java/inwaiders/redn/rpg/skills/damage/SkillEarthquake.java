@@ -96,7 +96,7 @@ public class SkillEarthquake extends BaseSkill
 	@Override
 	public String getName()
 	{
-		return "eq";
+		return "Earthquake";
 	}
 
 }

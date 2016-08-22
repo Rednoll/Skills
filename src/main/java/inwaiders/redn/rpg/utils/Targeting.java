@@ -18,10 +18,10 @@ public class Targeting {
 		}
 		PlayerInfoServer te1 = PlayerInfoManagerServer.instance.get((EntityPlayer) t);
 		PlayerInfoServer te2 = PlayerInfoManagerServer.instance.get((EntityPlayer) p);
-		if (te1.getTeam().equals("ANY") || te2.getTeam().equals("ANY")) {
+		if (te1.team.equals("ANY") || te2.team.equals("ANY")) {
 			return true;
 		}
-		if (te1.getTeam().equals(te2.getTeam())) {
+		if (te1.team.equals(te2.team)) {
 			if (type.equals(Target.TARGET_FRIEND)) {
 				return true;
 			} else {

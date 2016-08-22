@@ -46,8 +46,6 @@ public class LightningBoltStrike extends BaseSkill{
 			ep.worldObj.spawnEntityInWorld(new EntityLightningBolt(ep.worldObj, object.blockX, object.blockY+1, object.blockZ));
 			PacketDispatcher.sendToAllAround(new LightningPacket(object.blockX, object.blockY+1, object.blockZ), ep.worldObj.provider.dimensionId, object.blockX, object.blockY+1, object.blockZ, getRadius(ep) * 2);
 		}
-		
-		//System.out.println("Coords : X = "+MiscUtils.getPlayerTarget(ep, 30, 0).blockX+", Y = "+MiscUtils.getPlayerTarget(ep, 30, 0).blockY+", Z ="+MiscUtils.getPlayerTarget(ep, 30, 0).blockZ);
 	}
 
 	@Override

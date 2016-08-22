@@ -29,7 +29,6 @@ public class TableHarrington {
 	public static void renderSuperFont(int x, int z, String text, Gui gui){
 		
 		char [] textsChar = text.toCharArray();
-		//System.out.println(x + "/" + z);
 		Minecraft.getMinecraft().renderEngine.bindTexture(Core.guirlgen.generate("harrington"));
 		
 		int xT = x;

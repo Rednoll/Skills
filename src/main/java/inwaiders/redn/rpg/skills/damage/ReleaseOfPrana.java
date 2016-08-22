@@ -94,6 +94,6 @@ public class ReleaseOfPrana extends BaseSkill {
 
 	@Override
 	public String getName() {
-		return "rop";
+		return "ReleaseOfPrana";
 	}
 }

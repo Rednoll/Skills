@@ -73,6 +73,6 @@ public class SkillBackJump extends BaseSkill {
 
 	@Override
 	public String getName() {
-		return "bj";
+		return "BackJump";
 	}
 }

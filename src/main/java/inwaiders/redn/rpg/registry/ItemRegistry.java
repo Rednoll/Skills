@@ -34,9 +34,9 @@ public class ItemRegistry
 		skillChestplater = new SkillArmor(1);
 		skillLeggins = new SkillArmor(2);
 		skillBoots = new SkillArmor(3);
-		cdd = new CooldowDecreaser();
-		cadMemory = new CadMemoryCard();
-		cad = new CastingAssistantDevice();
+		//cdd = new CooldowDecreaser();
+		//cadMemory = new CadMemoryCard();
+		//cad = new CastingAssistantDevice();
 		thirdEye = new ThirdEye();
 		is = new IS();
 	}

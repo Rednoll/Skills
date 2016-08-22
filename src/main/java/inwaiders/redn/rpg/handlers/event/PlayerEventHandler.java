@@ -25,16 +25,16 @@ public class PlayerEventHandler
 			{
 				PlayerInfoServer playerInfo = PlayerInfoManagerServer.instance.get(ep);
 				playerInfo.update(ep);
-				if(!playerInfo.getTeam().equals("ANY") && !playerInfo.getTeam().equals(""))
+				if(!playerInfo.team.equals("ANY") && !playerInfo.team.equals(""))
 				{
-					TeamManagerServer.instance.get(playerInfo.getTeam()).update(ep);
+					TeamManagerServer.instance.get(playerInfo.team).update(ep);
 				}
 			}
 			else
 			{
 				PlayerInfoClient playerInfo = PlayerInfoManagerClient.instance.get(ep);
 				playerInfo.update(ep);
-				TeamManagerClient.instance.get(playerInfo.getTeam()).update(ep);
+				TeamManagerClient.instance.get(playerInfo.team).update(ep);
 
 			}
 		}

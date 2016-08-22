@@ -30,8 +30,6 @@ public class ExperienceScroll extends ItemBase {
 		if(!w.isRemote)
 		{
 			PlayerInfoManagerServer.instance.get(p).addXp(100 * (stack.getItemDamage() + 1));
-			System.out.println("Added, current xp " + PlayerInfoManagerServer.instance.get(p).getXp());
-			
 		}
 		return stack;
 	}

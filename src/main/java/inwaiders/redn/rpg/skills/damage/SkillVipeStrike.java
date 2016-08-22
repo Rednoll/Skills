@@ -42,7 +42,7 @@ public class SkillVipeStrike extends BaseSkill {
 	@Override
 	public String getName() {
 
-		return "vs";
+		return "VipeStrike";
 	}
 
 	@Override

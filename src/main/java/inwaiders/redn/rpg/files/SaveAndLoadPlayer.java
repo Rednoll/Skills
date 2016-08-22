@@ -2,6 +2,7 @@ package inwaiders.redn.rpg.files;
 
 import inwaiders.redn.rpg.files.json.PlayerJson;
 import inwaiders.redn.rpg.files.json.PlayerJson.BankSkill;
+import inwaiders.redn.rpg.files.nbt.PlayerNbt;
 import inwaiders.redn.rpg.managers.server.PlayerInfoManagerServer;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
@@ -19,6 +20,7 @@ public class SaveAndLoadPlayer {
 	@SubscribeEvent
 	public void save(SaveToFile e) {
 		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(e.entityPlayer);
+		PlayerNbt.save(b);
 		if(CFG.forceJson)
 		{
 			
@@ -26,22 +28,19 @@ public class SaveAndLoadPlayer {
 			PlayerJson pjson = new PlayerJson(e.entityPlayer, true);
 			skills.forEach((name, skill) -> pjson.addBank(skill.getName(), skill.getLevel(), skill.getCoolDown()));
 			for (int i = 0; i < 6; i++) {
-				pjson.setHotbar(i, b.getHotbar(i));
+				pjson.setHotbar(i, b.hotbar[i]);
 			}
-			pjson.setTeam(b.getTeam());
-			pjson.setXP(b.getXp());
-			pjson.setLvl(b.getLevel());
-			pjson.setLearnPoints(b.getLearnPoints());
+			pjson.setTeam(b.team);
+			pjson.setXP(b.xp);
+			pjson.setLvl(b.lvl);
+			pjson.setLearnPoints(b.learnpoints);
 			pjson.write();
-		}
-		else
-		{
-			b.saveBank();
 		}
 	}
 
 	public static void load(EntityPlayer ep) {
 		PlayerInfoServer b = PlayerInfoManagerServer.instance.get(ep);
+		PlayerNbt.load(b);
 		if(CFG.forceJson)
 		{
 			PlayerJson pjson = new PlayerJson(ep);
@@ -58,16 +57,12 @@ public class SaveAndLoadPlayer {
 				}
 			}
 			for (int i = 0; i < 6; i++) {
-				b.setHotbar(i, pjson.getHotbar(i));
+				b.hotbar[i] = pjson.getHotbar(i);
 			}
-			b.setTeam(pjson.getTeam());
-			b.setXp(pjson.getXP());
-			b.setLevel(pjson.getLvl());
-			b.setLearnPoints(pjson.getLearnPoints());
-		}
-		else
-		{
-			b.loadBank();
+			b.team = pjson.getTeam();
+			b.xp = pjson.getXP();
+			b.lvl = pjson.getLvl();
+			b.learnpoints = pjson.getLearnPoints();
 		}
 	}
 

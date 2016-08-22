@@ -56,10 +56,10 @@ public class SkillsKeys
 
 				PlayerInfoClient b = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 
-				if (b.hasSkill(b.getHotbar(i)))
+				if (b.hasSkill(b.hotbar[i]))
 				{
-					PacketDispatcher.sendToServer(new SkillsStartPacket(b.getHotbar(i)));
-					b.activateSkill(b.getHotbar(i), mc.thePlayer);
+					PacketDispatcher.sendToServer(new SkillsStartPacket(b.hotbar[i]));
+					b.activateSkill(b.hotbar[i], mc.thePlayer);
 				}
 
 			}

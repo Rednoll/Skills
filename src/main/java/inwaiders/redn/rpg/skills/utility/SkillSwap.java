@@ -26,18 +26,9 @@ public class SkillSwap extends BaseSkill {
 	public void skillStart(EntityPlayer ep) {
 
 		MovingObjectPosition object = MiscUtils.getPlayerTarget(ep, getRadius(ep), 0);
-
-
-		if (object == null || object.typeOfHit == MovingObjectType.BLOCK || object.typeOfHit == MovingObjectType.MISS) return;
-
-		System.out.println(object);
 		
-		if (object == null || object.typeOfHit != MovingObjectType.ENTITY) {
-
-			return;
-		}
 		
-		if (object.entityHit instanceof EntityLivingBase) {
+		if (object != null && object.typeOfHit == MovingObjectType.ENTITY &&object.entityHit instanceof EntityLivingBase) {
 
 			EntityLivingBase e = (EntityLivingBase) object.entityHit;
 
@@ -48,7 +39,6 @@ public class SkillSwap extends BaseSkill {
 			double x_t = e.posX;
 			double y_t = e.posY;
 			double z_t = e.posZ;
-
 			ep.setPositionAndUpdate(x_t, y_t, z_t);
 			e.setPositionAndUpdate(x_p, y_p, z_p);
 		}
@@ -59,7 +49,7 @@ public class SkillSwap extends BaseSkill {
 	@Override
 	public String getName() {
 
-		return "sw";
+		return "Swap";
 	}
 
 	@Override

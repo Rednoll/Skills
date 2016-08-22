@@ -1,5 +1,6 @@
 package inwaiders.redn.rpg.packet.sync;
 
+import inwaiders.redn.rpg.files.nbt.PlayerNbt;
 import inwaiders.redn.rpg.managers.client.PlayerInfoManagerClient;
 import inwaiders.redn.rpg.managers.server.PlayerInfoManagerServer;
 import inwaiders.redn.rpg.packetdispatcher.AbstractClientMessageHandler;
@@ -33,8 +34,7 @@ public class PlayerInfoSync implements IMessage {
 
 	public PlayerInfoSync(EntityPlayer ep) {
 		PlayerInfoServer i = PlayerInfoManagerServer.instance.get(ep);
-		i.saveBank();
-		this.nbt = i.nbt;
+		nbt = PlayerNbt.save(i).nbt;
 	}
 
 	@Override
@@ -52,8 +52,10 @@ public class PlayerInfoSync implements IMessage {
 		@Override
 		public IMessage handleClientMessage(EntityPlayer player, PlayerInfoSync message, MessageContext ctx) {
 			PlayerInfoClient i = PlayerInfoManagerClient.instance.get(player);
-			i.nbt = message.nbt;
-			i.loadBank();
+			PlayerNbt nbt = new PlayerNbt(player);
+			nbt.nbt = message.nbt;
+			//System.out.println(nbt.getBank(0));
+			nbt.nsload(i);
 			return null;
 		}
 	}

@@ -2,6 +2,7 @@ package inwaiders.redn.rpg.storage.server;
 
 import inwaiders.redn.rpg.files.SaveAndLoadPlayer;
 import inwaiders.redn.rpg.files.json.PlayerJson.BankSkill;
+import inwaiders.redn.rpg.files.nbt.PlayerNbt;
 import inwaiders.redn.rpg.packet.sync.PlayerInfoSync;
 import inwaiders.redn.rpg.packetdispatcher.PacketDispatcher;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
@@ -45,6 +46,10 @@ public class PlayerInfoServer extends PlayerInfoClient {
 			SaveAndLoadPlayer.load(ep);
 			loaded = true;
 		}
+	}
+	
+	public void saveBank(PlayerNbt nbt) {
+		bankSkills.forEach((name, skill) -> nbt.addBank(skill.getName(), skill.getLevel(), skill.getCoolDown()));
 	}
 	
 	@Override
