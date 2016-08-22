@@ -189,6 +189,16 @@ public class PlayerNbt {
 		i.loadBank(nbt.getTagList(BANK, 10));
 	}
 	
+	public void nsload(PlayerInfoServer i)
+	{
+		i.hotbar = getHotbarSkills();
+		i.learnpoints = getLearnPoints();
+		i.lvl = getLevel();
+		i.team = getTeam();
+		i.xp = getXp();
+		i.loadBank(nbt.getTagList(BANK, 10));
+	}
+	
 	public static PlayerNbt save(PlayerInfoServer i)
 	{
 		PlayerNbt nbt = new PlayerNbt(i.ep);
@@ -197,6 +207,13 @@ public class PlayerNbt {
 	}
 	
 	public static PlayerNbt load(PlayerInfoClient i)
+	{
+		PlayerNbt nbt = new PlayerNbt(i.ep);
+		nbt.nsload(i);
+		return nbt;
+	}
+	
+	public static PlayerNbt load(PlayerInfoServer i)
 	{
 		PlayerNbt nbt = new PlayerNbt(i.ep);
 		nbt.nsload(i);

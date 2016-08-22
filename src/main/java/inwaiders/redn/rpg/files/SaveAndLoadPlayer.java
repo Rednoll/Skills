@@ -12,6 +12,7 @@ import inwaiders.redn.rpg.utils.MiscUtils;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent.SaveToFile;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

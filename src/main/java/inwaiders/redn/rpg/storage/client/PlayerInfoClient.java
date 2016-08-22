@@ -3,7 +3,6 @@ package inwaiders.redn.rpg.storage.client;
 import inwaiders.redn.rpg.Constants;
 import inwaiders.redn.rpg.files.CFG;
 import inwaiders.redn.rpg.files.json.PlayerJson.BankSkill;
-import inwaiders.redn.rpg.files.nbt.PlayerNbt;
 import inwaiders.redn.rpg.registry.ItemRegistry;
 import inwaiders.redn.rpg.registry.SkillsRegistry;
 import inwaiders.redn.rpg.skills.BaseSkill;
@@ -15,19 +14,14 @@ import inwaiders.redn.rpg.utils.skillitem.ISkillContainerItem;
 
 import java.util.HashMap;
 
-import javax.annotation.Nullable;
-
-import cpw.mods.fml.common.Loader;
-import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import baubles.api.BaublesApi;
 
 public class PlayerInfoClient {
 	protected HashMap<String, BaseSkill> bankSkills = new HashMap<String, BaseSkill>();
