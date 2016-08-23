@@ -11,7 +11,7 @@ public class TeamManagerServer extends AbstractManager<String, TeamServer> {
 	@Override
 	public void set(String key, TeamServer value)
 	{
-		if(!value.getTeamName().equals("ANY") && !value.getTeamName().equals(""))
+		if(value == null || !value.getTeamName().equals("ANY") && !value.getTeamName().equals(""))
 		super.set(key, value);
 	}
 	

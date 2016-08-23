@@ -39,6 +39,7 @@ public class PlayerEventHandler {
 				if (!playerInfo.team.equals("ANY") && !playerInfo.team.equals("")) {
 					TeamClient team = TeamManagerClient.instance.get(playerInfo.team);
 					if (team != null) {
+						
 						team.update(ep);
 					}
 					else
