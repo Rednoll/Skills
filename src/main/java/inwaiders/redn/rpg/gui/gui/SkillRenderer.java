@@ -34,11 +34,9 @@ public class SkillRenderer extends Gui {
 
 			int k = 2;
 
-			int xPos = (sr.getScaledWidth() / 2) / k - 61;
+			int xPos = (sr.getScaledWidth()) / k - 21;
 
-			int yPos = (int) (sr.getScaledHeight() / 2.08F) / k;
-
-			yPos = 0;
+			int yPos = (int) (sr.getScaledHeight() / 2.08F) / k - 57;
 
 			int size = 159;
 			int sizefood = 134;
@@ -52,12 +50,12 @@ public class SkillRenderer extends Gui {
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			this.mc.getTextureManager().bindTexture(texturepath);
 
-			GL11.glScalef(2F, 2F, 2F);
+			GL11.glScalef(2F, 2F, 1F);
 
-			drawTexturedModalRect(xPos, yPos, 0, 0, 122, 22);
+			drawTexturedModalRect(xPos, yPos, 0, 0, 22, 122);
 
 			for (int i = 0; i < 6; i++) {
-				renderSkill(i, xPos+3+20*i, yPos+3);
+				renderSkill(i, xPos+3, yPos+3+20*i);
 			}
 
 			GL11.glScalef(1F, 1F, 1F);

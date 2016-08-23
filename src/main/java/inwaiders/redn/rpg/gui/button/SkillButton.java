@@ -35,6 +35,7 @@ public class SkillButton extends GuiButton {
 
 	@Override
 	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+		drawRect(xPosition, yPosition, xPosition + width, yPosition + height, 0xFFFFFFFF);                                
 		mc.renderEngine.bindTexture(skill.getTexture());
 		GL11.glScalef(xscale, yscale, zscale);
 		drawTexturedModalRect(renderx, rendery, 0, 0, 64, 64);
@@ -49,4 +50,8 @@ public class SkillButton extends GuiButton {
 		fontRendererObj.drawString(s, width / 2 + x - fontRendererObj.getStringWidth(s) / 2 , height / 2 + y, c.getRGB());
 	}
 	
+	@Override
+	public boolean mousePressed(Minecraft p_146116_1_, int p_146116_2_, int p_146116_3_) {
+		return super.mousePressed(p_146116_1_, p_146116_2_, p_146116_3_);
+	}
 }

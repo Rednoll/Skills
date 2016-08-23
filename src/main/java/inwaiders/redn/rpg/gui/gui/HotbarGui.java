@@ -38,19 +38,20 @@ public class HotbarGui extends GuiScreen
 	{
 		ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		int k = 2;
-		int xPos = (sr.getScaledWidth() / 2) / k - 61;
+		int xPos = (sr.getScaledWidth()) / k - 19;
+		int yPos = (int) (sr.getScaledHeight() / 2.08F) / k - 55;
 		GL11.glPushMatrix();
 		GL11.glScalef(0.25F, 0.25F, 0.25F);
 		for(int i = 0; i < 6; i++)
 		{
-			buttonList.add(new HotbarButton(i, xPos * 2 + 4 + 40 * i, 4));
+			buttonList.add(new HotbarButton(i, xPos * 2, yPos * 2 + 40 * i));
 		}
 		PlayerInfoClient in = PlayerInfoManagerClient.instance.get(mc.thePlayer);
 		BaseSkill[] skills = (BaseSkill[]) in.getSkills().values().toArray(new BaseSkill[in.getSkills().size()]);
-		int buttonPos = sr.getScaledWidth() / 2 - 61;
+		int buttonPos = (sr.getScaledWidth()) / k - 19;
 		for(int i = 0; i < skills.length; i++)
 		{
-			buttonList.add(new SkillButton(i + 6, buttonPos - 56 + 40 * i - (40 * 6 * (i / 6)), 45 + 40 * (i / 6), 32, 32, skills[i], 0.5F, 0.5F, 0.5F, buttonPos * 2 - 112 + 80 * i - (80 * 6 * (i / 6)), 90 + 80 * (i / 6), fontRendererObj));
+			buttonList.add(new SkillButton(i + 6, buttonPos * 2 - 40 - 40 * (i / 6), yPos * 2 + 2 + 40 * i - (40 * 6 * (i / 6)), 32, 32, skills[i], 0.5F, 0.5F, 0.5F,xPos * 4  - 80 - 80 * (i / 6), yPos * 4 + 4 + 80 * i - (80 * 6 * (i / 6)), fontRendererObj));
 		}
 		GL11.glPopMatrix();
 	}
