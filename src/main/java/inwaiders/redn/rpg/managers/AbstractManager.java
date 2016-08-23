@@ -13,12 +13,6 @@ public abstract class AbstractManager<K, V> {
 	}
 	
 	public void set(K key, V value) {
-		//System.out.println(key);
-		StackTraceElement[] s = Thread.currentThread().getStackTrace();
-		for(StackTraceElement e : s)
-		{
-			//System.out.println(e);
-		}
 		values.remove(key);
 		if(value != null)
 		values.put(key, value);
@@ -32,14 +26,8 @@ public abstract class AbstractManager<K, V> {
 		if (key == null) {
 			return null;
 		}
-		//System.out.println(key + "/" + values.get(key));
 		if (!values.containsKey(key)) {
-			V defaultv = getDefaultValue(key);
-			System.out.println("defaulting");
-			System.out.println("Setetd " + key + " to " + defaultv);
-			values.remove(key);
-			values.put(key, defaultv);
-			System.out.println("def");
+			set(key, getDefaultValue(key));
 		}
 		return values.get(key);
 	}
