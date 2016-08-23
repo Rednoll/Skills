@@ -20,6 +20,16 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityMooshroom;
+import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import thaumcraft.common.entities.monster.EntityBrainyZombie;
 import thaumcraft.common.entities.monster.EntityCultistCleric;
@@ -79,6 +89,17 @@ public class XPRegistry {
 	
 	private static void initOverworld()
 	{
+		register(EntityBat.class, 10);
+		register(EntityChicken.class, 10);
+		register(EntityCow.class, 10);
+		register(EntityHorse.class, 10);
+		register(EntityMooshroom.class, 50);
+		register(EntityOcelot.class, 10);
+		register(EntityPig.class, 10);
+		register(EntitySheep.class, 10);
+		register(EntitySquid.class, 10);
+		register(EntityVillager.class, 150);
+		register(EntityWolf.class, 25);
 		register(EntityCreeper.class, 50);
 		register(EntityZombie.class, 50);
 		register(EntitySkeleton.class, 50);
