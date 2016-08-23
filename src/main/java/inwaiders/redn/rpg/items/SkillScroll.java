@@ -24,7 +24,6 @@ public class SkillScroll extends ItemBase {
 		BaseSkill skill = SkillsRegistry.getSkillByName(ItemNBT.getString(s, "Skill", "NONE"));
 		if(skill != null)
 		info.add(skill.getName());
-		setMaxStackSize(1);
 	}
 	
 	@Override

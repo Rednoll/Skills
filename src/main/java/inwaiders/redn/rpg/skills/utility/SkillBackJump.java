@@ -38,7 +38,7 @@ public class SkillBackJump extends BaseSkill {
 		if (!ep.worldObj.isRemote) {
 			Random r = ep.worldObj.rand;
 			for (int i = 0; i < 40; i++) {
-				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.56F, 0.87F, 0.78F, ep.posX + r.nextDouble() - 0.5, ep.posY - 1.9, ep.posZ + r.nextDouble() - 0.5, 0, 3, 0), ep, 20);
+				PacketDispatcher.sendToAllAround(new ParticlePacket("net.minecraft.client.particle.EntitySpellParticleFX", 0.56F, 0.87F, 0.78F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0, 3, 0), ep, 20);
 			}
 		}
 	}
@@ -56,10 +56,6 @@ public class SkillBackJump extends BaseSkill {
 		setMaxCoolDownByLevel(3, 3300);
 	}
 
-	@Override
-	public void whileUpdate(EntityPlayer ep) {
-
-	}
 
 	@Override
 	public ResourceLocation getTexture() {

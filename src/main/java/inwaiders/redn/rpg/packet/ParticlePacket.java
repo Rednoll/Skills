@@ -24,9 +24,9 @@ public class ParticlePacket implements IMessage {
 
 	private NBTTagCompound nbt;
 
-	public ParticlePacket(Class<?> particleClass, float r, float g, float b, double x, double y, double z, double motionX, double motionY, double motionZ) {
+	public ParticlePacket(String particleClass, float r, float g, float b, double x, double y, double z, double motionX, double motionY, double motionZ) {
 		nbt = new NBTTagCompound();
-		nbt.setString("name", particleClass.getName());
+		nbt.setString("name", particleClass);
 		nbt.setFloat("R", r);
 		nbt.setFloat("G", g);
 		nbt.setFloat("B", b);

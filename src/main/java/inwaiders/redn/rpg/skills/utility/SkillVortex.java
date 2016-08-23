@@ -35,7 +35,7 @@ public class SkillVortex extends BaseSkill {
 			Random r = ep.worldObj.rand;
 			for(int i = 0; i < 200; i++)
 			{
-				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0.2F, 0.153F, 0.82F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0D, 10D, 0D), ep, 20);
+				PacketDispatcher.sendToAllAround(new ParticlePacket("net.minecraft.client.particle.EntitySpellParticleFX", 0.2F, 0.153F, 0.82F, ep.posX + r.nextDouble() - 0.5, ep.posY, ep.posZ + r.nextDouble() - 0.5, 0D, 10D, 0D), ep, 20);
 			}
 		}
 		EasySkillCreator.applyAOEEffect(ep, getRadius(ep), Target.TARGET_ANOTHER, (caster, target) -> {

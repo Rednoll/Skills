@@ -1,26 +1,25 @@
 package inwaiders.redn.rpg.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.util.ReportedException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class FileUtils
 {
-	
-	public static File generateSubDir(File parrentDir, String subpath)
-	{
-		File ret = new File(parrentDir, subpath);
-		ret.mkdirs();
-		return ret;
-	}
 	
 	/**
 	 * Create new BufferredReader for file
@@ -58,6 +57,15 @@ public class FileUtils
 				file.getParentFile().mkdirs();
 				file.createNewFile();
 		}
+	}
+	
+	public static void recreateFile(File file) throws IOException
+	{
+		if(file.exists())
+		{
+			file.delete();
+		}
+		initFile(file);
 	}
 	
 	/**
@@ -105,7 +113,7 @@ public class FileUtils
 		writer.write(line);
 		if(breakLine)
 		{
-			writer.write('\n');
+			writer.newLine();
 		}
 		writer.close();
 	}
@@ -151,4 +159,112 @@ public class FileUtils
 		list.close();
 		deleteLine(file, i);
 	}
+	
+	public static String readFile(File file) throws IOException
+	{
+		String ret = "";
+		BufferedReader in = createReader(file);
+		for(String tmp = in.readLine(); tmp != null; tmp = in.readLine())
+		{
+			ret += tmp + '\n';
+		}
+		return ret;
+	}
+	
+	public static void download(URL url, File dest) throws IOException
+	{
+		if(dest.exists())
+			dest.delete();
+		InputStream in = new BufferedInputStream(url.openStream());
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		byte[] buf = new byte[1024];
+		int n = 0;
+		while ((n = in.read(buf)) != -1)
+		{
+			out.write(buf, 0, n);
+		}
+		out.close();
+		in.close();
+		initFile(dest);
+		FileOutputStream fos = new FileOutputStream(dest);
+		fos.write(out.toByteArray());
+		fos.close();
+	}
+	
+	public static void unzip(File destDir, File archive) throws IOException
+	{	
+	        if (!destDir.exists()) {
+	            destDir.mkdirs();
+	        }
+	        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(archive));
+	        ZipEntry entry = zipIn.getNextEntry();
+	        while (entry != null) {
+	        	String name = entry.getName();
+	            String filePath = destDir.getAbsolutePath() + File.separator + name;
+	            if (!entry.isDirectory()) {
+	            	if(name.indexOf(File.separatorChar) != -1)
+	            	{
+	            		new File(destDir, name.substring(0, name.lastIndexOf(File.separatorChar))).mkdirs(); 		
+	            	}
+	                extractFile(zipIn, filePath);
+	            } else {
+	                File dir = new File(filePath);
+	                dir.mkdirs();
+	            }
+	            zipIn.closeEntry();
+	            entry = zipIn.getNextEntry();
+	        }
+	        zipIn.close();
+	        //archive.delete();
+	}
+	
+	private static void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
+        File out = new File(filePath);
+        out.createNewFile();
+		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(out));
+        byte[] bytesIn = new byte[4096];
+        int read = 0;
+        while ((read = zipIn.read(bytesIn)) != -1) {
+            bos.write(bytesIn, 0, read);
+        }
+        bos.close();
+    }
+
+	public static void download(String url, File dest) throws IOException
+	{
+		download(new URL(url), dest);
+	}
+	
+	public static void deleteDir(File dir)
+	{
+		if(!dir.isDirectory())
+		{
+			throw new IllegalArgumentException("File must be a directory");
+		}
+		if(!dir.exists())
+		{
+			return;
+		}
+		File[] files = dir.listFiles();
+		for(File f : files)
+		{
+			if(f.isDirectory())
+			{
+				deleteDir(f);
+			}
+			else
+			{
+				f.delete();
+			}
+		}
+		dir.delete();
+	}
+	
+	public static File generateSubDir(File parrentDir, String subpath)
+	{
+		File ret = new File(parrentDir, subpath);
+		ret.mkdirs();
+		return ret;
+	}
+	
 }

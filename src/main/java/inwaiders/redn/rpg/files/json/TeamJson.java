@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -32,7 +33,7 @@ public class TeamJson
 	private final String name;
 	private final File file;
 	private final JsonObject json;
-
+	
 	public TeamJson(String name, File worlddir)
 	{
 		this.name = name;
@@ -170,18 +171,15 @@ public class TeamJson
 
 	public String[] getMembers()
 	{
-		ArrayList<String> list = new Gson().fromJson(json.getAsJsonArray(MEMBERS), ArrayList.class);
-
+		ArrayList<String> list = new ArrayList<String>();
+		JsonArray m = json.getAsJsonArray(MEMBERS);
+		for(JsonElement e : m)
+		{
+			list.add(e.getAsJsonPrimitive().getAsString());
+		}
 		while (true)
 		{
-			try
-			{
-				return list.toArray(new String[list.size()]);//Sometimes crash just happens, and i don't know what to do
-			}
-			catch (ArrayStoreException e)
-			{
-				continue;
-			}
+				return list.toArray(new String[list.size()]);
 		}
 	}
 
@@ -190,5 +188,10 @@ public class TeamJson
 		JsonObject ret = new JsonObject();
 		ret.addProperty(NAME, name);
 		return ret;
+	}
+	
+	public void delete()
+	{
+		file.delete();
 	}
 }

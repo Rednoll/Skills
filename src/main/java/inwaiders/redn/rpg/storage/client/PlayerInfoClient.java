@@ -99,7 +99,7 @@ public class PlayerInfoClient {
 		if (xp >= nextXp) {
 			xp -= nextXp;
 			learnpoints++;
-			if (++lvl % 5 == 0 || lvl++ == 1 || lvl++ == 3) {
+			if (++lvl % 5 == 0 || lvl == 1 || lvl == 3) {
 				ItemStack scroll = new ItemStack(ItemRegistry.skillScroll);
 				scroll.getItem().onCreated(scroll, ep.worldObj, ep);
 				MiscUtils.addItemToPlayer(ep, scroll);
@@ -225,7 +225,6 @@ public class PlayerInfoClient {
 		int i = 0;
 		bankSkills.clear();
 		for (BankSkill skill = getBank(nbt, i); skill != null; skill = getBank(nbt, ++i)) {
-			//System.out.println(skill.name);
 			BaseSkill result = SkillsRegistry.getSkillByName(skill.name);
 			result.setLevel(skill.lvl);
 			result.setCoolDown(skill.cd);

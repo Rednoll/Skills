@@ -1,5 +1,6 @@
 package inwaiders.redn.rpg.files.nbt;
 
+import cpw.mods.fml.common.FMLLog;
 import inwaiders.redn.rpg.files.json.PlayerJson.BankSkill;
 import inwaiders.redn.rpg.storage.client.PlayerInfoClient;
 import inwaiders.redn.rpg.storage.server.PlayerInfoServer;

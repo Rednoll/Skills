@@ -79,7 +79,7 @@ public class VipeEntity extends Entity{
 		Random r = ep.worldObj.rand;
 		for (int i = 0; i < 10; i++) {
 			if(!this.worldObj.isRemote)
-				PacketDispatcher.sendToAllAround(new ParticlePacket(EntitySpellParticleFX.class, 0F, 1F - r.nextFloat(), 0F, this.posX, this.posY+0.5F, this.posZ, 0D, 0D, 0D), ep, 40);
+				PacketDispatcher.sendToAllAround(new ParticlePacket("net.minecraft.client.particle.EntitySpellParticleFX", 0F, 1F - r.nextFloat(), 0F, this.posX, this.posY+0.5F, this.posZ, 0D, 0D, 0D), ep, 40);
 		}
 		
     }

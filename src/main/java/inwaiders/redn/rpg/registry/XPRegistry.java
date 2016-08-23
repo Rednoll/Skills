@@ -56,7 +56,6 @@ public class XPRegistry {
 		register(EntitySilverfish.class, 65);
 		register(EntityWolf.class, 40);
 		register(EntityWitch.class, 70);
-		register(EntityPlayer.class, 100);
 	}
 	
 	private static void initNether()

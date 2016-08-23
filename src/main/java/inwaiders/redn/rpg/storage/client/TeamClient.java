@@ -1,10 +1,16 @@
 package inwaiders.redn.rpg.storage.client;
 
 import inwaiders.redn.rpg.core.Core;
+import inwaiders.redn.rpg.files.json.TeamJson;
+import inwaiders.redn.rpg.managers.client.TeamManagerClient;
+import inwaiders.redn.rpg.utils.FileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -13,109 +19,77 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.util.Constants;
 
-public class TeamClient{
+public class TeamClient {
 
-	private String name = "";
-	public List<EntityPlayer> players = new ArrayList();
-	public List<EntityPlayer> accesWait = new ArrayList();
-	private String nickOwner = "";
-	
-	public TeamClient (String name){
+	protected String name = "";
+	public final HashMap<String, EntityPlayer> players = new HashMap<String, EntityPlayer>();
+	public final HashMap<String, EntityPlayer> accesWait = new HashMap<String, EntityPlayer>();
+	protected String nickOwner = "";
+
+	public TeamClient(String name) {
 		this.name = name;
 	}
-	
-	public void update(EntityPlayer ep)
-	{
-		
-	}
-	
-	public void joinToAcces(EntityPlayer ep){
-		
-		if(ep != null){
-			for(int i = 0;i<accesWait.size();i++){
-				if(ep.getCommandSenderName().equals(accesWait.get(i).getCommandSenderName()))
-					return;
-			}
-		}
-		
-		if(ep != null){
-			for(int i = 0;i<players.size();i++){
-				if(ep.getCommandSenderName().equals(players.get(i).getCommandSenderName()))
-					return;
-			}
-		}
 
-		this.accesWait.add(ep);
+	public void update(EntityPlayer ep) {
+		
 	}
-	
-	public int getTeamSize(){
+
+	public void joinToAcces(EntityPlayer ep) {
+
+		if (!players.containsValue(ep) && !accesWait.containsValue(ep)) {
+			this.accesWait.put(ep.getCommandSenderName(), ep);
+		}
+	}
+
+	public int getTeamSize() {
 		return players.size();
 	}
-	
-	public void joinToPlayer(EntityPlayer ep){
-		
-		if(ep != null){
-			for(int i = 0;i<players.size();i++){
-				if(ep.getCommandSenderName().equals(players.get(i).getCommandSenderName()))
-					return;
-			}
-		}
 
-		this.players.add(ep);
-	}
-	
-	public int hasInAcces(String s){
-		
-		for(int i = 0;i<accesWait.size();i++){
-			
-			if(accesWait.get(i).getCommandSenderName().equals(s))
-				return i;
+	public void joinToPlayer(EntityPlayer ep) {
+
+		if (ep != null && players.containsValue(ep)) {
+			this.players.put(ep.getCommandSenderName(), ep);
 		}
-		
-		return -1;
 	}
-	
-	public void accesing(int i){
-		
-		this.joinToPlayer(this.accesWait.get(i));
-		this.accesWait.remove(i);
+
+	public void approve(EntityPlayer ep) {
+
+		this.joinToPlayer(ep);
+		this.accesWait.remove(ep.getCommandSenderName());
 	}
-	
-	public void leavePlayer(EntityPlayer ep){
+
+	public void leavePlayer(EntityPlayer ep) {
 		players.remove(ep);
-		if(ep.getCommandSenderName().equals(nickOwner))
-		{
+		if (ep.getCommandSenderName().equals(nickOwner)) {
 			autoResetOwner();
 		}
 	}
-	
-	public void setOwner(EntityPlayer ep){
-		if(ep == null)
+
+	public void setOwner(EntityPlayer ep) {
+		if (ep == null)
 			return;
 		this.nickOwner = ep.getCommandSenderName();
 	}
-	
-	public void setNickOwner(String nick){
+
+	public void setNickOwner(String nick) {
 		this.nickOwner = nick;
 	}
-	
-	public String getOwnerName(){
+
+	public String getOwnerName() {
 		return this.nickOwner;
 	}
-	
-	private void autoResetOwner(){
-		
-		if(this.players.size() > 0)
-		{
+
+	private void autoResetOwner() {
+
+		if (this.players.size() > 0) {
 			EntityPlayer p = this.players.get(Core.r.nextInt(this.players.size()));
 			this.nickOwner = p.getCommandSenderName();
 			p.addChatComponentMessage(new ChatComponentText("You are now owner of team " + name));
-		}	
-		else
+		} else
 			nickOwner = "";
 	}
-	
-	public String getTeamName(){
+
+	public String getTeamName() {
 		return name;
 	}
 }

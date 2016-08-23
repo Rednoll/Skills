@@ -54,7 +54,6 @@ public class PlayerInfoSync implements IMessage {
 			PlayerInfoClient i = PlayerInfoManagerClient.instance.get(player);
 			PlayerNbt nbt = new PlayerNbt(player);
 			nbt.nbt = message.nbt;
-			//System.out.println(nbt.getBank(0));
 			nbt.nsload(i);
 			return null;
 		}

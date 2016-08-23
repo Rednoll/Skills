@@ -22,7 +22,7 @@ public class SaveAndLoadTeam
 		{
 			TeamJson tjson = new TeamJson(team.getTeamName(), e.entityPlayer.worldObj.getSaveHandler().getWorldDirectory());
 			tjson.setName(team.getTeamName());
-			tjson.setMembers(team.players);
+			tjson.setMembers(team.players.values().toArray(new EntityPlayer[team.players.size()]));
 			tjson.setOwner(team.getOwnerName());
 			tjson.write();
 		}
@@ -36,7 +36,7 @@ public class SaveAndLoadTeam
 		String[] members = tjson.getMembers();
 		for (String mname : members)
 		{
-			s.joinToAcces(ep.worldObj.getPlayerEntityByName(mname));
+			s.joinToPlayer(ep.worldObj.getPlayerEntityByName(mname));
 		}
 		TeamManagerServer.instance.set(name, s);
 	}
