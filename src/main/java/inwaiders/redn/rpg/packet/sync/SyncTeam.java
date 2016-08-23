@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class SyncTeam implements IMessage{
 
 	NBTTagCompound nbt;
-	
+	private int i = 0;
 	public SyncTeam(){
 		
 	}
@@ -27,10 +27,7 @@ public class SyncTeam implements IMessage{
 		
 		nbt.setString("TeamName", teg.getTeamName());
 		nbt.setString("OwnerName", teg.getOwnerName());
-		
-		for(int i = 0;i<teg.players.size();i++){
-			nbt.setString("Players"+i, teg.players.get(i).getCommandSenderName());
-		}
+		teg.players.forEach((pname, entity) -> nbt.setString("Players"+i++, pname));
 		
 		nbt.setInteger("PlayersCount", teg.players.size());
 	}

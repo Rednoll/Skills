@@ -24,6 +24,7 @@ public class TeamServer {
 	protected String nickOwner = "";
 	
 	public TeamServer(String name) {
+		this.name = name;
 	}
 
 
@@ -40,6 +41,7 @@ public class TeamServer {
 				approve(accesWait.values().iterator().next());
 			}
 		}
+		players.forEach((name, player) -> System.out.println(name));
 		sync();
 		load(ep);
 	}
@@ -63,9 +65,7 @@ public class TeamServer {
 	}
 	
 	public void send(){
-		for(int i = 0;i<players.size();i++){
-			PacketDispatcher.sendTo(new SyncTeam(getTeamName()), (EntityPlayerMP) players.get(i));
-		}
+		players.forEach((name, player) -> PacketDispatcher.sendTo(new SyncTeam(getTeamName()), (EntityPlayerMP) player));
 	}
 	
 	public void joinToAcces(EntityPlayer ep) {
@@ -81,8 +81,9 @@ public class TeamServer {
 
 	public void joinToPlayer(EntityPlayer ep) {
 
-		if (ep != null && players.containsValue(ep)) {
+		if (ep != null && !players.containsValue(ep)) {
 			this.players.put(ep.getCommandSenderName(), ep);
+			System.out.println(players.get(ep.getCommandSenderName()));
 		}
 	}
 
@@ -93,7 +94,9 @@ public class TeamServer {
 	}
 
 	public void leavePlayer(EntityPlayer ep) {
-		players.remove(ep);
+		System.out.println(players.get(ep.getCommandSenderName()));
+		players.remove(ep.getCommandSenderName());
+		System.out.println(players.get(ep.getCommandSenderName()));
 		if (ep.getCommandSenderName().equals(nickOwner)) {
 			autoResetOwner();
 		}
@@ -116,7 +119,7 @@ public class TeamServer {
 	private void autoResetOwner() {
 
 		if (this.players.size() > 0) {
-			EntityPlayer p = this.players.get(Core.r.nextInt(this.players.size()));
+			EntityPlayer p = players.values().toArray(new EntityPlayer[players.values().size()])[Core.r.nextInt(players.size())];
 			this.nickOwner = p.getCommandSenderName();
 			p.addChatComponentMessage(new ChatComponentText("You are now owner of team " + name));
 		} else

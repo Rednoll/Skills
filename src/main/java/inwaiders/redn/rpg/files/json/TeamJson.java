@@ -175,7 +175,7 @@ public class TeamJson
 		JsonArray m = json.getAsJsonArray(MEMBERS);
 		for(JsonElement e : m)
 		{
-			list.add(e.getAsJsonPrimitive().getAsString());
+			list.add(e.getAsJsonObject().get("name").getAsString());
 		}
 		while (true)
 		{

@@ -98,13 +98,13 @@ public class TeamCommands implements ICommand{
 		 							EntityPlayer accesingPlayer = teg.accesWait.get(args[1]);
 		 							PlayerInfoServer te1 = PlayerInfoManagerServer.instance.get(accesingPlayer);
 					 				te1.team = teg.getTeamName();
-					 				teg.accesWait.get(accesingPlayer).addChatComponentMessage(new ChatComponentText("Your approve to join team : " + teg.getTeamName()));
+					 				accesingPlayer.addChatComponentMessage(new ChatComponentText("Your approve to join team : " + teg.getTeamName()));
 					 				teg.approve(accesingPlayer);
 		 							ep.addChatComponentMessage(new ChatComponentText("Your approved player  "+args[1]));
 		 
 		 						}
 		 						else{
-		 							ep.addChatComponentMessage(new ChatComponentText("This Player not has in AccesList"));
+		 							ep.addChatComponentMessage(new ChatComponentText("This Player not in AccesList"));
 		 						}
 		 						
 		 					}
