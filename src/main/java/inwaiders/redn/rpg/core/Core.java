@@ -21,7 +21,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = Core.MODID, version = Core.VERSION, name = Core.NAME, dependencies = "after:Baubles")
+@Mod(modid = Core.MODID, version = Core.VERSION, name = Core.NAME, dependencies = "after:Baubles; after:Thaumcraft")
 public class Core
 {
 

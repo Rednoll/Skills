@@ -1,6 +1,9 @@
 package inwaiders.redn.rpg.registry;
 
+import inwaiders.redn.rpg.files.CFG;
+
 import java.util.HashMap;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -18,7 +21,32 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
+import thaumcraft.common.entities.monster.EntityBrainyZombie;
+import thaumcraft.common.entities.monster.EntityCultistCleric;
+import thaumcraft.common.entities.monster.EntityCultistKnight;
+import thaumcraft.common.entities.monster.EntityEldritchCrab;
+import thaumcraft.common.entities.monster.EntityEldritchGuardian;
+import thaumcraft.common.entities.monster.EntityFireBat;
+import thaumcraft.common.entities.monster.EntityGiantBrainyZombie;
+import thaumcraft.common.entities.monster.EntityInhabitedZombie;
+import thaumcraft.common.entities.monster.EntityMindSpider;
+import thaumcraft.common.entities.monster.EntityPech;
+import thaumcraft.common.entities.monster.EntityTaintChicken;
+import thaumcraft.common.entities.monster.EntityTaintCow;
+import thaumcraft.common.entities.monster.EntityTaintCreeper;
+import thaumcraft.common.entities.monster.EntityTaintPig;
+import thaumcraft.common.entities.monster.EntityTaintSheep;
+import thaumcraft.common.entities.monster.EntityTaintSpider;
+import thaumcraft.common.entities.monster.EntityTaintSpore;
+import thaumcraft.common.entities.monster.EntityTaintSporeSwarmer;
+import thaumcraft.common.entities.monster.EntityTaintSwarm;
+import thaumcraft.common.entities.monster.EntityTaintVillager;
+import thaumcraft.common.entities.monster.EntityTaintacle;
+import thaumcraft.common.entities.monster.EntityTaintacleSmall;
+import thaumcraft.common.entities.monster.EntityThaumicSlime;
+import thaumcraft.common.entities.monster.EntityWisp;
+import thaumcraft.common.entities.monster.boss.EntityCultistLeader;
+import thaumcraft.common.entities.monster.boss.EntityEldritchWarden;
 
 public class XPRegistry {
 	private static HashMap<Class<? extends EntityLivingBase>, Integer> xpMap = new HashMap<Class<? extends EntityLivingBase>, Integer>();
@@ -43,6 +71,10 @@ public class XPRegistry {
 		initOverworld();
 		initNether();
 		initEnd();
+		if(CFG.thaum)
+		{
+			initThaum();
+		}
 	}
 	
 	private static void initOverworld()
@@ -71,6 +103,36 @@ public class XPRegistry {
 	{
 		register(EntityEnderman.class, 70);
 		register(EntityDragon.class, 10000);
+	}
+	
+	private static void initThaum()
+	{
+		register(EntityCultistLeader.class, 6000);
+		register(EntityEldritchWarden.class, 6000);
+		register(EntityBrainyZombie.class, 55);
+		register(EntityCultistCleric.class, 100);
+		register(EntityCultistKnight.class, 110);
+		register(EntityEldritchCrab.class, 150);
+		register(EntityEldritchGuardian.class, 300);
+		register(EntityFireBat.class, 70);
+		register(EntityGiantBrainyZombie.class, 70);
+		register(EntityInhabitedZombie.class, 70);
+		register(EntityMindSpider.class, 5);
+		register(EntityPech.class, 200);
+		register(EntityTaintacle.class, 50);
+		register(EntityTaintacleSmall.class, 25);
+		register(EntityTaintCow.class, 50);
+		register(EntityTaintChicken.class, 50);
+		register(EntityTaintCreeper.class, 100);
+		register(EntityTaintPig.class, 50);
+		register(EntityTaintSheep.class, 50);
+		register(EntityTaintSpider.class, 100);
+		register(EntityTaintSpore.class, 50);
+		register(EntityTaintSporeSwarmer.class, 200);
+		register(EntityTaintSwarm.class, 100);
+		register(EntityTaintVillager.class, 200);
+		register(EntityThaumicSlime.class, 10);
+		register(EntityWisp.class, 100);
 	}
 	
 }

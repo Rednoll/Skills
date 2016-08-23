@@ -13,12 +13,13 @@ public class CFG
 	
 	//Integration
 	public static boolean baubles;
-	
+	public static boolean thaum;
 	public static void init(Configuration cfg)
 	{
 		CFG.cfg = cfg;
 		cfg.load();
 		initMisc();
+		initInteg();
 		cfg.save();
 		CFG.cfg = null;
 	}
@@ -32,6 +33,7 @@ public class CFG
 	private static void initInteg()
 	{
 		baubles = getEnableIntegration("Baubles", "Enable baubles integration (Allow using item skills in baubles)");
+		thaum = getEnableIntegration("Thaumcraft", "Enable Thaumcraft integration (XP for thaum mobs)");
 	}
 	
 	private static boolean getEnableIntegration(String modid, String comment)
